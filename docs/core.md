@@ -13,14 +13,14 @@ Game has just a few methods and variables, mainly for the game loop, starting an
 
 The main Game constructor.
 
-	* options: An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object.
+    options: An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object.
 		Default: {};
-	* plugins: An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`).
+	plugins: An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`).
 		Default: {}; Optional;
 
 
 ## `Game.start( {int|string|Scene: scene} )`
-### returns: Game
+### returns: `Game`
 
 Start the Game.
 
