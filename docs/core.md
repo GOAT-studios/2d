@@ -17,7 +17,6 @@ The main Game constructor.
 > *Default: {};*
 
 > __plugins__: An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`).
-
 > *Default: {}; Optional;*
 
 
@@ -27,5 +26,4 @@ The main Game constructor.
 Start the Game.
 
 > __scene__: An integer or string referencing a scene, as passed to `Game.utils.getScene()`; or a Scene, which will be added to the other scenes.
-
 > *Default: null; Optional;*
