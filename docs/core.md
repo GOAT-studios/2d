@@ -8,13 +8,12 @@ Game has just a few methods and variables, mainly for the game loop, starting an
 
 
 
-# `Game( Object: options, {Object: plugins} )`
+## `Game( Object: options, {Object: plugins} )`
 ### returns: `Game`
 
 The main Game constructor.
 
 > __options__: An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object.
-
 > *Default: {};*
 
 > __plugins__: An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`).
