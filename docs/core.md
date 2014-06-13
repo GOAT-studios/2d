@@ -27,3 +27,21 @@ Start the Game.
 
 > __scene__: An integer or string referencing a scene, as passed to `Game.utils.getScene()`; or a Scene, which will be added to the other scenes.
 > *Default: null; Optional;*
+
+
+## `Game.stop( )`
+### returns: `Game`
+
+Stop the Game. Calls Reset; to stop the Game temporarily, consider using `Game.pause()` instead.
+
+> No options
+
+
+## `Game.reset( )`
+### returns: Game
+
+Reset the Game, i.e. reset it to a clean state, so a Scene can be loaded and started without glitches. This involves resetting positions, timers, etc.
+
+> No options
+
+
