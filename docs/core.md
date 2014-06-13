@@ -38,7 +38,7 @@ Stop the Game. Calls Reset; to stop the Game temporarily, consider using `Game.p
 
 
 ## `Game.reset( )`
-### returns: Game
+### returns: `Game`
 
 Reset the Game, i.e. reset it to a clean state, so a Scene can be loaded and started without glitches. This involves resetting positions, timers, etc.
 
