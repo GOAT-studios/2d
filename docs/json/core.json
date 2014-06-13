@@ -1,31 +1,73 @@
 {
-	"title": "2D Core",
-	"intro": "The core of 2D consists of just one object (in the global scope): `Game`. Game is javascript contstructor, so with `new Game(...)` you can create as many Games as you wish on a sigle page, even with completely different options.<br/>Game has just a few methods and variables, mainly for the game loop, starting and stopping, and managing plugins. That's the true power and beauty of 2D: it consists of a very small core, with all the functionality added with plugins, like `Draw`, `Collisions` etc. There are a few basic plugins, in `src/plugins`.",
-	"main": {
-		"name": "Game",
-		"arguments": [
-			{
-				"name": "options", "type": "Object", "default": "{}",
-				"description": "An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object."
-			},
-			{
-				"name": "plugins", "type": "Object", "default": "{}", "optional": true,
-				"description": "An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`)."
-			}
-		],
-		"description": "The main Game constructor",
-		"children": [
-			{
-				"name": "start",
-				"type": "method",
-				"description": "Start the Game.",
-				"arguments": [
-					{
-						"name": "scene", "type": "integer|string|Scene", "optional": true, "default": "null",
-						"description": "An integer or string referencing a scene, as passed to `Game.utils.getScene()`; or a Scene, which will be added to the other scenes."
-					}
-				]
-			}
-		]
-	}
+  "title": "2D Core",
+  "intro": "The core of 2D consists of just one object (in the global scope): `Game`. Game is javascript contstructor, so with `new Game(...)` you can create as many Games as you wish on a sigle page, even with completely different options.<br/>Game has just a few methods and variables, mainly for the game loop, starting and stopping, and managing plugins. That's the true power and beauty of 2D: it consists of a very small core, with all the functionality added with plugins, like `Draw`, `Collisions` etc. There are a few basic plugins, in `src/plugins`.",
+  "main": {
+    "name": "Game",
+    "description": "The main Game constructor",
+    "arguments": [
+      {
+        "name": "options",
+        "type": "Object",
+        "default": "{}",
+        "description": "An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object."
+      },
+      {
+        "name": "plugins",
+        "type": "Object",
+        "default": "{}",
+        "optional": true,
+        "description": "An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`)."
+      }
+    ],
+    "children": [
+      {
+        "name": "start",
+        "type": "method",
+        "description": "Start the Game.",
+        "arguments": [
+          {
+            "name": "scene",
+            "type": "integer|string|Scene",
+            "optional": true,
+            "default": "null",
+            "description": "An integer or string referencing a scene, as passed to `Game.utils.getScene()`; or a Scene, which will be added to the other scenes."
+          }
+        ],
+        "return": "Game"
+      },
+      {
+        "name": "stop",
+        "type": "method",
+        "description": "Stop the Game. Calls Reset; to stop the Game temporarily, consider using `Game.pause()` instead.",
+        "return": "Game"
+      },
+      {
+        "name": "reset",
+        "type": "method",
+        "description": "Reset the Game, i.e. reset it to a clean state, so a Scene can be loaded and started without glitches. This involves resetting positions, timers, etc.",
+        "return": "Game"
+      },
+      {
+        "name": "utils",
+        "type": "Object",
+        "description": "Just some handy utilities.",
+        "children": [
+          {
+            "name": "getScene",
+            "type": "method",
+            "description": "Get a scene by index or name. When no identifier is given, the current Scene is returned.",
+            "return": "Scene",
+            "arguments": [
+              {
+                "name": "indentifier",
+                "type": "integer|string",
+                "description": "The index/name of the scene to get.",
+                "default": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
