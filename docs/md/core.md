@@ -1,0 +1,91 @@
+2D Core
+=======
+
+## Description 
+
+The core of 2D consists of just one object (in the global scope): `Game`. Game is javascript contstructor, so with `new Game(...)` you can create as many Games as you wish on a sigle page, even with completely different options.<br/>Game has just a few methods and variables, mainly for the game loop, starting and stopping, and managing plugins. That's the true power and beauty of 2D: it consists of a very small core, with all the functionality added with plugins, like `Draw`, `Collisions` etc. There are a few basic plugins, in `src/plugins`.
+
+
+## `Game( Object: options, {Object: plugins} )`
+#### returns: Game
+
+The main Game constructor
+
+> __options__: An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object. *Default: undefined*
+
+> __plugins__: An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`). *Default: undefined*; *Optional: true*
+
+
+## `Game.start( {integer|string|Scene: scene} )`
+#### returns: Game
+
+Start the Game.
+
+> __scene__: An integer or string referencing a scene. This will be passed to `Game.world.load()` *Default: undefined*; *Optional: true*
+
+
+## `Game.stop(  )`
+#### returns: Game
+
+Stop the Game. Calls Reset; to stop the Game temporarily, consider using `Game.pause()` instead.
+
+
+## `Game.pause(  )`
+#### returns: Game
+
+Pause the Game. After pause, the Game can easily be resumed with `Game.start()`.
+
+
+## `Game.init( integer|string|Scene: scene )`
+#### returns: Game
+
+Initialise the Game. This loads the first scene, initialises the categories, colliders etc.
+
+> __scene__: An identifier for a Scene or a Scene. This will be passed to `Game.world.load()` *Default: undefined*
+
+
+## `Game.reset(  )`
+#### returns: Game
+
+Reset the Game, i.e. reset it to a clean state, so a Scene can be loaded and started without glitches. This involves resetting positions, timers, etc.
+
+
+## `Game.utils`
+
+Just some handy utilities.
+
+
+## `Game.utils.getScene( integer|string: identifier )`
+#### returns: Scene
+
+Get a Scene by the given identifier.
+
+> __identifier__: An identifier for a Scene:
+
+> * Integer: the index in the scene list.
+> * String: The name of the Scene. *Default: undefined*
+
+
+## `Game.Worlds`
+
+`Worlds` contains all the World managing functions, provided by a Worlds plugin. Check `docs/[json|md|html]/worlds.[json|md|html]` for more info.
+
+
+## `Game.Colliders`
+
+``Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin. Check `docs/[json|md|html]/colliders.[json|md|html]` for more info.
+
+
+## `Game.Categories`
+
+`Categories` contains all the Category managing functions. Check `docs/[json|md|html]/categories.[json|md|html]` for more info.
+
+
+## `Game.Camera`
+
+`Camera` holds the Camera logic, provided by a Camera plugin. Check `docs/[json|md|html]/camera.[json|md|html]` for more info.
+
+
+## `Game.Draw`
+
+`Draw` contains all the drawing functions, provided by a Draw plugin. Check `docs/[json|md|html]/draw.[json|md|html]` for more info.

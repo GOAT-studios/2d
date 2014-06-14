@@ -1,0 +1,24 @@
+{
+  "title": "Game Utilities",
+  "intro": "`Game.utils` is an object holding some utility functions, mostly used by the private API, but nothing holds you back from using them. This API may change quickly (as you're not really supposed to use it), so, be warned!",
+  "main": {
+    "name": "utils",
+    "type": "Object",
+    "description": "Just some handy utilities.",
+    "children": [
+      {
+          "name": "getScene",
+          "type": "method",
+          "description": "Get a Scene by the given identifier.",
+          "return": "Scene",
+          "arguments": [
+            {
+              "name": "identifier",
+              "type": "integer|string",
+              "description": "An identifier for a Scene:\n\n> * Integer: the index in the scene list.\n> * String: The name of the Scene."
+            }
+          ]
+      }
+    ]
+  }
+}

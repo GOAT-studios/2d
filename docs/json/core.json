@@ -3,7 +3,9 @@
   "intro": "The core of 2D consists of just one object (in the global scope): `Game`. Game is javascript contstructor, so with `new Game(...)` you can create as many Games as you wish on a sigle page, even with completely different options.<br/>Game has just a few methods and variables, mainly for the game loop, starting and stopping, and managing plugins. That's the true power and beauty of 2D: it consists of a very small core, with all the functionality added with plugins, like `Draw`, `Collisions` etc. There are a few basic plugins, in `src/plugins`.",
   "main": {
     "name": "Game",
+    "type": "method",
     "description": "The main Game constructor",
+    "return": "Game",
     "arguments": [
       {
         "name": "options",
@@ -45,7 +47,7 @@
       	"name": "pause",
       	"type": "method",
       	"description": "Pause the Game. After pause, the Game can easily be resumed with `Game.start()`.",
-      	"return": "Game",
+      	"return": "Game"
       },
       {
       	"name": "init",
@@ -66,17 +68,32 @@
         "description": "Reset the Game, i.e. reset it to a clean state, so a Scene can be loaded and started without glitches. This involves resetting positions, timers, etc.",
         "return": "Game"
       },
+      "utils",
       {
-        "name": "utils",
-        "type": "Object",
-        "description": "Just some handy utilities.",
-        "children": []
+        "name": "Worlds",
+        "type": "object",
+        "description": "`Worlds` contains all the World managing functions, provided by a Worlds plugin. Check `docs/[json|md|html]/worlds.[json|md|html]` for more info."
       },
-      "worlds",
-      "colliders",
-      "categories",
-      "camera",
-      "draw"
+      {
+        "name": "Colliders",
+        "type": "object",
+        "description": "``Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin. Check `docs/[json|md|html]/colliders.[json|md|html]` for more info."
+      },
+      {
+        "name": "Categories",
+        "type": "object",
+        "description": "`Categories` contains all the Category managing functions. Check `docs/[json|md|html]/categories.[json|md|html]` for more info."
+      },
+      {
+        "name": "Camera",
+        "type": "object",
+        "description": "`Camera` holds the Camera logic, provided by a Camera plugin. Check `docs/[json|md|html]/camera.[json|md|html]` for more info."
+      },
+      {
+        "name": "Draw",
+        "type": "object",
+        "description": "`Draw` contains all the drawing functions, provided by a Draw plugin. Check `docs/[json|md|html]/draw.[json|md|html]` for more info."
+      }
     ]
   }
 }
