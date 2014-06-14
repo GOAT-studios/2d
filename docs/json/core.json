@@ -30,7 +30,7 @@
             "type": "integer|string|Scene",
             "optional": true,
             "default": "null",
-            "description": "An integer or string referencing a scene, as passed to `Game.utils.getScene()`; or a Scene, which will be added to the other scenes."
+            "description": "An integer or string referencing a scene. This will be passed to `Game.world.load()`"
           }
         ],
         "return": "Game"
@@ -42,6 +42,25 @@
         "return": "Game"
       },
       {
+      	"name": "pause",
+      	"type": "method",
+      	"description": "Pause the Game. After pause, the Game can easily be resumed with `Game.start()`.",
+      	"return": "Game",
+      },
+      {
+      	"name": "init",
+      	"type": "method",
+      	"description": "Initialise the Game. This loads the first scene, initialises the categories, colliders etc.",
+      	"return": "Game",
+      	"arguments": [
+      		{
+      			"name": "scene",
+      			"type": "integer|string|Scene",
+      			"description": "An identifier for a Scene or a Scene. This will be passed to `Game.world.load()`"
+      		}
+      	]
+      },
+      {
         "name": "reset",
         "type": "method",
         "description": "Reset the Game, i.e. reset it to a clean state, so a Scene can be loaded and started without glitches. This involves resetting positions, timers, etc.",
@@ -51,23 +70,13 @@
         "name": "utils",
         "type": "Object",
         "description": "Just some handy utilities.",
-        "children": [
-          {
-            "name": "getScene",
-            "type": "method",
-            "description": "Get a scene by index or name. When no identifier is given, the current Scene is returned.",
-            "return": "Scene",
-            "arguments": [
-              {
-                "name": "indentifier",
-                "type": "integer|string",
-                "description": "The index/name of the scene to get.",
-                "default": null
-              }
-            ]
-          }
-        ]
-      }
+        "children": []
+      },
+      "worlds",
+      "colliders",
+      "categories",
+      "camera",
+      "draw"
     ]
   }
 }
