@@ -11,9 +11,9 @@ The core of 2D consists of just one object (in the global scope): `Game`. Game i
 
 The main Game constructor
 
-> __options__: An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object. *Default: undefined*
+> __options__: An object containing some options. All possible keys can be found in `options.md`. For no options, use an empty Object. *Default: {}*
 
-> __plugins__: An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`). *Default: undefined*; *Optional: true*
+> __plugins__: An object containing some plugins to be added to the Game. Keys are plugin type (e.g. `Colliders`), values are the plugins (as passed to `Game.plugin()`). *Default: {}*; *Optional*
 
 
 ## `Game.start( {integer|string|Scene: scene} )`
@@ -21,7 +21,7 @@ The main Game constructor
 
 Start the Game.
 
-> __scene__: An integer or string referencing a scene. This will be passed to `Game.world.load()` *Default: undefined*; *Optional: true*
+> __scene__: An integer or string referencing a scene. This will be passed to `Game.world.load()` *Default: null*; *Optional*
 
 
 ## `Game.stop(  )`
@@ -36,12 +36,12 @@ Stop the Game. Calls Reset; to stop the Game temporarily, consider using `Game.p
 Pause the Game. After pause, the Game can easily be resumed with `Game.start()`.
 
 
-## `Game.init( integer|string|Scene: scene )`
+## `Game.init( {integer|string|Scene: scene} )`
 #### returns: Game
 
 Initialise the Game. This loads the first scene, initialises the categories, colliders etc.
 
-> __scene__: An identifier for a Scene or a Scene. This will be passed to `Game.world.load()` *Default: undefined*
+> __scene__: An identifier for a Scene or a Scene. This will be passed to `Game.world.load()` *Default: undefined*; *Optional*
 
 
 ## `Game.reset(  )`

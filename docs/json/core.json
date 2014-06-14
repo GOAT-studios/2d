@@ -58,6 +58,7 @@
       		{
       			"name": "scene",
       			"type": "integer|string|Scene",
+            "optional": true,
       			"description": "An identifier for a Scene or a Scene. This will be passed to `Game.world.load()`"
       		}
       	]
