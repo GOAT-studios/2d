@@ -68,24 +68,24 @@ Get a Scene by the given identifier.
 
 ## `Game.Worlds`
 
-`Worlds` contains all the World managing functions, provided by a Worlds plugin. Check `docs/[json|md|html]/worlds.[json|md|html]` for more info.
+`Worlds` contains all the World managing functions, provided by a Worlds plugin.
 
 
 ## `Game.Colliders`
 
-``Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin. Check `docs/[json|md|html]/colliders.[json|md|html]` for more info.
+`Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin.
 
 
 ## `Game.Categories`
 
-`Categories` contains all the Category managing functions. Check `docs/[json|md|html]/categories.[json|md|html]` for more info.
+`Categories` contains all the Category managing functions.
 
 
 ## `Game.Camera`
 
-`Camera` holds the Camera logic, provided by a Camera plugin. Check `docs/[json|md|html]/camera.[json|md|html]` for more info.
+`Camera` holds the Camera logic, provided by a Camera plugin.
 
 
 ## `Game.Draw`
 
-`Draw` contains all the drawing functions, provided by a Draw plugin. Check `docs/[json|md|html]/draw.[json|md|html]` for more info.
+`Draw` contains all the drawing functions, provided by a Draw plugin.

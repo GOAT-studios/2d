@@ -1,3 +1,38 @@
+var Path = require("path");
+
+
+
+//Command options parsing
+exports.parseChildren = function(children) {
+	if(/^[0-9]*$/.test(children)) {
+		return parseInt(children);
+	}
+	else if(/^(false|none|no)$/i.test(children)) {
+		return 0;
+	}
+	else {
+		return Infinity; //Default
+	}
+	return children;
+}
+exports.parseIntro = function(intro) {
+	if(/^(false|no|not)/i.test(intro)) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+exports.parsePath = function(path) {
+	return Path.resolve(path);
+}
+
+
+
+
+
+
+//Utilities
 exports.repeat = function(str, num) {
 	var res = "";
 	for(var i = 0; i < num; i++) {
@@ -10,7 +45,6 @@ exports.repeat = function(str, num) {
 
 exports.shortArgs = function(args) {
 	var res = [];
-
 	for(var i = 0, len = args.length; i < len; i++) {
 		var str = "";
 		var arg = args[i];

@@ -68,12 +68,36 @@
         "description": "Reset the Game, i.e. reset it to a clean state, so a Scene can be loaded and started without glitches. This involves resetting positions, timers, etc.",
         "return": "Game"
       },
-      "utils",
-      "worlds",
-      "colliders",
-      "categories",
-      "camera",
-      "draw"
+      {
+        "name": "utils",
+        "type": "object",
+        "description": "Just some handy utilities. Check `docs/[json|md|html]/utilities.[json|md|html]` for more info."
+      },
+      {
+        "name": "Worlds",
+        "type": "object",
+        "description": "`Worlds` contains all the World managing functions, provided by a Worlds plugin. Check `docs/[json|md|html]/worlds.[json|md|html]` for more info."
+      },
+      {
+        "name": "Colliders",
+        "type": "object",
+        "description": "``Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin. Check `docs/[json|md|html]/colliders.[json|md|html]` for more info."
+      },
+      {
+        "name": "Categories",
+        "type": "object",
+        "description": "`Categories` contains all the Category managing functions. Check `docs/[json|md|html]/categories.[json|md|html]` for more info."
+      },
+      {
+        "name": "Camera",
+        "type": "object",
+        "description": "`Camera` holds the Camera logic, provided by a Camera plugin. Check `docs/[json|md|html]/camera.[json|md|html]` for more info."
+      },
+      {
+        "name": "Draw",
+        "type": "object",
+        "description": "`Draw` contains all the drawing functions, provided by a Draw plugin. Check `docs/[json|md|html]/draw.[json|md|html]` for more info."
+      }
     ]
   }
 }
