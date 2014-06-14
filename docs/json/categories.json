@@ -1,0 +1,9 @@
+{
+	"title": "Categories",
+	"intro": "test test test",
+	"main": {
+		"name": "Categories",
+		"type": "object",
+		"description": "`Categories` contains all the Category managing functions."
+	}
+}

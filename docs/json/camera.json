@@ -1,0 +1,9 @@
+{
+	"title": "Camera",
+	"intro": "test test test",
+	"main": {
+		"name": "Camera",
+		"type": "object",
+		"description": "`Camera` holds the Camera logic, provided by a Camera plugin."
+	}
+}

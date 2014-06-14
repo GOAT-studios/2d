@@ -1,0 +1,9 @@
+{
+	"title": "Draw",
+	"intro": "test test test",
+	"main": {
+		"name": "Draw",
+		"type": "object",
+		"description": "`Draw` contains all the drawing functions, provided by a Draw plugin."
+	}
+}

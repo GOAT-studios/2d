@@ -1,0 +1,9 @@
+{
+	"title": "Worlds",
+	"intro": "test test test",
+	"main": {
+		"name": "Worlds",
+		"type": "object",
+		"description": "`Worlds` contains all the World managing functions, provided by a Worlds plugin."
+	}
+}
