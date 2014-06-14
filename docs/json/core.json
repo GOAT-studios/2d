@@ -31,7 +31,6 @@
             "name": "scene",
             "type": "integer|string|Scene",
             "optional": true,
-            "default": "null",
             "description": "An integer or string referencing a scene. This will be passed to `Game.world.load()`"
           }
         ],

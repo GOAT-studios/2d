@@ -18,8 +18,13 @@ var parseMD = function(json, basePath, level, parent, options) {
 		var parent = "";
 	}
 	if(typeof json === "string") {
-		//Get external files if needed
-		var json = JSON.parse(fs.readFileSync(Path.join(basepath, json+".json"))).main;
+		if(program.external) {
+			//Get external files if needed
+			var json = JSON.parse(fs.readFileSync(Path.join(basepath, json+".json"))).main;
+		}
+		else {
+			var json = {};
+		}
 	}
 
 
@@ -143,6 +148,7 @@ program
 	.option("-p, --path <path>", "The path to save the result to", utils.parsePath)
 	.option("-c, --children [number]", "Level of children. 0: Only main, 1: main and it's children, etc. true/all: All children. false/none: same as 0.", utils.parseChildren, Infinity)
 	.option("-i, --intro [bool]", "Whether to add the title and intro.", utils.parseIntro, true)
+	.option("-e, --external [bool]", "Whether to allow getting data from external files.", utils.parseExternal, true)
 	.parse(process.argv);
 
 

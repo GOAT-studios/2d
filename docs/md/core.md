@@ -21,7 +21,7 @@ The main Game constructor
 
 Start the Game.
 
-> __scene__: An integer or string referencing a scene. This will be passed to `Game.world.load()` *Default: null*; *Optional*
+> __scene__: An integer or string referencing a scene. This will be passed to `Game.world.load()` *Default: undefined*; *Optional*
 
 
 ## `Game.stop(  )`

@@ -26,6 +26,14 @@ exports.parseIntro = function(intro) {
 exports.parsePath = function(path) {
 	return Path.resolve(path);
 }
+exports.parseExternal = function(ext) {
+	if(/^(false|no|not)/i.test(ext)) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
 
 
 
