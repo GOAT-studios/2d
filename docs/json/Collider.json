@@ -23,20 +23,137 @@
 		],
 		"children": [
 			{
-				"name": "width",
-				"type": "integer|float",
-				"description": "The width of the AABB of the collider"
+				"name": "w",
+				"type": "number",
+				"description": "The width of the AABB of the collider. Do not change this value manually!"
 			},
 			{
-				"name": "height",
-				"type": "integer|float",
-				"description": "The height of the AABB of the collider"
+				"name": "h",
+				"type": "number",
+				"description": "The height of the AABB of the collider. Do not change this value manually!"
 			},
 			{
 				"name": "pos",
 				"type": "Vector",
-				"description": "The position Vector of the Collider.",
+				"description": "The position Vector of the bottom left corner of the Collider.",
 				"include": "core>Vector"
+			},
+			{
+				"name": "translate",
+				"type": "method",
+				"description": "Translate the Collider by the Vector (x, y). Same as doing `Collider.pos.translate()`.",
+				"return": "Collider",
+				"arguments": [
+					{
+						"name": "x",
+						"type": "number",
+						"description": "The x-coordinate.",
+						"default": 0,
+						"optional": true
+					},
+					{
+						"name": "y",
+						"type": "number",
+						"description": "The y-coordinate.",
+						"default": 0,
+						"optional": true
+					}
+				]
+			},
+			{
+				"name": "moveTo",
+				"type": "method",
+				"description": "Move the Collider's `pos` to point (x, y). Same as doing `Collider.pos.moveTo()`.",
+				"return": "Collider",
+				"arguments": [
+					{
+						"name": "x",
+						"type": "number",
+						"description": "The x-coordinate.",
+						"default": 0,
+						"optional": true
+					},
+					{
+						"name": "y",
+						"type": "number",
+						"description": "The y-coordinate.",
+						"default": 0,
+						"optional": true
+					}
+				]
+			}
+			{
+				"name": "scale",
+				"type": "method",
+				"description": "Scale the Collider by the given factor.",
+				"return": "Collider",
+				"arguments": [
+					{
+						"name": "factor",
+						"type": "number",
+						"description": "The factor by which to scale the Collider.",
+						"default": 1,
+						"optional": true
+					}
+				]
+			},
+			{
+				"name": "rotate",
+				"type": "method",
+				"description": "Rotate the Collider (counter-clockwise) around its center.",
+				"return": "Collider",
+				"arguments": [
+					{
+						"name": "angle",
+						"type": "number",
+						"description": "The angle by which to rotate the Collider.",
+						"default": 0,
+						"optional": true
+					}
+				]
+			},
+			{
+				"name": "rotateO",
+				"type": "method",
+				"description": "Rotate the Collider (counter-clockwise) around the origin.",
+				"return": "Collider",
+				"arguments": [
+					{
+						"name": "angle",
+						"type": "number",
+						"description": "The angle by which to rotate the Collider.",
+						"default": 0,
+						"optional": true
+					}
+				]
+			},
+			{
+				"name": "rotateP",
+				"type": "method",
+				"description": "Rotate the Collider (counter-clockwise) around a given point. If no point is given, the Collider will be rotated around its `pos`.",
+				"return": "Collider",
+				"arguments": [
+					{
+						"name": "angle",
+						"type": "number",
+						"description": "The angle by which to rotate the Collider.",
+						"default": 0
+					},
+					{
+						"name": "x",
+						"type": "number",
+						"description": "The x-coordinate of the point.",
+						"default": 0,
+						"optional": true
+					},
+					{
+						"name": "y",
+						"type": "number",
+						"description": "The y-coordinate of the point.",
+						"default": 0,
+						"optional": true
+					}
+				]
 			}
 		]
 	}
