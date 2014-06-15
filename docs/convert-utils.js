@@ -108,7 +108,7 @@ exports.longArgs = function(args) {
 	for(var i = 0, len = args.length; i < len; i++) {
 		var arg = args[i];
 		res += "> __" + arg.name + "__: " + arg.description;
-		if(arg.optional || arg.default) res += " *Default: " + arg.default + "*";
+		if(arg.optional !== undefined || arg.default !== undefined) res += " *Default: " + arg.default + "*";
 		if(arg.optional !== undefined) {res += "; *Optional*";}
 		if(i < len-1) {res += "\n\n";}
 	}
