@@ -46,21 +46,33 @@ var parseMD = function(json, basePath, level, parent, options) {
 	}
 	else {
 
-		if(json.include && program.include) {
-			var json = utils.mergeInclude(json, basepath);
+		if(json.inherit) {
+			utils.parseInherit(json);
+		}
+		if(program.include && json.include) {
+			var json = utils.mergeInclude(json.include, json, basepath);
 		}
 
 	//Title
 		if(json.name) {
-			str += "## `" + parent + json.name;
-			if(json.type === "method" || json.type === "constructor" || json.type === "function") {
-				str += "( ";
-				if(json.arguments) {
-					str += utils.shortArgs(json.arguments);
-				}
-				str += " )";
+			var args = "";
+			if(json.arguments) {
+				var args = utils.shortArgs(json.arguments);
 			}
-			str += "`";
+
+			var names = new Array(json.name);
+			if(json.alias) {
+				names = names.concat(json.alias);
+			}
+
+			for(var i = 0, len = names.length; i < len; i++) {
+				str += "## `" + parent + names[i];
+				if(json.type === "method" || json.type === "constructor" || json.type === "function") {
+					str += "( " + args + " )"
+				}
+				str += "`";
+				if(i < len) {str += "\n";}
+			}
 		}
 
 		if(json.return) {
@@ -74,6 +86,10 @@ var parseMD = function(json, basePath, level, parent, options) {
 		else {
 			if(json.name) str += "\n";
 			str += "#### type: " + (json.type || "");
+		}
+
+		if(json.inherit) {
+			str += " | Inherits from: " + json.inherit;
 		}
 
 	//Description
@@ -106,11 +122,10 @@ var parseMD = function(json, basePath, level, parent, options) {
 
 
 var convertMD = function() {
-		console.log("Mode: JSON -> Markdown");
-		console.log("Parsing file...");
+		console.log("Parsing file: " + filepath);
 	var options = {maxLevels: program.children};
 
-	if(program.intro) {
+	if(program.head) {
 		var result = parseMD(json, basepath, 0, options);
 	}
 	else {
@@ -122,7 +137,7 @@ var convertMD = function() {
 	if(!program.path) {
 		program.path = Path.join(basepath, "../md", filename+".md");
 	}
-		console.log("Writing file to:", program.path);
+		console.log("Writing file: ", program.path);
 
 	fs.writeFileSync(program.path, result, {encoding: "utf8"});
 
@@ -145,21 +160,25 @@ var convertMD = function() {
 //Set up the options
 program
 	.version("0.0.1")
-	.usage("<mode> <file> [options]")
-	.option("-p, --path <path>", "The path to save the result to", utils.parsePath)
+	.option("-p, --path [path]", "The path to save the result to")
 	.option("-c, --children [number]", "Level of children. 0: Only main, 1: main and it's children, etc. true/all: All children. false/none: same as 0.", utils.parseChildren, Infinity)
-	.option("-i, --intro [bool]", "Whether to add the title and intro.", utils.parseBool, true)
-	.option("-e, --external [bool]", "Whether to allow getting data from external files.", utils.parseBool, true)
-	.option("-I, --include [bool]", "Whether to allow includes.", utils.parseBool, true)
+	.option("-H, --no-head", "Whether to add the title and intro.")
+	.option("-E, --no-external", "Whether to allow getting data from external files.")
+	.option("-i, --include", "Whether to allow includes.")
 	.parse(process.argv);
 
 
+utils.parseProgram(program);
+
+console.log("\nWelcome to the JSON to Markdown parser!\n***************************************");
+console.log("Your options:\n   Head: "+program.head+"\n   Externals: "+program.external+"\n   Includes: "+program.include+"\n\n");
+
 //Some vars
-var filepath = Path.resolve(process.argv[2]);
+var filepath = Path.resolve(program.args[0]);
 var basepath = Path.dirname(filepath);
 var filename = Path.basename(filepath, Path.extname(filepath));
 
-	console.log("Reading file "+filepath+"...");
+	console.log("Reading file: "+filepath);
 var json     = JSON.parse(fs.readFileSync(filepath));
 	console.log("   Done");
 

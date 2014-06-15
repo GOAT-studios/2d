@@ -3,6 +3,35 @@ var fs   = require("fs");
 
 
 
+exports.parseProgram = function(program) {
+	//Path
+	if(program.path) {
+		program.path = Path.resolve(program.path);
+	}
+	
+	//Children
+	if(program.children) {
+		if(/^[0-9]*$/.test(program.children)) {
+			program.children = parseInt(program.children);
+		}
+		else if(/^(false|none|no)$/i.test(program.children)) {
+			program.children = 0;
+		}
+		else {
+			program.children = Infinity; //Default
+		}
+	}
+	else {
+		program.children = Infinity;
+	}
+
+	program.head = !!program.head;
+	program.external = !!program.external;
+	program.include = !!program.include;
+
+	return program;
+}
+
 //Command options parsing
 exports.parseChildren = function(children) {
 	if(/^[0-9]*$/.test(children)) {
@@ -117,12 +146,26 @@ exports.longArgs = function(args) {
 }
 
 
-exports.mergeInclude = function(json, basepath) {
-	var includeJson = getExternal(basepath, json.include);
+exports.mergeInclude = function(include, json, basepath) {
+	var includeJson = getExternal(basepath, include);
 
 	var json = merge(includeJson, json);
 	json.include = undefined;
 	json.arguments = undefined;
+
+	return json;
+}
+
+
+exports.parseInherit = function(json) {
+	json.include = json.inherit;
+	if(json.inherit.split(">").length === 1) {
+		json.inherit = JSON.parse(fs.readFileSync(json.inherit)).name;
+	}
+	else {
+		var arr = json.inherit.split(">")[1].split(".");
+		json.inherit = arr[arr.length-1];
+	}
 
 	return json;
 }
