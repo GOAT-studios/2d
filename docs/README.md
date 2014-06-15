@@ -58,4 +58,12 @@ And install with:
 
 
 ### 3: Usage
-With node.js, npm and the commander module installed, you can run any of the converters with `node json2md [options]`. To get some help, use `node json2md -h`. If you don't understand the different options, just experiment a bit, or look into the .json files. It's quite hard to explain them. Happy reading!
+
+With node.js, npm and the commander module installed, you can run any of the converters with `node json2md [options]`. To get some help, use `node json2md -h`. If you don't understand the different options, just experiment a bit, or look into the .json files. It's quite hard to explain them.
+
+
+### 4: Parse the Markdown
+
+The parser converts json to Markdown, which is still hard to read. To be able to properly read the docs, copy it to a service like [this](http://tmpvar.com/markdown.html) to view the markdown a little fancier.
+
+> __Note:__ Github automatically shows Markdown correctly.
