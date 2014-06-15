@@ -4,6 +4,8 @@
 	"main": {
 		"name": "Camera",
 		"type": "object",
-		"description": "`Camera` holds the Camera logic, provided by a Camera plugin."
+		"description": "`Camera` holds the Camera logic, provided by a Camera plugin. Inherits from Vector.",
+		"inherit": "core>Vector"
+
 	}
 }

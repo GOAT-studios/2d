@@ -67,7 +67,7 @@
 						"optional": true
 					}
 				]
-			}
+			},
 			{
 				"name": "scale",
 				"type": "method",
