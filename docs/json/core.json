@@ -73,7 +73,9 @@
       "colliders",
       "categories",
       "camera",
-      "draw"
+      "draw",
+
+      "Vector"
     ]
   }
 }

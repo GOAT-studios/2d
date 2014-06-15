@@ -46,10 +46,14 @@ var parseMD = function(json, basePath, level, parent, options) {
 	}
 	else {
 
+		if(json.include) {
+			var json = utils.mergeInclude(json, basepath);
+		}
+
 	//Title
 		if(json.name) {
 			str += "## `" + parent + json.name;
-			if(json.type === "method") {
+			if(json.type === "method" || json.type === "constructor" || json.type === "function") {
 				str += "( ";
 				if(json.arguments) {
 					str += utils.shortArgs(json.arguments);
@@ -62,6 +66,10 @@ var parseMD = function(json, basePath, level, parent, options) {
 		if(json.return) {
 			if(json.name) str += "\n";
 			str += "#### returns: " + json.return;
+		}
+		if(json.type === "constructor" && !json.return) {
+			if(json.name) str += "\n";
+			str += "#### returns: " + (json.name || "");
 		}
 
 	//Description

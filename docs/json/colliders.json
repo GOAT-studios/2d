@@ -4,6 +4,39 @@
 	"main": {
 		"name": "Colliders",
 		"type": "object",
-		"description": "`Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin."
+		"description": "`Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin. Checkout plugins at `src/plugins/Colliders` or `docs/plugins` on how to make a plugin.\n\n> __Note:__ All arguments to functions are required, unless marked as *Optional*.",
+		"children": [
+			"Collider",
+			{
+				"name": "Response",
+				"type": "constructor",
+				"description": "The main Response constructor. See `Colliders.test()` for more information."
+			},
+			{
+				"name": "test",
+				"type": "method",
+				"description": "Test for a collision between 2 colliders (of any type). Returns true if they collide, false if they don't.",
+				"return": "boolean",
+				"arguments": [
+					{
+						"name": "A",
+						"type": "Collider",
+						"description": "The first Collider."
+					},
+					{
+						"name": "B",
+						"type": "Collider",
+						"description": "The second Collider."
+					},
+					{
+						"name": "response",
+						"type": "Response",
+						"description": "An empty `Colliders.Response` object. This will be populated with some data about the collision.",
+						"default": "{}",
+						"optional": true
+					}
+				]
+			}
+		]
 	}
 }

@@ -1,0 +1,43 @@
+{
+	"title": "Class: Collider",
+	"intro": "The `Collider` class represents a collider in the game. It is provided by a `Colliders` plugin, which also handles collision checks.",
+	"main": {
+		"name": "Collider",
+		"type": "constructor",
+		"description": "The main Collider constructor.",
+		"arguments": [
+			{
+				"name": "type",
+				"type": "string",
+				"description": "The type of collider to return. An array of types can be obtained with `Colliders.getTypes()`. Some standard types can also be found in the plugin docs.",
+				"default": "'box'",
+				"optional": true
+			},
+			{
+				"name": "options",
+				"type": "object",
+				"description": "The options for the Collider, like position, size, etc.",
+				"default": "{}",
+				"optional": true
+			}
+		],
+		"children": [
+			{
+				"name": "width",
+				"type": "integer|float",
+				"description": "The width of the AABB of the collider"
+			},
+			{
+				"name": "height",
+				"type": "integer|float",
+				"description": "The height of the AABB of the collider"
+			},
+			{
+				"name": "pos",
+				"type": "Vector",
+				"description": "The position Vector of the Collider.",
+				"include": "core>Vector"
+			}
+		]
+	}
+}
