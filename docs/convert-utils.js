@@ -16,8 +16,8 @@ exports.parseChildren = function(children) {
 	}
 	return children;
 }
-exports.parseIntro = function(intro) {
-	if(/^(false|no|not)/i.test(intro)) {
+exports.parseBool = function(bool) {
+	if(/^(false|no|not)/i.test(bool)) {
 		return false;
 	}
 	else {
@@ -26,14 +26,6 @@ exports.parseIntro = function(intro) {
 }
 exports.parsePath = function(path) {
 	return Path.resolve(path);
-}
-exports.parseExternal = function(ext) {
-	if(/^(false|no|not)/i.test(ext)) {
-		return false;
-	}
-	else {
-		return true;
-	}
 }
 
 

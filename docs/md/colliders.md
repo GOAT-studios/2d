@@ -38,14 +38,6 @@ The height of the AABB of the collider
 The position Vector of the Collider.
 
 
-## `Colliders.Collider.pos.scale( {integer|float: factor} )`
-#### returns: Vector
-
-Scale the Vector by the given factor.
-
-> __factor__: The factor by which to scale the Vector. *Default: 1*; *Optional*
-
-
 ## `Colliders.Response(  )`
 #### returns: Response
 

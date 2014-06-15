@@ -46,7 +46,7 @@ var parseMD = function(json, basePath, level, parent, options) {
 	}
 	else {
 
-		if(json.include) {
+		if(json.include && program.include) {
 			var json = utils.mergeInclude(json, basepath);
 		}
 
@@ -155,9 +155,10 @@ program
 	.usage("<mode> <file> [options]")
 	.option("-p, --path <path>", "The path to save the result to", utils.parsePath)
 	.option("-c, --children [number]", "Level of children. 0: Only main, 1: main and it's children, etc. true/all: All children. false/none: same as 0.", utils.parseChildren, Infinity)
-	.option("-i, --intro [bool]", "Whether to add the title and intro.", utils.parseIntro, true)
-	.option("-e, --external [bool]", "Whether to allow getting data from external files.", utils.parseExternal, true)
-	.parse(process.argv);
+	.option("-i, --intro [bool]", "Whether to add the title and intro.", utils.parseBool, true)
+	.option("-e, --external [bool]", "Whether to allow getting data from external files.", utils.parseBool, true)
+	.option("-I, --include [bool]", "Whether to allow includes.", utils.parseBool, true)
+	.parse(process.argv)
 
 
 convertMD();

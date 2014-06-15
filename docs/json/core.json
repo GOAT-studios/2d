@@ -3,9 +3,8 @@
   "intro": "The core of 2D consists of just one object (in the global scope): `Game`. Game is javascript contstructor, so with `new Game(...)` you can create as many Games as you wish on a sigle page, even with completely different options.<br/>Game has just a few methods and variables, mainly for the game loop, starting and stopping, and managing plugins. That's the true power and beauty of 2D: it consists of a very small core, with all the functionality added with plugins, like `Draw`, `Collisions` etc. There are a few basic plugins, in `src/plugins`.",
   "main": {
     "name": "Game",
-    "type": "method",
+    "type": "constructor",
     "description": "The main Game constructor",
-    "return": "Game",
     "arguments": [
       {
         "name": "options",
