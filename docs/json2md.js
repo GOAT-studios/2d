@@ -67,9 +67,13 @@ var parseMD = function(json, basePath, level, parent, options) {
 			if(json.name) str += "\n";
 			str += "#### returns: " + json.return;
 		}
-		if(json.type === "constructor" && !json.return) {
+		else if(json.type === "constructor") {
 			if(json.name) str += "\n";
 			str += "#### returns: " + (json.name || "");
+		}
+		else {
+			if(json.name) str += "\n";
+			str += "#### type: " + (json.type || "");
 		}
 
 	//Description
@@ -138,17 +142,6 @@ var convertMD = function() {
 
 /* SCRIPT */
 
-//Some vars
-var filepath = Path.resolve(process.argv[2]);
-var basepath = Path.dirname(filepath);
-var filename = Path.basename(filepath, Path.extname(filepath));
-
-	console.log("Reading file "+filepath+"...");
-var json     = JSON.parse(fs.readFileSync(filepath));
-	console.log("   Done");
-
-
-
 //Set up the options
 program
 	.version("0.0.1")
@@ -158,7 +151,17 @@ program
 	.option("-i, --intro [bool]", "Whether to add the title and intro.", utils.parseBool, true)
 	.option("-e, --external [bool]", "Whether to allow getting data from external files.", utils.parseBool, true)
 	.option("-I, --include [bool]", "Whether to allow includes.", utils.parseBool, true)
-	.parse(process.argv)
+	.parse(process.argv);
+
+
+//Some vars
+var filepath = Path.resolve(process.argv[2]);
+var basepath = Path.dirname(filepath);
+var filename = Path.basename(filepath, Path.extname(filepath));
+
+	console.log("Reading file "+filepath+"...");
+var json     = JSON.parse(fs.readFileSync(filepath));
+	console.log("   Done");
 
 
 convertMD();
