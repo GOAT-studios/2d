@@ -41,20 +41,13 @@
 			{
 				"name": "translate",
 				"type": "method",
-				"description": "Translate the Collider by the Vector (x, y). Same as doing `Collider.pos.translate()`.",
+				"description": "Translate the Collider by `vector`. Same as doing `Collider.pos.translate()`.",
 				"return": "Collider",
 				"arguments": [
 					{
-						"name": "x",
-						"type": "number",
-						"description": "The x-coordinate.",
-						"default": 0,
-						"optional": true
-					},
-					{
-						"name": "y",
-						"type": "number",
-						"description": "The y-coordinate.",
+						"name": "vector",
+						"type": "Vector",
+						"description": "The Vector by which to translate.",
 						"default": 0,
 						"optional": true
 					}
@@ -63,20 +56,13 @@
 			{
 				"name": "moveTo",
 				"type": "method",
-				"description": "Move the Collider's `pos` to point (x, y). Same as doing `Collider.pos.moveTo()`.",
+				"description": "Move the Collider's `pos` to `point`. Same as doing `Collider.pos.moveTo()`.",
 				"return": "Collider",
 				"arguments": [
 					{
-						"name": "x",
-						"type": "number",
-						"description": "The x-coordinate.",
-						"default": 0,
-						"optional": true
-					},
-					{
-						"name": "y",
-						"type": "number",
-						"description": "The y-coordinate.",
+						"name": "point",
+						"type": "Vector",
+						"description": "The point to move to.",
 						"default": 0,
 						"optional": true
 					}
@@ -140,16 +126,9 @@
 						"default": 0
 					},
 					{
-						"name": "x",
-						"type": "number",
-						"description": "The x-coordinate of the point.",
-						"default": 0,
-						"optional": true
-					},
-					{
-						"name": "y",
-						"type": "number",
-						"description": "The y-coordinate of the point.",
+						"name": "point",
+						"type": "Vector",
+						"description": "The Vector around which to rotate.",
 						"default": 0,
 						"optional": true
 					}
