@@ -18,6 +18,32 @@
               "description": "An identifier for a Scene:\n\n> * Integer: the index in the scene list.\n> * String: The name of the Scene."
             }
           ]
+      },
+      {
+        "name": "toRadians",
+        "type": "method",
+        "description": "Convert an amount of degrees to radians.",
+        "return": "number",
+        "arguments": [
+          {
+            "name": "degrees",
+            "type": "number",
+            "description": "The amount of degrees to convert."
+          }
+        ]
+      },
+      {
+        "name": "toDegrees",
+        "type": "method",
+        "description": "Convert an amount of radians to degrees.",
+        "return": "number",
+        "arguments": [
+          {
+            "name": "radians",
+            "type": "number",
+            "description": "The amount of radians to convert."
+          }
+        ]
       }
     ]
   }
