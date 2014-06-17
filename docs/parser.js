@@ -17,11 +17,13 @@ var parseProgram = function(program) {
 	program.basepath = Path.dirname(program.filepath);
 	program.filename = Path.basename(program.filepath, Path.extname(program.filepath));
 
-	if(program.path) {
-		program.path = Path.resolve(program.path);
-	}
-	else {
-		program.path = Path.join(program.basepath, "../", program.parser, program.filename+"."+program.parser);
+	if(program.path !== "console") {
+		if(program.path) {
+			program.path = Path.resolve(program.path);
+		}
+		else {
+			program.path = Path.join(program.basepath, "../", program.parser, program.filename+"."+program.parser);
+		}
 	}
 
 	//Children
@@ -148,7 +150,8 @@ var utils = {
 //Parse argv
 
 program
-	.version("0.0.1")
+	.version("1.0.0")
+	.usage("<parser> [options]")
 	.option("-p, --path [path]", "The path to save the result to")
 	.option("-c, --children [number]", "Level of children. 0: Only main, 1: main and it's children, etc. true/all: All children. false/none: same as 0.", utils.parseChildren, Infinity)
 	.option("-H, --no-head", "Whether to add the title and intro.")
@@ -159,7 +162,7 @@ program
 
 parseProgram(program);
 
-console.log("\nWelcome to the Documentation parser!\n***************************************");
+console.log("\nWelcome to the Documentation parser!\n************************************");
 console.log("Your options:\n   Head: "+program.head+"\n   Externals: "+program.external+"\n   Includes: "+program.include+"\n\n");
 
 
@@ -202,9 +205,22 @@ else {
 }
 
 	console.log("   Done");
-	console.log("Writing file: ", program.path);
 
-fs.writeFileSync(program.path, result);
 
-	console.log("   Done");
-	console.log("\nDone, with "+errors+" errors.");
+
+//Write file
+if(program.path === "console") {
+	console.log("\nResult:\n*******\n\n");
+	console.log(result);
+	console.log();
+}
+else {
+		console.log("Writing file: ", program.path);
+	fs.writeFileSync(program.path, result);
+		console.log("   Done");
+}
+
+
+
+
+console.log("\nDone, with "+errors+" errors.");
