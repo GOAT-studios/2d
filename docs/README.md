@@ -1,15 +1,15 @@
 README
 =====
 
-Welcome to the documentation of the 2D engine! the docs are available in 3 formats: json (the original, a bit harder to read;) ) in the `json` directory, Markdown (handy for GitHub) in the `md` directory and HTML (for in the browser) (not yet ready, parser isn't there, sorry) in the `html` directory.
+Welcome to the documentation of the 2D engine! The docs are available in JSON format, but a parser script is provided to convert the JSON to another format (like Markdown, for which a parser is included). You can easily add your own parser (in the `parsers` directory). Take a look at the Markdown parser (`md.js`) to get an idea of how this works.
 Have fun!
 
-> __Note:__ We don't add the Markdown docs yet to the repo, as we're adding too much to the docs that it would become a huge hassle to keep it updated. In the future, when API becomes stable, we'll try to ship the Markdown version of the docs along.
+> __Note:__ We don't add the Markdown docs yet to the repo, as we're adding so much to the docs that it would become a huge hassle to keep it updated. In the future, when the API becomes stable, we'll try to ship the Markdown version of the docs along.
 
 
 ## Using the Parser
 
-To convert the json docs to Markdown, a parser is included. To use it, you'll need [node.js](http://nodejs.org) and NPM (which is installed as you install node). 
+To convert the json docs to another format (Markdown, for example), a parser script is included. To use it, you'll need [node.js](http://nodejs.org) and NPM (which is installed as you install node). 
 
 
 ### 1: Installing node.js + NPM
@@ -61,22 +61,41 @@ Now, before you run the parser, you need one node.js module, `commander`. First 
 
 	$ cd path/to/docs/dir
 
+> __Note:__ You can type `cd ` and drag the `docs` folder onto the terminal. Then press enter.
+
 And install with: 
 
 	$ npm install
 
-> __Note:__ Don't mind npm's verbosity, if the command ends without many red warnings, it's ok.
+> __Note:__ Don't mind npm's verbosity, if the command DOES NOT end with many red warnings, it's ok.
 
 > __Note:__ NPM should find the right installation instructions from the package.json file. If not, give us a shout.
 
 
 ### 4: Usage
 
-With node.js, npm and the commander module installed, you can run any of the converters with `node json2md [options]`. To get some help, use `node json2md -h`. If you don't understand the different options, just experiment a bit, or look into the .json files. It's quite hard to explain them.
+With node.js, npm and the commander module installed, you can run any of the parsers with `node parser <parser> [options]`, where `<parser>` is the name of the parser to use (the filename, without extension, of the parser script in the `parsers` directory)(That's many `parser`s in one sentence :smiley:). These are the possible options:
+
+> __-p | --path [path]__ The path of the file in which to save the result. `console` to log the result to the console.
+
+> __-c | --children [number]__ The maximum number of children levels.
+
+> __-H | --no-head__ Do not include a title and intro.
+
+> __-E | --no-external__ Do not allow getting data from external files.
+
+> __-i | --include__ Allow includes and inherits to be included.
 
 
-### 5: Read the Markdown
+If you want some help about the usage, type:
 
-The parser converts json to Markdown, which is still hard to read. To be able to properly read the docs, copy it to a service like [this](http://tmpvar.com/markdown.html) to view the markdown a little fancier.
+	$ node parser -h
 
-> __Note:__ Github automatically shows Markdown correctly.
+
+
+
+### 5: Reading Markdown
+
+The parser can convert json to Markdown, which is still hard to read. To be able to properly read the Markdown docs, copy the result to a service like [this](http://tmpvar.com/markdown.html) to view the markdown a little fancier.
+
+> __Note:__ Github automatically shows Markdown the fancy way, that's why we use it so extensively.
