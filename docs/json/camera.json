@@ -1,11 +1,21 @@
 {
 	"title": "Camera",
-	"intro": "test test test",
+	"intro": "`Camera` holds the Camera logic, provided by a Camera plugin. Inherits from Vector.",
 	"main": {
 		"name": "Camera",
 		"type": "object",
-		"description": "`Camera` holds the Camera logic, provided by a Camera plugin. Inherits from Vector.",
-		"inherit": "core>Vector"
-
+		"description": "The Game's camera, provided by a Camera plugin.",
+		"children": [
+			{
+				"name": "x",
+				"type": "number",
+				"description": "The x-coordinate of the Camera."
+			},
+			{
+				"name": "y",
+				"type": "number",
+				"description": "The y-coordinate of the Camera."
+			}
+		]
 	}
 }
