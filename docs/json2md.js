@@ -1,7 +1,7 @@
 var fs      = require("fs");
 var Path    = require("path");
 var program = require("commander");
-var utils   = require("./convert-utils");
+
 
 
 
@@ -10,139 +10,126 @@ var utils   = require("./convert-utils");
 /* FUNCTIONS */
 
 
-var parseMD = function(json, basePath, level, parent, options) {
-	var str = "";
+var parseProgram = function(program) {
+	//Parser name
+	program.parser   = program.args[0];
+	program.filepath = Path.resolve(program.args[1]);
+	program.basepath = Path.dirname(program.filepath);
+	program.filename = Path.basename(program.filepath, Path.extname(program.filepath));
 
-	if(arguments.length === 4) {
-		options = parent;
-		var parent = "";
-	}
-	if(typeof json === "string") {
-		if(program.external) {
-			//Get external files if needed
-			var json = JSON.parse(fs.readFileSync(Path.join(basepath, json+".json"))).main;
-		}
-		else {
-			var json = {};
-		}
-	}
-
-
-	if(json.main) {
-		//This is the main page, add title and intro
-
-		if(json.title) {
-			str += json.title + "\n";
-			str += utils.repeat("=", json.title.length);
-		}
-
-		if(json.intro) {
-			str += "\n\n## Description \n\n";
-			str += json.intro;
-		}
-
-		str += "\n\n\n";
-		str += parseMD(json.main, basePath, level++, "", options);
+	if(program.path) {
+		program.path = Path.resolve(program.path);
 	}
 	else {
+		program.path = Path.join(program.basepath, "../", program.parser, program.filename+"."+program.parser);
+	}
 
-		if(json.inherit) {
-			utils.parseInherit(json);
+	//Children
+	if(program.children) {
+		if(/^[0-9]*$/.test(program.children)) {
+			program.children = parseInt(program.children);
 		}
-		if(program.include && json.include) {
-			var json = utils.mergeInclude(json.include, json, basepath);
+		else if(/^(false|none|no)$/i.test(program.children)) {
+			program.children = 0;
 		}
+		else {
+			program.children = Infinity; //Default
+		}
+	}
+	else {
+		program.children = Infinity;
+	}
 
-	//Title
-		if(json.name) {
-			var args = "";
-			if(json.arguments) {
-				var args = utils.shortArgs(json.arguments);
-			}
+	program.head = !!program.head;
+	program.external = !!program.external;
+	program.include = !!program.include;
 
-			var names = new Array(json.name);
-			if(json.alias) {
-				names = names.concat(json.alias);
-			}
+	return program;
+}
 
-			for(var i = 0, len = names.length; i < len; i++) {
-				str += "## `" + parent + names[i];
-				if(json.type === "method" || json.type === "constructor" || json.type === "function") {
-					str += "( " + args + " )"
+var utils = {
+	parseExternal: function(ext, basepath) {
+		var filename = ext.split(">")[0]; filename = (/.json$/.test(filename) ? filename : filename+".json");
+		var filepath = Path.join(basepath, filename);
+		var objStr = ext.split(">")[1]; 
+		var objectPath = (objStr ? objStr.split(".") : []);
+
+		return {
+			filename: filename,
+			filepath: filepath,
+			objectPath: objectPath
+		}
+	},
+	getJson: function(path) {
+		var str = fs.readFileSync(path);
+		if(str) {
+			return JSON.parse(str);
+		}
+		else {
+			console.log("WARN File not found: '"+path+"'. Leaving empty.");
+			return {};
+		}
+	},
+	getExternal: function(path, basepath) {
+		var ext = utils.parseExternal(path, basepath);
+		var includeJson = utils.getJson(ext.filepath);
+
+		for(var i = 0, len = ext.objectPath.length; i < len; i++) {
+			for(var j = 0, lenj = includeJson.children.length; j < lenj; j++) {
+				var child = includeJson.children[j];
+				if(typeof child === "string") {
+					var child = getExternal(basepath, child+".json");
 				}
-				str += "`";
-				if(i < len) {str += "\n";}
+				if(child.name === ext.objectPath[i]) {
+					var includeJson = child;
+					break;
+				}
 			}
 		}
 
-		if(json.return) {
-			if(json.name) str += "\n";
-			str += "#### returns: " + json.return;
-		}
-		else if(json.type === "constructor") {
-			if(json.name) str += "\n";
-			str += "#### returns: " + (json.name || "");
+		return includeJson;
+	},
+	mergeInclude: function(include, json, basepath) {
+		var includeJson = utils.getExternal(include, basepath);
+
+		json = utils.merge(includeJson, json);
+		json.include = undefined;
+		json.arguments = undefined;
+
+		return json;
+	},
+	parseInherit: function(json) {
+		json.include = json.inherit;
+		if(json.inherit.split(">").length === 1) {
+			json.inherit = utils.getJson(json.inherit).name;
 		}
 		else {
-			if(json.name) str += "\n";
-			str += "#### type: " + (json.type || "");
+			var arr = utils.parseExternal(json.include).objectPath;
+			json.inherit = arr[arr.length-1];
 		}
 
-		if(json.inherit) {
-			str += " | Inherits from: " + json.inherit;
+		return json;
+	},
+	merge: function(a, b) {
+		for(key in b) {
+			var val = b[key];
+			a[key] = val;
+		}
+		return a;
+	},
+	clone: function(obj, opts) {
+		var newObj = utils.merge({}, obj);
+		if(opts) newObj = utils.merge(newObj, opts);
+		return newObj;
+	},
+	repeat: function(str, num) {
+		var res = "";
+		for(var i = 0; i < num; i++) {
+			res += str;
 		}
 
-	//Description
-		if(json.description) {
-			str += "\n\n";
-			str += json.description;
-		}
-
-		if(json.arguments) {
-			str += "\n\n";
-			str += utils.longArgs(json.arguments);
-		}
-
-		if(json.children && level < options.maxLevels) {
-			level++;
-			var parent = (json.name ? parent+json.name+"." : "");
-			for(var i = 0, len = json.children.length; i < len; i++) {
-				str += "\n\n\n";
-				str += parseMD(json.children[i], basePath, level, parent, options);
-			}
-		}
+		return res;
 	}
-
-
-	return str;
-}
-
-
-
-
-
-var convertMD = function() {
-		console.log("Parsing file: " + filepath);
-	var options = {maxLevels: program.children};
-
-	if(program.head) {
-		var result = parseMD(json, basepath, 0, options);
-	}
-	else {
-		var result = parseMD(json.main, basepath, 0, options);
-	}
-
-		console.log("   Done");
-
-	if(!program.path) {
-		program.path = Path.join(basepath, "../md", filename+".md");
-	}
-		console.log("Writing file: ", program.path);
-
-	fs.writeFileSync(program.path, result, {encoding: "utf8"});
-
-		console.log("   Done");
-		console.log("\nDone, withour errors.");
 }
 
 
@@ -155,9 +142,11 @@ var convertMD = function() {
 
 
 
-/* SCRIPT */
+/* SCRIPTS */
 
-//Set up the options
+
+//Parse argv
+
 program
 	.version("0.0.1")
 	.option("-p, --path [path]", "The path to save the result to")
@@ -168,19 +157,54 @@ program
 	.parse(process.argv);
 
 
-utils.parseProgram(program);
+parseProgram(program);
 
-console.log("\nWelcome to the JSON to Markdown parser!\n***************************************");
+console.log("\nWelcome to the Documentation parser!\n***************************************");
 console.log("Your options:\n   Head: "+program.head+"\n   Externals: "+program.external+"\n   Includes: "+program.include+"\n\n");
 
-//Some vars
-var filepath = Path.resolve(program.args[0]);
-var basepath = Path.dirname(filepath);
-var filename = Path.basename(filepath, Path.extname(filepath));
 
-	console.log("Reading file: "+filepath);
-var json     = JSON.parse(fs.readFileSync(filepath));
+
+//Read JSON
+	console.log("Reading file: "+program.filepath);
+var json     = JSON.parse(fs.readFileSync(program.filepath));
 	console.log("   Done");
 
+//Get parser
+var parserPath = Path.join(__dirname, "parsers", program.parser);
+	console.log("Getting parser: "+parserPath);
+var parser = require(parserPath);
+	console.log("   Done");
 
-convertMD();
+//Basic context
+var context = {
+	level: 0,
+	parent: "",
+	basepath: program.basepath,
+	maxLevels: program.children,
+	program: program
+}
+
+var errors = 0;
+
+
+
+
+// And get parsing!
+
+	console.log("Parsing file: " + program.filepath);
+	console.log("Format: " + parser.outputFormat);
+
+if(program.head) {
+	var result = parser.parser(json, context, utils);
+}
+else {
+	var result = parser.parser(json.main, context, utils);
+}
+
+	console.log("   Done");
+	console.log("Writing file: ", program.path);
+
+fs.writeFileSync(program.path, result);
+
+	console.log("   Done");
+	console.log("\nDone, with "+errors+" errors.");
