@@ -74,17 +74,18 @@ var utils = {
 	},
 	getExternal: function(path, basepath) {
 		var ext = utils.parseExternal(path, basepath);
-		var includeJson = utils.getJson(ext.filepath);
+		var includeJson = utils.getJson(ext.filepath).main;
 
+		loop:
 		for(var i = 0, len = ext.objectPath.length; i < len; i++) {
 			for(var j = 0, lenj = includeJson.children.length; j < lenj; j++) {
 				var child = includeJson.children[j];
 				if(typeof child === "string") {
-					var child = getExternal(basepath, child+".json");
+					var child = utils.getExternal(child+".json", basepath);
 				}
 				if(child.name === ext.objectPath[i]) {
 					var includeJson = child;
-					break;
+					break loop;
 				}
 			}
 		}
