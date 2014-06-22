@@ -1,9 +1,62 @@
 {
-	"title": "Worlds",
+	"title": "World",
 	"intro": "test test test",
 	"main": {
-		"name": "Worlds",
+		"name": "World",
 		"type": "object",
-		"description": "`Worlds` contains all the World managing functions, provided by a Worlds plugin."
+		"description": "`World` contains all the World managing functions, provided by a Worlds plugin.",
+		"children": [
+			{
+				"name": "getScene",
+				"type": "method",
+				"description": "Get the Scene with the given index/name.",
+				"return": "Scene",
+				"arguments": [
+					{
+						"name": "identifier",
+						"type": "number/string",
+						"description": "The identifier of the Scene to get."
+					}
+				]
+			},
+			{
+				"name": "getCurrentScene",
+				"type": "method",
+				"description": "Get the current world.",
+				"return": "Scene"
+			},
+			{
+				"name": "setCurrentScene",
+				"type": "method",
+				"description": "Set the current Scene to the Scene with the given identifier.",
+				"return": "World",
+				"arguments": [
+					{
+						"name": "identifier",
+						"type": "number/string",
+						"description": "The identifier of the Scene, as passed to World.getScene()."
+					}
+				]
+			},
+			{
+				"name": "addScene",
+				"type": "method",
+				"description": "Add the given Scene to the World",
+				"return": "World",
+				"arguments": [
+					{
+						"name": "scene",
+						"type": "Scene",
+						"description": "The Scene to add to the Game."
+					},
+					{
+						"name": "name",
+						"type": "string",
+						"description": "The name of the Scene. This name is considered more important than `Scene.name`.",
+						"optional": true
+					}
+				]
+			}
+		]
 	}
 }

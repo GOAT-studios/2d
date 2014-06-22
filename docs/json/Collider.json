@@ -23,17 +23,20 @@
 		],
 		"children": [
 			{
-				"name": "w",
+				"name": "width",
+				"alias": ["w"],
 				"type": "number",
 				"description": "The width of the AABB of the collider. Do not change this value manually!"
 			},
 			{
-				"name": "h",
+				"name": "height",
+				"alias": ["h"],
 				"type": "number",
 				"description": "The height of the AABB of the collider. Do not change this value manually!"
 			},
 			{
-				"name": "pos",
+				"name": "position",
+				"alias": ["position"],
 				"type": "Vector",
 				"description": "The position Vector of the bottom left corner of the Collider.",
 				"include": "core>Vector"
@@ -47,12 +50,10 @@
 					{
 						"name": "vector",
 						"type": "Vector",
-						"description": "The Vector by which to translate.",
-						"default": 0,
-						"optional": true
+						"description": "The Vector by which to translate."
 					}
 				]
-			},
+			}, 
 			{
 				"name": "moveTo",
 				"type": "method",
@@ -62,9 +63,7 @@
 					{
 						"name": "point",
 						"type": "Vector",
-						"description": "The point to move to.",
-						"default": 0,
-						"optional": true
+						"description": "The point to move to."
 					}
 				]
 			},
@@ -77,9 +76,7 @@
 					{
 						"name": "factor",
 						"type": "number",
-						"description": "The factor by which to scale the Collider.",
-						"default": 1,
-						"optional": true
+						"description": "The factor by which to scale the Collider."
 					}
 				]
 			},
@@ -92,9 +89,7 @@
 					{
 						"name": "angle",
 						"type": "number",
-						"description": "The angle by which to rotate the Collider.",
-						"default": 0,
-						"optional": true
+						"description": "The angle by which to rotate the Collider, in radians."
 					}
 				]
 			},
@@ -107,30 +102,25 @@
 					{
 						"name": "angle",
 						"type": "number",
-						"description": "The angle by which to rotate the Collider.",
-						"default": 0,
-						"optional": true
+						"description": "The angle by which to rotate the Collider, in radians."
 					}
 				]
 			},
 			{
 				"name": "rotateP",
 				"type": "method",
-				"description": "Rotate the Collider (counter-clockwise) around a given point. If no point is given, the Collider will be rotated around its `pos`.",
+				"description": "Rotate the Collider (counter-clockwise) around a given point.",
 				"return": "Collider",
 				"arguments": [
 					{
 						"name": "angle",
 						"type": "number",
-						"description": "The angle by which to rotate the Collider.",
-						"default": 0
+						"description": "The angle by which to rotate the Collider, in radians."
 					},
 					{
 						"name": "point",
 						"type": "Vector",
-						"description": "The Vector around which to rotate.",
-						"default": 0,
-						"optional": true
+						"description": "The Vector around which to rotate."
 					}
 				]
 			}

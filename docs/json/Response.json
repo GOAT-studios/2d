@@ -22,11 +22,6 @@
 				"description": "Magnitude of the overlap, on the shortest colliding axis."
 			},
 			{
-				"name": "overlapN",
-				"type": "Vector",
-				"description": "Unit-Vector indicating the shortest colliding axis, e.g. `(1,0)` if `a` is colliding with `b` on its right edge (in case of a rectangle)."
-			},
-			{
 				"name": "overlapV",
 				"type": "Vector",
 				"description": "The overlap Vector. Equal to: `overlapN.scale(overlap, overlap)`. If this Vector is substracted from `a`'s position, `a` and `b` won't be colliding anymore."

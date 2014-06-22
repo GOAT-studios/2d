@@ -42,7 +42,8 @@
 				"return": "Vector"
 			},
 			{
-				"name": "perp",
+				"name": "perpendicular",
+				"alias": ["perp"],
 				"type": "method",
 				"description": "Change this Vector to be perpendicular to the original.",
 				"return": "Vector"
@@ -74,6 +75,7 @@
 			},
 			{
 				"name": "subtract",
+				"alias": ["sub"],
 				"type": "method",
 				"desription": "Subtract the other Vector from this one.",
 				"return": "Vector",
