@@ -40,7 +40,6 @@ var parser = exports.parser = function(json, context, utils) {
 		str += parser(json.main, childContext, utils);
 	}
 	else {
-		console.log("parsing:", json.name);
 
 		if(json.inherit) {
 			utils.parseInherit(json);
