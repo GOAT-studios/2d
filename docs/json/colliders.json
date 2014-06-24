@@ -4,7 +4,7 @@
 	"main": {
 		"name": "Colliders",
 		"type": "object",
-		"description": "`Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin. Checkout plugins at `src/plugins/Colliders` or `docs/plugins` on how to make a plugin.\n\n> __Note:__ All arguments to functions are required, unless marked as *Optional*.\n\n> __Note:__ Many of the properties and ideas were taken from the excellent [SAT.js](https://github.com/jriecken/sat-js) library.",
+		"description": "`Colliders` contains all the Collider logic, like collider constructors and collision checks, provided by a Colliders plugin. Checkout plugins at `src/plugins/Colliders` or `docs/plugins` on how to make a plugin.\n\n> __Note:__ Many of the properties and ideas were taken from the excellent [SAT.js](https://github.com/jriecken/sat-js) library.",
 		"children": [
 
 			"Collider",
