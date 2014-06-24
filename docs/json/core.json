@@ -47,23 +47,23 @@
                 "return": "Game"
             },
             {
-            	"name": "pause",
-            	"type": "method",
-            	"description": "Pause the Game. After pause, the Game can easily be resumed with `Game.start()`.",
-            	"return": "Game"
+                "name": "pause",
+                "type": "method",
+                "description": "Pause the Game. After pause, the Game can easily be resumed with `Game.start()`.",
+                "return": "Game"
             },
             {
-            	"name": "init",
-            	"type": "method",
-            	"description": "Initialise the Game. This loads the first scene, initialises the categories, colliders etc.",
-            	"return": "Game",
-            	"arguments": [
-            		{
-            			"name": "scene",
-            			"type": "integer|string|Scene",
+                "name": "init",
+                "type": "method",
+                "description": "Initialise the Game. This loads the first scene, initialises the categories, colliders etc.",
+                "return": "Game",
+                "arguments": [
+                    {
+                        "name": "scene",
+                        "type": "integer|string|Scene",
                         "optional": true,
-            			"description": "An identifier for a Scene or a Scene. This will be passed to `Game.world.load()`"
-            		}
+                        "description": "An identifier for a Scene or a Scene. This will be passed to `Game.world.load()`"
+                    }
                 ]
             },
             {
