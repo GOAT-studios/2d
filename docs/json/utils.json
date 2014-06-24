@@ -7,19 +7,6 @@
     "description": "Just some handy utilities.",
     "children": [
       {
-          "name": "getScene",
-          "type": "method",
-          "description": "Get a Scene by the given identifier.",
-          "return": "Scene",
-          "arguments": [
-            {
-              "name": "identifier",
-              "type": "integer|string",
-              "description": "An identifier for a Scene:\n\n> * Integer: the index in the scene list.\n> * String: The name of the Scene."
-            }
-          ]
-      },
-      {
         "name": "toRadians",
         "type": "method",
         "description": "Convert an amount of degrees to radians.",
