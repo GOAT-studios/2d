@@ -99,11 +99,10 @@ var parser = exports.parser = function(json, context, utils) {
 		}
 
 		if(json.children && context.level < context.maxLevels) {
-			var childContext = utils.clone(context, {level: context.level+1});
-			var parent = (json.name ? context.parent+json.name+"." : "");
+			var childContext = utils.clone(context, {level: context.level+1, parent: (json.name ? context.parent+json.name+"." : "")});
 			for(var i = 0, len = json.children.length; i < len; i++) {
 				str += "\n\n\n";
-				str += parser(json.children[i], context, utils);
+				str += parser(json.children[i], childContext, utils);
 			}
 		}
 	}
