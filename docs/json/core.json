@@ -104,6 +104,8 @@
             "worlds",
             "camera",
             "draw",
+            "sound",
+            "loader",
 
             "Vector"
         ]

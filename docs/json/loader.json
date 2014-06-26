@@ -1,0 +1,61 @@
+{
+	"title": "Loader",
+	"intro": "test test test",
+	"main": {
+		"name": "loader",
+		"type": "object",
+		"description": "`Game.loader` makes it easy to download assets that are needed for your game. When the first Game is created on the page, a `<div>` with id `2D-loaders` will be added at the bottom of the DOM. All games will place a `<div>` with class `2D-loader` inside this `<div>`. With `Game.loader.load()`, the appropriate elements will be placed inside the respective `2D-loader` `<div>`.",
+		"children": [
+			{
+				"name": "load",
+				"type": "method",
+				"description": "Load the file at the given URL. Optionally specify a name to refer to it later. All loaded assets can always be retrieved based on their URL or their optional name. `Game.loader.load()` will create a DOM element inside the Game's `2D-loader` `div` (an `<img>` for an image etc.).",
+				"return": "Game.loader",
+				"arguments": [
+					{
+						"name": "URL",
+						"type": "string",
+						"description": "The URL of the file to download. Will be passed directly to the XHR request, so "
+					},
+					{
+						"name": "name",
+						"type": "string",
+						"description": "An optional name to easily retrieve the file later on.",
+						"optional": "true"
+					}
+				]
+			},
+			{
+				"name": "get",
+				"type": "method",
+				"description": "Get the file with the given name or URL.",
+				"return": "DOMElement",
+				"arguments": [
+					{
+						"name": "URL/name",
+						"type": "string",
+						"description": "The name or URL of the file to get. This always returns a DOM element from the `2D-loader` `<div>` (an `<img>` for image etc.)."
+					}
+				]
+			},
+			{
+				"name": "add",
+				"type": "method",
+				"description": "Add a file to the loader. Provided just for easy and centralized 'storage'. `Game.loader.add()` will create the same situation as described in the `Game.loader` description.",
+				"return": "Game.loader",
+				"arguments": [
+					{
+						"name": "file",
+						"type": "DOMElement",
+						"description": "The file to add to the loader."
+					},
+					{
+						"name": "name",
+						"type": "string",
+						"description": "The (unique) name of the file, so you can retrieve it later from the loader."
+					}
+				]
+			}
+		]
+	}
+}
