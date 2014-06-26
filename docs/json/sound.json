@@ -1,0 +1,80 @@
+{
+	"title": "Game.sound",
+	"intro": "test test test",
+	"main": {
+		"name": "sound",
+		"type": "object",
+		"description": "The `sound` objects holds all the audio related things. Sounds will automatically be added when you load an audio file with `Game.loader`.",
+		"children": [
+			{
+				"name": "Player",
+				"type": "constructor",
+				"description": "The Player object is returned by `Game.sound.play()` and allows for several sound-related controls, (like pause, stop, volume etc.) as defined by the audio API.",
+				"arguments": [
+					{
+						"name": "sound",
+						"type": "DOMAudioElement",
+						"description": "The sound to control from this Player."
+					}
+				],
+				"children": [
+					{
+						"name": "play",
+						"type": "method",
+						"description": "Start playing the sound."
+					}
+					{
+						"name": "stop",
+						"alias": "pause",
+						"type": "method",
+						"description": "Stop/pause the sound. A soudn can always be resumed with `Player.play()`."
+					}
+				]
+			}
+			{
+				"name": "add",
+				"type": "method",
+				"description": "Add a sound (`<audio>` element) to the Game.",
+				"return": "Game.sound",
+				"arguments": [
+					{
+						"name": "sound/URL",
+						"type": "DOMAudioElement/string",
+						"description": "The audio element that holds the sound, or the URL where the audio file is located. Alias of `Game.loader.load()`."
+					},
+					{
+						"name": "name",
+						"type": "string",
+						"description": "The optional, unique name of this sound, so you can easily play it later on. When passing in a DOM element, the name is required."
+					}
+				]
+			},
+			{
+				"name": "get",
+				"type": "method",
+				"description": "Get the sound with the given name or URL.",
+				"return": "DOMAudioElement",
+				"arguments": [
+					{
+						"name": "URL/name",
+						"type": "string",
+						"description": "The name or URL of the sound to get."
+					}
+				]
+			},
+			{
+				"name": "play",
+				"type": "method",
+				"description": "Play the sound with given name.",
+				"return": "Player",
+				"arguments": [
+					{
+						"name": "name/URL",
+						"type": "string",
+						"description": "The name or URL of the sound (This won't download the file. The URL is only for identifying purposes)."
+					}
+				]
+			}
+		]
+	}
+}
