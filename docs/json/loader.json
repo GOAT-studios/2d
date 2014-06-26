@@ -13,15 +13,14 @@
 				"return": "Game.loader",
 				"arguments": [
 					{
-						"name": "URL",
-						"type": "string",
-						"description": "The URL of the file to download. Will be passed directly to the XHR request, so "
+						"name": "file/URL",
+						"type": "DOMElement/string",
+						"description": "The DOM element of the file, or the URL of the file to download. A URL will be passed directly to the XHR request."
 					},
 					{
 						"name": "name",
 						"type": "string",
-						"description": "An optional name to easily retrieve the file later on.",
-						"optional": "true"
+						"description": "An optional, unique name to easily retrieve the file later on. When passing in a DOM element, the name is required."
 					}
 				]
 			},
@@ -35,24 +34,6 @@
 						"name": "URL/name",
 						"type": "string",
 						"description": "The name or URL of the file to get. This always returns a DOM element from the `2D-loader` `<div>` (an `<img>` for image etc.)."
-					}
-				]
-			},
-			{
-				"name": "add",
-				"type": "method",
-				"description": "Add a file to the loader. Provided just for easy and centralized 'storage'. `Game.loader.add()` will create the same situation as described in the `Game.loader` description.",
-				"return": "Game.loader",
-				"arguments": [
-					{
-						"name": "file",
-						"type": "DOMElement",
-						"description": "The file to add to the loader."
-					},
-					{
-						"name": "name",
-						"type": "string",
-						"description": "The (unique) name of the file, so you can retrieve it later from the loader."
 					}
 				]
 			}
