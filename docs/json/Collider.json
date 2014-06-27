@@ -9,7 +9,7 @@
             {
                 "name": "type",
                 "type": "string",
-                "description": "The type of collider to return. An array of types can be obtained with `Colliders.getTypes()`. Some standard types can also be found in the plugin docs.",
+                "description": "The type of collider to return. An array of types is stored under `Game.colliders.types`. Some standard types can also be found in the plugin docs.",
                 "default": "'box'",
                 "optional": true
             },
@@ -74,9 +74,14 @@
                 "return": "Collider",
                 "arguments": [
                     {
-                        "name": "factor",
+                        "name": "factor(X)",
                         "type": "number",
-                        "description": "The factor by which to scale the Collider."
+                        "description": "The factor by which to scale the Collider. If a Y-factor is also provided, this one will only apply to the X direction."
+                    },
+                    {
+                        "name": "factorY",
+                        "type": "number",
+                        "description": "The factor by which to scale the Collider, in the Y direction."
                     }
                 ]
             },
@@ -96,7 +101,7 @@
             {
                 "name": "rotateO",
                 "type": "method",
-                "description": "Rotate the Collider (counter-clockwise) around the origin.",
+                "description": "Rotate the Collider (counter-clockwise) around the origin. Same as `.rotateP( angle, Vector(0,0) )`.",
                 "return": "Collider",
                 "arguments": [
                     {

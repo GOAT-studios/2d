@@ -57,6 +57,42 @@
                         "description": "The name of the Category."
                     }
                 ]
+            },
+            {
+                "name": "Init",
+                "type": "method",
+                "description": "Initialize all the categories.",
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            },
+            {
+                "name": "Update",
+                "type": "method",
+                "description": "Update all the categories.",
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            },
+            {
+                "name": "Draw",
+                "type": "method",
+                "description": "Draw all the categories.",
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
             }
         ]
     }

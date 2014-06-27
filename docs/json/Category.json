@@ -4,7 +4,7 @@
     "main": {
         "name": "Category",
         "type": "object",
-        "description": "A `Category` represents a type of objects in the Game, e.g. the terrain or backgrounds in a sidescroller game.",
+        "description": "A `Category` represents a type of objects in the Game, e.g. the terrain or backgrounds in a sidescroller game. The methods layed out here are standard ones, available for all Category plugins. The other API details are totally free.",
         "children": [
             {
                 "name": "name",
@@ -57,12 +57,12 @@
             {
                 "name": "Draw",
                 "type": "method",
-                "description": "Draw the objects of this Category to the canvas.",
+                "description": "Draw the objects of this Category.",
                 "arguments": [
                     {
                         "name": "game",
                         "type": "Game",
-                        "description": "The Game object. `Game.context` contains the canvas context, `Game.draw` is a Draw object that's meant to be reused through all draws."
+                        "description": "The Game object. `Game.draw` is where you should be for drawing."
                     }
                 ]
             }

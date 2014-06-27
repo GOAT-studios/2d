@@ -11,9 +11,14 @@
             "Response",
 
             {
+                "name": "types",
+                "type": "[string]",
+                "description": "An Array of all available Collider types, e.g. 'box' or 'circle'. The first one must match the default type."
+            }
+            {
                 "name": "test",
                 "type": "method",
-                "description": "Test for a collision between 2 colliders (of any type). Returns true if they collide, false if they don't.",
+                "description": "Test for a collision between 2 colliders (of any type). Returns true if they collide, false if they don't. The (empty) Response object will be filled with additional details.",
                 "return": "boolean",
                 "arguments": [
                     {
@@ -30,7 +35,7 @@
                         "name": "response",
                         "type": "Response",
                         "description": "An empty `Colliders.Response` object. This will be populated with some data about the collision.",
-                        "default": "{}",
+                        "default": "Response()",
                         "optional": true
                     }
                 ]

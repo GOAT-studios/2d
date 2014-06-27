@@ -55,7 +55,7 @@
             {
                 "name": "init",
                 "type": "method",
-                "description": "Initialise the Game. This loads the first scene, initialises the categories, colliders etc.",
+                "description": "Initialise the Game. This loads the first scene, initialises the categories and plugins, etc.",
                 "return": "Game",
                 "arguments": [
                     {
@@ -75,7 +75,7 @@
             {
                 "name": "domElement",
                 "type": "DOMElement",
-                "description": "The DOM element on which the Game will be drawn. Add this to the DOM to view the Game (otherwise, the Game will run as normal, but, as the element id not in the DOM, you won't see anything."
+                "description": "The DOM element on which the Game will be drawn. Add this to the DOM to view the Game; otherwise, the Game will run as normal, but, as the element is not in the DOM, you won't see anything. This can be a `Canvas`, an `SVG` element... Provided by the Draw plugin."
             },
             {
                 "name": "context",
@@ -105,7 +105,7 @@
             "camera",
             "draw",
             "sound",
-            "loader",
+            "assets",
 
             "Vector"
         ]
