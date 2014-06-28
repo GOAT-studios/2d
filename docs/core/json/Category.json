@@ -1,0 +1,66 @@
+{
+    "title": "Class: Category",
+    "Intro": "test test test",
+    "main": {
+        "name": "Category",
+        "type": "object",
+        "description": "A `Category` represents a type of objects in the Game, e.g. the terrain or backgrounds in a sidescroller game. The methods described here are standard ones, the rest of the implementation is up to the plugin. ",
+        "children": [
+            {
+                "name": "name",
+                "type": "string",
+                "description": "The name of the Category."
+            },
+            {
+                "name": "type",
+                "type": "string",
+                "description": "The type of the plugin. Possible values are: 'assets', 'sound', 'camera', 'colliders', 'draw', 'world'."
+            }
+            {
+                "name": "Init",
+                "type": "method",
+                "description": "Init the Category. Not required.",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    },
+                    {
+                        "name": "objects",
+                        "type": "array",
+                        "description": "The objects from this Category's part of the current Scene.",
+                        "optional": "true"
+                    }
+                ]
+            },
+            {
+                "name": "Update",
+                "type": "method",
+                "description": "Update this Category and its objects. Not required.",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            },
+            {
+                "name": "Draw",
+                "type": "method",
+                "description": "Draw the objects of this Category. Not required",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object. `Game.draw` is where you should be for drawing."
+                    }
+                ]
+            }
+        ]
+    }
+}

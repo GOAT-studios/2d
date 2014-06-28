@@ -1,0 +1,69 @@
+{
+    "title": "Colliders",
+    "intro": "test test test",
+    "main": {
+        "name": "Colliders",
+        "type": "object",
+        "description": "A basic Collider plugin, inspired by the excellent SAT.js.",
+        "children": [
+
+            "Collider",
+            "Response",
+
+            {
+                "name": "types",
+                "type": "[string]",
+                "description": "An Array of all available Collider types, e.g. 'box' or 'circle'. The first one must match the default type."
+            },
+            {
+                "name": "test",
+                "type": "method",
+                "description": "Test for a collision between 2 colliders (of any type). Returns true if they collide, false if they don't. The (empty) Response object will be filled with additional details.",
+                "return": "boolean",
+                "arguments": [
+                    {
+                        "name": "A",
+                        "type": "Collider",
+                        "description": "The first Collider."
+                    },
+                    {
+                        "name": "B",
+                        "type": "Collider",
+                        "description": "The second Collider."
+                    },
+                    {
+                        "name": "response",
+                        "type": "Response",
+                        "description": "An empty `Colliders.Response` object. This will be populated with some data about the collision.",
+                        "default": "Response()",
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "testAll",
+                "type": "method",
+                "description": "Test for a collision between a collider (of any type) and an array of colliders. Returns true if there is a collision, false if there isn't. The (empty) Response object will be filled with additional details.",
+                "return": "boolean",
+                "arguments": [
+                    {
+                        "name": "A",
+                        "type": "Collider",
+                        "description": "The first Collider."
+                    },
+                    {
+                        "name": "B",
+                        "type": "Collider",
+                        "description": "The second Collider."
+                    },
+                    {
+                        "name": "callback",
+                        "type": "function",
+                        "description": "A callback function that will be called on every collision, which takes one argument: the Response object.",
+                        "optional": true
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,134 @@
+{
+    "title": "Class: Collider",
+    "intro": "The `Collider` class represents a collider in the game. It is provided by a `Colliders` plugin, which also handles collision checks.",
+    "main": {
+        "name": "Collider",
+        "type": "constructor",
+        "description": "The main Collider constructor.",
+        "arguments": [
+            {
+                "name": "type",
+                "type": "string",
+                "description": "The type of collider to return. An array of types is stored under `Game.colliders.types`. Some standard types can also be found in the plugin docs.",
+                "default": "'box'",
+                "optional": true
+            },
+            {
+                "name": "options",
+                "type": "object",
+                "description": "The options for the Collider, like position, size, etc.",
+                "default": "{}",
+                "optional": true
+            }
+        ],
+        "children": [
+            {
+                "name": "width",
+                "alias": ["w"],
+                "type": "number",
+                "description": "The width of the AABB of the collider. Do not change this value manually!"
+            },
+            {
+                "name": "height",
+                "alias": ["h"],
+                "type": "number",
+                "description": "The height of the AABB of the collider. Do not change this value manually!"
+            },
+            {
+                "name": "position",
+                "alias": ["position"],
+                "type": "Vector",
+                "description": "The position Vector of the bottom left corner of the Collider.",
+                "include": "core>Vector"
+            },
+            {
+                "name": "translate",
+                "type": "method",
+                "description": "Translate the Collider by `vector`. Same as doing `Collider.pos.translate()`.",
+                "return": "Collider",
+                "arguments": [
+                    {
+                        "name": "vector",
+                        "type": "Vector",
+                        "description": "The Vector by which to translate."
+                    }
+                ]
+            }, 
+            {
+                "name": "moveTo",
+                "type": "method",
+                "description": "Move the Collider's `pos` to `point`. Same as doing `Collider.pos.moveTo()`.",
+                "return": "Collider",
+                "arguments": [
+                    {
+                        "name": "point",
+                        "type": "Vector",
+                        "description": "The point to move to."
+                    }
+                ]
+            },
+            {
+                "name": "scale",
+                "type": "method",
+                "description": "Scale the Collider by the given factor.",
+                "return": "Collider",
+                "arguments": [
+                    {
+                        "name": "factor(X)",
+                        "type": "number",
+                        "description": "The factor by which to scale the Collider. If a Y-factor is also provided, this one will only apply to the X direction."
+                    },
+                    {
+                        "name": "factorY",
+                        "type": "number",
+                        "description": "The factor by which to scale the Collider, in the Y direction."
+                    }
+                ]
+            },
+            {
+                "name": "rotate",
+                "type": "method",
+                "description": "Rotate the Collider (counter-clockwise) around its center.",
+                "return": "Collider",
+                "arguments": [
+                    {
+                        "name": "angle",
+                        "type": "number",
+                        "description": "The angle by which to rotate the Collider, in radians."
+                    }
+                ]
+            },
+            {
+                "name": "rotateO",
+                "type": "method",
+                "description": "Rotate the Collider (counter-clockwise) around the origin. Same as `.rotateP( angle, Vector(0,0) )`.",
+                "return": "Collider",
+                "arguments": [
+                    {
+                        "name": "angle",
+                        "type": "number",
+                        "description": "The angle by which to rotate the Collider, in radians."
+                    }
+                ]
+            },
+            {
+                "name": "rotateP",
+                "type": "method",
+                "description": "Rotate the Collider (counter-clockwise) around a given point.",
+                "return": "Collider",
+                "arguments": [
+                    {
+                        "name": "angle",
+                        "type": "number",
+                        "description": "The angle by which to rotate the Collider, in radians."
+                    },
+                    {
+                        "name": "point",
+                        "type": "Vector",
+                        "description": "The Vector around which to rotate."
+                    }
+                ]
+            }
+        ]
+    }
+}

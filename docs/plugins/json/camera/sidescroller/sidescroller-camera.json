@@ -1,0 +1,73 @@
+{
+    "title": "Camera",
+    "intro": "`Camera` holds the Camera logic, provided by a Camera plugin. Behaves like Vector.",
+    "main": {
+        "name": "Camera",
+        "type": "object",
+        "description": "This Camera is intended to work with sidescroller games.",
+        "children": [
+            {
+                "name": "x",
+                "type": "number",
+                "description": "The x-coordinate of the Camera."
+            },
+            {
+                "name": "y",
+                "type": "number",
+                "description": "The y-coordinate of the Camera."
+            },
+            {
+                "name": "translate",
+                "type": "method",
+                "description": "Move the camera by the given Vector",
+                "return": "Camera",
+                "arguments": [
+                    {
+                        "name": "vector",
+                        "type": "Vector",
+                        "description": "The Vector by which to move."
+                    }
+                ]
+            },
+            {
+                "name": "moveTo",
+                "type": "method",
+                "description": "Move the camera to the given Vector.",
+                "return": "Camera",
+                "arguments": [
+                    {
+                        "name": "destination",
+                        "type": "Vector",
+                        "description": "The Vector to move to."
+                    }
+                ]
+            },
+            {
+                "name": "Init",
+                "type": "method",
+                "description": "Init the camera. Called when Game initializes.",
+                "return": "camera",
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            },
+            {
+                "name": "Update",
+                "type": "method",
+                "description": "Update the camera. Called on each frame.",
+                "return": "camera",
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            }
+        ]
+    }
+}

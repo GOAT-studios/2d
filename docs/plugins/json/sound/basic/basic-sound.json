@@ -1,0 +1,55 @@
+{
+	"title": "Game.sound",
+	"intro": "test test test",
+	"main": {
+		"name": "sound",
+		"type": "object",
+		"description": "An `Sound` plugin based on the HTML5 `<audio>` tag. No Web Audio API here, so it is compatibile with many browsers.",
+		"children": [
+			{
+				"name": "load",
+				"type": "method",
+				"description": "Add a sound (`<audio>` element) to the Game. Works like `Game.Assets.load()` on the `xhr-assets` plugin.",
+				"return": "Game.sound",
+				"arguments": [
+					{
+						"name": "sound/URL",
+						"type": "DOMAudioElement/string",
+						"description": "The audio element that holds the sound, or the URL where the audio file is located. Same as in `Game.assets.load()` on the `xhr-assets` plugin."
+					},
+					{
+						"name": "name",
+						"type": "string",
+						"description": "The optional, unique name of this sound, so you can easily play it later on."
+					}
+				]
+			},
+			{
+				"name": "get",
+				"type": "method",
+				"description": "Get the sound with the given name or URL.",
+				"return": "DOMAudioElement",
+				"arguments": [
+					{
+						"name": "URL/name",
+						"type": "string",
+						"description": "The name or URL of the sound to get. Used exactly as `Game.assets.load()` on the `xhr-assets` plugin."
+					}
+				]
+			},
+			{
+				"name": "play",
+				"type": "method",
+				"description": "Play the sound with given name. This actually just perfomrs a `get()` and executes `.play()` on the result.",
+				"return": "DOMAudioElement",
+				"arguments": [
+					{
+						"name": "name/URL",
+						"type": "string",
+						"description": "The name or URL of the sound, as passed to `Game.sound.get()` on the `xhr-assets` plugin."
+					}
+				]
+			}
+		]
+	}
+}

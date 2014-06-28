@@ -1,0 +1,9 @@
+{
+	"title": "Game.Sound",
+	"intro": "test test test",
+	"main": {
+		"name": "Sound",
+		"type": "object",
+		"description": "`Game.Sound` holds all the sound related functions of the Game. The API is totally free to implement by the plugin."
+	}
+}

@@ -1,0 +1,119 @@
+{
+    "title": "Categories",
+    "intro": "test test test",
+    "main": {
+        "name": "Categories",
+        "type": "object",
+        "description": "`Categories` contains all the Category managing functions.",
+        "children": [
+            {
+                "name": "add",
+                "type": "method",
+                "description": "Add a Category to the Game.",
+                "return": "Game",
+                "arguments": [
+                    {
+                        "name": "category",
+                        "type": "Category",
+                        "description": "The category data to add."
+                    },
+                    {
+                        "name": "override",
+                        "type": "boolean",
+                        "description": "Whether to override existing categories, if one with the same name already exists.",
+                        "default": true,
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "remove",
+                "type": "method",
+                "description": "Remove the category with the given name.",
+                "return": "Game",
+                "arguments": [
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "The name of the category to remove."
+                    }
+                ]
+            },
+            {
+                "name": "get",
+                "type": "method",
+                "description": "Get the category with the given name. Same as doing: 'categories[name]`.",
+                "return": "Category",
+                "arguments": [
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "The name of the Category."
+                    }
+                ]
+            },
+            {
+                "name": "loop",
+                "type": "method",
+                "description": "Loop through all the categories. The callback will be executed for every Category, with that Category as only argument.",
+                "return": "Game.categories",
+                "arguments": [
+                    {
+                        "name": "callback",
+                        "type": "function",
+                        "description": "The function that gets executed for every Category.",
+                        "arguments": [
+                            {
+                                "name": "category",
+                                "type": "Category",
+                                "description": "The Category."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Init",
+                "type": "method",
+                "description": "Initialize all the Categories. Not required.",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "objects",
+                        "type": "object",
+                        "description": "An object containing the options for the Categories. The keys are the Category names, the values are the options passed to `Category.Init()`."
+                    },
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            },
+            {
+                "name": "Update",
+                "type": "method",
+                "description": "Update all the categories. This will call `.Update()` on every Category (if they have that method).",
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            },
+            {
+                "name": "Draw",
+                "type": "method",
+                "description": "Draw all the categories. This will call `.Draw()` on every Category (if they have that method).",
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            }
+        ]
+    }
+}

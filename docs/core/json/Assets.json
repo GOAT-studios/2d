@@ -1,0 +1,9 @@
+{
+	"title": "Game.Assets",
+	"intro": "test test test",
+	"main": {
+		"name": "Assets",
+		"type": "object",
+		"description": "`Game.Assets` holds all the asset loading functions. Provided by an `Assets` plugin. It is not required, but if you add a `.Assets` property to the Game, it must do this job. The API is free to implement by the plugin."
+	}
+}

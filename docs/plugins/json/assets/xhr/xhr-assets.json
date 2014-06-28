@@ -1,0 +1,42 @@
+{
+	"title": "Assets",
+	"intro": "test test test",
+	"main": {
+		"name": "Assets",
+		"type": "object",
+		"description": "`Game.assets` makes it easy to download and organize assets that are needed for your game. When the first Game is created on the page, a `<div>` with id `2D-loaders` will be added at the bottom of the DOM. Each game will place a `<div>` with class `2D-loader` inside that `<div>`. With `Game.Assets.load()`, the appropriate element will be placed inside the respective `2D-loader` `<div>`.",
+		"children": [
+			{
+				"name": "load",
+				"type": "method",
+				"description": "Load the given file or the file at the given URL. Optionally specify a name to refer to it later. All loaded assets can always be retrieved based on their URL or their optional name. `Game.Assets.load()` will create a DOM element inside the Game's `2D-loader` `div` (an `<img>` for an image etc.).",
+				"return": "Game.Assets",
+				"arguments": [
+					{
+						"name": "file/URL",
+						"type": "DOMElement/string",
+						"description": "The DOM element of the file, or the URL of the file to download. A URL will be passed directly to the XHR request."
+					},
+					{
+						"name": "name",
+						"type": "string",
+						"description": "An optional, unique name to easily retrieve the file later on."
+					}
+				]
+			},
+			{
+				"name": "get",
+				"type": "method",
+				"description": "Get the file with the given name or URL.",
+				"return": "DOMElement",
+				"arguments": [
+					{
+						"name": "URL/name",
+						"type": "string",
+						"description": "The name or URL of the file to get. This always returns a DOM element from the `2D-loader` `<div>` (an `<img>` for an image etc.). Note that when using a URL to identify the file, that file is not downloaded, but should already be made available with `Game.assets.load()`. The URL is only for identification purposes, i.e. it serves as a unique name."
+					}
+				]
+			}
+		]
+	}
+}

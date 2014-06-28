@@ -1,0 +1,47 @@
+{
+    "title": "Class: Response",
+    "Intro": "The Response constructor is used to hold data about collisions between 2 Collider objects. Pass an empty Response to `Colliders.test()` to get back some info.",
+    "main": {
+        "name": "Response",
+        "type": "constructor",
+        "description": "The main Response constructor.",
+        "children": [
+            {
+                "name": "a",
+                "type": "Collider",
+                "description": "The first Collider."
+            },
+            {
+                "name": "b",
+                "type": "Collider",
+                "description": "The second Collider."
+            },
+            {
+                "name": "overlap",
+                "type": "number",
+                "description": "Magnitude of the overlap, on the shortest colliding axis."
+            },
+            {
+                "name": "overlapV",
+                "type": "Vector",
+                "description": "The overlap Vector. Equal to: `overlapN.scale(overlap, overlap)`. If this Vector is substracted from `a`'s position, `a` and `b` won't be colliding anymore."
+            },
+            {
+                "name": "aInB",
+                "type": "boolean",
+                "description": "Whether `a` is completely inside `b`."
+            },
+            {
+                "name": "bInA",
+                "type": "boolean",
+                "description": "Whether `b` is completely inside `a`."
+            },
+            {
+                "name": "clear",
+                "type": "method",
+                "description": "Clear the Response object, so it can be reused for another collision test.",
+                "return": "Response"
+            }
+        ]
+    }
+}

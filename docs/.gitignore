@@ -1,1 +1,7 @@
 node_modules
+
+core/*
+!core/json
+
+plugins/*
+!plugins/json

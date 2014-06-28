@@ -1,0 +1,25 @@
+{
+    "title": "World",
+    "intro": "test test test",
+    "main": {
+        "name": "World",
+        "type": "object",
+        "description": "`Game.World` contains all the World managing functions, provided by a Worlds plugin. A `World` *is* actually a game: it keeps track of the different levels, objects, etc. in the Game. Only the `Init` function is standard, the rest of the implementation is up to the plugin.",
+        "children": [
+            {
+                "name": "Init",
+                "type": "method",
+                "description": "Initialize the World and the Categories. Returns the Category options. See `Game.Categories.Init()` for more info. Not required.",
+                "return": "object",
+                "optional": true,
+                "arguments": [
+                    {
+                        "name": "game",
+                        "type": "Game",
+                        "description": "The Game object."
+                    }
+                ]
+            }
+        ]
+    }
+}
