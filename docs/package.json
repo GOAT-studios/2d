@@ -1,6 +1,7 @@
 {
 	"private": true,
 	"dependencies": {
-		"commander": "2.2.0"
+		"commander": "2.2.0",
+		"mkdirp": "*"
 	}
 }

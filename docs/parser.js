@@ -1,6 +1,7 @@
 var fs      = require("fs");
 var Path    = require("path");
 var program = require("commander");
+var mkdirp  = require("mkdirp");
 
 
 
@@ -217,6 +218,7 @@ if(program.path === "console") {
 }
 else {
 		console.log("Writing file: ", program.path);
+	mkdirp.sync(Path.dirname(program.path));
 	fs.writeFileSync(program.path, result);
 		console.log("   Done");
 }

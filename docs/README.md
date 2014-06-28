@@ -4,6 +4,8 @@ README
 Welcome to the documentation of the 2D engine! The docs are available in JSON format, but a parser script is provided to convert the JSON to another format (like Markdown, for which a parser is included). You can easily add your own parser (in the `parsers` directory). Take a look at the Markdown parser (`md.js`) to get an idea of how this works.
 Have fun!
 
+> __Note:__ The docs have been split up between the `core` (the core game engine) and the `plugins` (the basic plugins that are shipped with the engine)
+
 > __Note:__ We don't add the Markdown docs yet to the repo, as we're adding so much to the docs that it would become a huge hassle to keep it updated. In the future, when the API becomes stable, we'll try to ship the Markdown version of the docs along.
 
 
