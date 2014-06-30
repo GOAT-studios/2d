@@ -20,7 +20,7 @@
                     {
                         "name": "override",
                         "type": "boolean",
-                        "description": "Whether to override existing plugins with the same name.",
+                        "description": "Whether to override any existing plugins with the same name (if any).",
                         "default": false,
                         "optional": true
                     }
@@ -62,6 +62,13 @@
                         "name": "name",
                         "type": "string",
                         "description": "The name of the plugin to use."
+                    },
+                    {
+                        "name": "override",
+                        "type": "boolean",
+                        "description": "Whether to override any existing plugins with the same name (if any).",
+                        "default": false,
+                        "optional": true
                     }
                 ]
             },
@@ -80,10 +87,26 @@
                                 "name": "plugin",
                                 "type": "Plugin(object)",
                                 "description": "The plugin."
+                            },
+                            {
+                                "name": "index",
+                                "type": "number",
+                                "description": "The index of the current item in the array."
+                            },
+                            {
+                                "name": "array",
+                                "type": "array",
+                                "description": "The current array being iterated. Same as `Game.Plugins.plugins[plugin.type]`."
                             }
                         ]
                     }
                 ]
+            },
+            {
+                "name": "Init",
+                "type": "method",
+                "description": "Initialize all plugins.",
+                "return": "Game.Plugins"
             }
         ]
     }
