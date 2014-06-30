@@ -1,0 +1,63 @@
+{
+	"title": "Game.Plugins",
+	"intro": "test test test",
+	"main": {
+		"name": "Plugins",
+		"type": "object",
+		"description": "All the Plugin managing functions, not provided by a plugin, but included in the core.",
+		"children": [
+			{
+				"name": "add",
+				"type": "method",
+				"description": "Add a plugin to the Game.",
+				"return": "Game.Plugins",
+				"arguments": [
+					{
+						"name": "plugin",
+						"type": "Plugin(object)",
+						"description": "The plugin to add to the Game."
+					}
+				]
+			},
+			{
+				"name": "get",
+				"type": "method",
+				"description": "Get a plugin.",
+				"return": "Plugin",
+				"arguments": [
+					{
+						"name": "name",
+						"type": "string",
+						"description": "The name of the plugin to get."
+					}
+				]
+			},
+			{
+				"name": "remove",
+				"type": "method",
+				"description": "Remove a plugin",
+				"return": "Game.Plugins",
+				"arguments": [
+					{
+						"name": "name",
+						"type": "string",
+						"description": "The name of the plugin to remove."
+					}
+				]
+			},
+			{
+				"name": "use",
+				"type": "method",
+				"description": "Use this plugin for its type, e.g. if the name matches a Camera plugin, that plugin will be used as the camera for the Game.",
+				"return": "Game.Plugins",
+				"arguments": [
+					{
+						"name": "name",
+						"type": "string",
+						"description": "The name of the plugin to use."
+					}
+				]
+			}
+		]
+	}
+}
