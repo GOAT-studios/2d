@@ -100,29 +100,16 @@
             },
             {
                 "name": "plugin",
-                "type": "method",
-                "description": "Register a plugin.",
-                "return": "Game",
-                "arguments": [
-                    {
-                        "name": "plugin",
-                        "type": "object",
-                        "description": "The plugin object, which will be added directly to the right property (e.g. a `Camera` plugin will be linked to `Game.Camera`). If the Game has already initialized, `plugin.Init()` will be called immediately, otherwise it will be called when the Game initializes."
-                    },
-                    {
-                        "name": "override",
-                        "type": "boolean",
-                        "description": "Whether to override existing plugins with the same name.",
-                        "default": true,
-                        "optional": true
-                    }
-                ]
+                "include": "Plugins>add"
             },
             {
                 "name": "category",
                 "description": "Add a Category to the Game. Shorthand for `Game.Categories.add()`.",
                 "include": "Categories>add"
             },
+
+            "Plugins",
+
             "Categories",
             "Colliders",
             "Utils",
