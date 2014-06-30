@@ -10,7 +10,47 @@
 			var options = {};
 			var plugins = [];
 
-			var game = new Game(options, plugins);
+			var plugin1 = {
+				"name": "sidescroller-camera",
+				"type": "camera",
+				"Init": function(game) {
+					console.log("Init Sidescroller Camera; game:", game);
+					this.x = 0;
+					this.y = 0;
+				},
+				"Update": function() {
+					this.x++;
+					this.y++;
+				}
+			}
+			plugins.push(plugin1);
+
+			var plugin2 = {
+				"name": "topdown-camera",
+				"type": "camera",
+				"Init": function(game) {
+					console.log("Init Topdown Camera; game:", game);
+					this.x = 0;
+					this.y = 0;
+				},
+				"Update": function() {
+					this.x++;
+					this.y++;
+				}
+			}
+			plugins.push(plugin2);
+
+			
+		var game = new Game(options, plugins);
+
+
+			game.Plugins.remove("sidescroller-camera");
+
+			/*
+			 * At this point, a warning should have been logged and game.Camera should be the topdown-camera
+			 */
+
+
 			console.log(game);
 		</script>
 	</body>
