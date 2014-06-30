@@ -1,70 +1,90 @@
 {
-	"title": "Game.Plugins",
-	"intro": "test test test",
-	"main": {
-		"name": "Plugins",
-		"type": "object",
-		"description": "All the Plugin managing functions, not provided by a plugin, but included in the core.",
-		"children": [
-			{
-				"name": "add",
-				"type": "method",
-				"description": "Add a plugin to the Game.",
-				"return": "Game.Plugins",
-				"arguments": [
-					{
-						"name": "plugin",
-						"type": "Plugin(object)",
-						"description": "The plugin object, which will be added directly to the right property (e.g. a `Camera` plugin will be linked to `Game.Camera`). If the Game has already initialized, `plugin.Init()` will be called immediately, otherwise it will be called when the Game initializes."
-					},
+    "title": "Game.Plugins",
+    "intro": "test test test",
+    "main": {
+        "name": "Plugins",
+        "type": "object",
+        "description": "All the Plugin managing functions, not provided by a plugin, but included in the core.",
+        "children": [
+            {
+                "name": "add",
+                "type": "method",
+                "description": "Add a plugin to the Game.",
+                "return": "Game.Plugins",
+                "arguments": [
+                    {
+                        "name": "plugin",
+                        "type": "Plugin(object)",
+                        "description": "The plugin object, which will be added directly to the right property (e.g. a `Camera` plugin will be linked to `Game.Camera`). If the Game has already initialized, `plugin.Init()` will be called immediately, otherwise it will be called when the Game initializes."
+                    },
                     {
                         "name": "override",
                         "type": "boolean",
                         "description": "Whether to override existing plugins with the same name.",
-                        "default": true,
+                        "default": false,
                         "optional": true
                     }
-				]
-			},
-			{
-				"name": "get",
-				"type": "method",
-				"description": "Get a plugin.",
-				"return": "Plugin",
-				"arguments": [
-					{
-						"name": "name",
-						"type": "string",
-						"description": "The name of the plugin to get."
-					}
-				]
-			},
-			{
-				"name": "remove",
-				"type": "method",
-				"description": "Remove a plugin",
-				"return": "Game.Plugins",
-				"arguments": [
-					{
-						"name": "name",
-						"type": "string",
-						"description": "The name of the plugin to remove."
-					}
-				]
-			},
-			{
-				"name": "use",
-				"type": "method",
-				"description": "Use this plugin for its type, e.g. if the name matches a Camera plugin, that plugin will be used as the camera for the Game.",
-				"return": "Game.Plugins",
-				"arguments": [
-					{
-						"name": "name",
-						"type": "string",
-						"description": "The name of the plugin to use."
-					}
-				]
-			}
-		]
-	}
+                ]
+            },
+            {
+                "name": "get",
+                "type": "method",
+                "description": "Get a plugin.",
+                "return": "Plugin",
+                "arguments": [
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "The name of the plugin to get."
+                    }
+                ]
+            },
+            {
+                "name": "remove",
+                "type": "method",
+                "description": "Remove a plugin",
+                "return": "Game.Plugins",
+                "arguments": [
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "The name of the plugin to remove."
+                    }
+                ]
+            },
+            {
+                "name": "use",
+                "type": "method",
+                "description": "Use this plugin for its type, e.g. if the name matches a Camera plugin, that plugin will be used as the camera for the Game.",
+                "return": "Game.Plugins",
+                "arguments": [
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "The name of the plugin to use."
+                    }
+                ]
+            },
+            {
+                "name": "loop",
+                "type": "method",
+                "description": "Iterate over all the plugins, executing a callback for each of them.",
+                "return": "Game.Plugins",
+                "arguments": [
+                    {
+                        "name": "callback",
+                        "type": "function",
+                        "description": "The callback to execute for each plugin.",
+                        "arguments": [
+                            {
+                                "name": "plugin",
+                                "type": "Plugin(object)",
+                                "description": "The plugin."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
 }
