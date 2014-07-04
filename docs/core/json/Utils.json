@@ -35,7 +35,14 @@
             {
                 "name": "capitalize",
                 "type": "method",
-                "description": "Capitalize a string, i.e. make the first letter a capital, all the rest lower-case."
+                "description": "Capitalize a string, i.e. make the first letter a capital, all the rest lower-case.",
+                "return": "string"
+            },
+            {
+                "name": "time",
+                "type": "method",
+                "description": "Get the current time, as precise as possible.",
+                "return": "DOMTimeStamp/Date"
             }
         ]
     }
