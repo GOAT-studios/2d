@@ -54,8 +54,9 @@ Game.prototype.start = function() {
 Game.prototype.Loop = function() {
     this.frames++;
 
-    // this.Categories.Update(this);
-    // this.Categories.Draw(this);
+    this.World.Update(this);
+    this.Camera.Update(this);
+    this.World.Draw(this);
 
     return this;
 }
