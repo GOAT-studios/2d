@@ -37,6 +37,20 @@ Game = function(options, plugins) {
 }
 
 
+Game.prototype.start = function() {
+    if(!this.playing) {
+        this.startTime = this.Utils.time();
+        if(!this.initTime) {
+            this.Init();
+        }
+        this.requestAnimationFrame(this.Loop);
+        this.Loop();
+    }
+
+    return this;
+}
+
+
 Game.prototype.Loop = function() {
     this.frames++;
 
