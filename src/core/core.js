@@ -41,7 +41,7 @@ Game.prototype.start = function() {
     if(!this.playing) {
         this.startTime = this.Utils.time();
         if(!this.initTime) {
-            this.Init();
+            this.init();
         }
         this.timer = this.requestAnimationFrame(this.Loop);
         this.Loop();
