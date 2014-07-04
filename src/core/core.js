@@ -37,6 +37,16 @@ Game = function(options, plugins) {
 }
 
 
+Game.prototype.Loop = function() {
+    this.frames++;
+
+    // this.Categories.Update(this);
+    // this.Categories.Draw(this);
+
+    return this;
+}
+
+
 Game.prototype.Utils = {
     capitalize: function(str) {
         return str.substr(0,1).toUpperCase() + str.substr(1).toLowerCase();
