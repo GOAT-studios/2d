@@ -83,9 +83,9 @@
                 "description": "If `Game.domElement` is an HTML5 Canvas element, `Game.context` will contain the Canvas 2D context."
             },
             {
-                "name": "animationFrame",
+                "name": "timer",
                 "type": "animationFrame",
-                "description": "The next animationFrame of the Game. Can be cancelled with `Game.cancelAnimationFrame(Game.animationFrame)`. Generated with `Game.requestAnimationFrame()`."
+                "description": "The next animationFrame of the Game. Can be cancelled with `Game.cancelAnimationFrame(Game.timer)`. Generated with `Game.requestAnimationFrame()`."
             },
             {
                 "name": "requestAnimationFrame",
