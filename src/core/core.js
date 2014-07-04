@@ -43,8 +43,19 @@ Game.prototype.start = function() {
         if(!this.initTime) {
             this.Init();
         }
-        this.requestAnimationFrame(this.Loop);
+        this.timer = this.requestAnimationFrame(this.Loop);
         this.Loop();
+    }
+
+    return this;
+}
+
+
+Game.prototype.stop = function() {
+    if(this.playing) {
+        this.stopTime = this.Utils.time();
+        this.cancelAnimationFrame(this.timer);
+        this.reset();
     }
 
     return this;
