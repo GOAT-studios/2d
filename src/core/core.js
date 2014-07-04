@@ -50,6 +50,13 @@ Game.prototype.start = function() {
     return this;
 }
 
+Game.prototype.pause = function() {
+    if(this.playing) {
+        this.pauseTime = this.Utils.time();
+        this.cancelAnimationFrame(this.timer);
+    }
+}
+
 
 Game.prototype.stop = function() {
     if(this.playing) {
