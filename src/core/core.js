@@ -32,6 +32,15 @@ Game = function(options, plugins) {
     this.Categories = null;
     this.Plugins    = new Plugins(this, plugins);
 
+    this.initTime   = null;
+    this.startTime  = null;
+    this.pauseTime  = null;
+    this.stopTime   = null;
+
+    this.playing    = false;
+    this.timer      = null;
+    this.frames     = 0;
+
 
     return this;
 }
