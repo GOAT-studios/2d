@@ -9,7 +9,7 @@ var Game;
  * Game
  * ====
  *
- * The Main GAME constructor
+ * The main Game constructor
  */
 
 Game = function(options, plugins) {
@@ -30,7 +30,6 @@ Game = function(options, plugins) {
     this.Colliders  = null;
     this.Sound      = null;
     this.Categories = null;
-
     this.Plugins    = new Plugins(this, plugins);
 
 
@@ -39,8 +38,14 @@ Game = function(options, plugins) {
 
 
 Game.prototype.Utils = {
-    "capitalize": function(str) {
+    capitalize: function(str) {
         return str.substr(0,1).toUpperCase() + str.substr(1).toLowerCase();
+    },
+    toRadians: function(deg) {
+        return (deg * Math.PI) / 180;
+    },
+    toDegrees: function(rad) {
+        return (rad * 180) / Math.PI;
     }
 }
 
@@ -193,6 +198,10 @@ Plugins.prototype.Init = function() {
 
     return this;
 }
+
+
+//Attach to Game
+Game.prototype.plugin = Plugins.prototype.add;
 
 
 
