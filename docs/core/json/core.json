@@ -18,6 +18,13 @@
                 "default": "[]",
                 "optional": true,
                 "description": "An array containing some plugins to be added to the Game, as passed to `Game.plugin()`."
+            },
+            {
+                "name": "categories",
+                "type": "array",
+                "default": "[]",
+                "optional": true,
+                "description": "An array containing some categories to be added to the Game, as passed to `Game.category()`."
             }
         ],
         "children": [
