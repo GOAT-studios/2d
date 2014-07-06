@@ -12,7 +12,7 @@ var Game;
  * The main Game constructor
  */
 
-Game = function(options, plugins) {
+Game = function(options, plugins, categories) {
     if(!options) {
         var options = {};
         console.warn(warnings.noOptions);
@@ -25,11 +25,13 @@ Game = function(options, plugins) {
 
     this.options    = options;
 
-    this.Camera     = null;
     this.Assets     = null;
+    this.Camera     = null;
     this.Colliders  = null;
+    this.Draw       = null;
     this.Sound      = null;
-    this.Categories = null;
+    this.World      = null;
+    this.Categories = new Categories(this, categories);
     this.Plugins    = new Plugins(this, plugins);
 
     this.initTime   = null;
@@ -127,7 +129,7 @@ var Plugins = function(game, plugins) {
     //Save Game for later
     this.game = game;
     //Set up some basic plugin types
-    this.plugins = {"Camera": [], "Assets": [], "Colliders": [], "Sound": []}
+    this.plugins = {"Assets": [], "Camera": [], "Colliders": [], "Draw": [], "Sound": [], "World": []}
 
     //Add already provided plugins
     for(var i = 0, len = plugins.length; i < len; i++) {
@@ -142,21 +144,26 @@ Plugins.prototype.add = function(plugin, override) {
     var name   = plugin.name;
     var Plugin = this.get(name);
 
-    //This type is not yet registered
-    if(!this.plugins[type]) {
-        this.plugins[type] = [];
-    }
+    if(!/^(add|remove|get|use|loop)$/.test(name)) {
+        //This type is not yet registered
+        if(!this.plugins[type]) {
+            this.plugins[type] = [];
+        }
 
-    //A plugin with this name already exists, but may be overridden
-    if(Plugin && override) {
-        this.remove(name);
-        this.add(plugin);
+        //A plugin with this name already exists, but may be overridden
+        if(Plugin && override) {
+            this.remove(name);
+            this.add(plugin);
+        }
+        else if(!Plugin) {
+            //Push to plugin pool
+            this.plugins[type].push(plugin);
+            //Use the new plugin. If one already exists, it will not be overridden.
+            this.use(name);
+        }
     }
-    else if(!Plugin) {
-        //Push to plugin pool
-        this.plugins[type].push(plugin);
-        //Use the new plugin. If one already exists, it will not be overridden.
-        this.use(name);
+    else {
+        console.warn(warnings.invalidName, name);
     }
 
     return this;
@@ -272,6 +279,44 @@ Game.prototype.plugin = Plugins.prototype.add;
 
 
 /*
+ * Categories
+ * ==========
+ *
+ * The main Categories constructor
+ * Provides the categories system for Game
+ */
+
+var Categories = function(game, categories) {
+    //Save Game for later
+    this.game = game;
+
+    //Add already provided catgories
+    for(var i = 0, len = categories.length; i < len; i++) {
+        this.add(categories[i]);
+    }
+
+    return this;
+}
+
+Categories.prototype.add = function(category) {
+    var name = category.name;
+
+    if(!/^(add|remove|get|loop)$/.test(name)) {
+        this[name] = category;
+        if(this.game.initTime && category.Init) {
+            category.Init(this.game);
+        }
+    }
+    else {
+        console.warn(warnings.invalidName, name);
+    }
+}
+
+
+
+
+
+/*
  * VARS
  * ====
  *
@@ -284,7 +329,8 @@ Game.prototype.plugin = Plugins.prototype.add;
         "noPluginsConstructor": "WARN: No plugins passed to the constructor. Make sure to add plugins with 'Game.plugin(plugin);'.",
         "pluginDoesNotExist": "WARN: A plugin with the name '%s' does not exist.",
         "useNonExistentPlugin": "WARN: You are trying to use() a non-existent plugin, named '%s'.",
-        "useAlreadySet": "WARN: You are trying to use() a plugin, named '%s', but a plugin of this type is already in use. Please use Plugins.use(name, true) to override any plugins already in use."
+        "useAlreadySet": "WARN: You are trying to use() a plugin, named '%s', but a plugin of this type is already in use. Please use Plugins.use(name, true) to override any plugins already in use.",
+        "invalidName": "WARN: The name '%s' is invalid."
     }
 
 
