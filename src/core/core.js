@@ -78,6 +78,15 @@ Game.prototype.stop = function() {
 }
 
 
+Game.prototype.init = function() {
+    // Throw an Error if a plugin is missing.
+    // If Game[plugin] is null, that plugin is missing
+    if(!this.Assets || !this.Camera || !this.Colliders || !this.Draw || !this.Sound || !this.World) {
+        throw new Error("Missing plugin.");
+    }
+}
+
+
 Game.prototype.Loop = function() {
     this.frames++;
 
@@ -129,8 +138,9 @@ var Plugins = function(game, plugins) {
 }
 
 Plugins.prototype.add = function(plugin, override) {
-    var type = plugin.type = this.game.Utils.capitalize(plugin.type);
-    var name = plugin.name;
+    var type   = plugin.type = this.game.Utils.capitalize(plugin.type);
+    var name   = plugin.name;
+    var Plugin = this.get(name);
 
     //This type is not yet registered
     if(!this.plugins[type]) {
@@ -138,11 +148,11 @@ Plugins.prototype.add = function(plugin, override) {
     }
 
     //A plugin with this name already exists, but may be overridden
-    if(this.get(name) && override) {
+    if(Plugin && override) {
         this.remove(name);
         this.add(plugin);
     }
-    else if(!this.get(name)) {
+    else if(!Plugin) {
         //Push to plugin pool
         this.plugins[type].push(plugin);
         //Use the new plugin. If one already exists, it will not be overridden.
@@ -234,6 +244,7 @@ Plugins.prototype.loop = function(cb) {
         //Loop through plugins (per type)
         for(var i = 0; i < plugins.length; i++) {
             var br = cb(plugins[i], i, plugins);
+            // Break loop if `cb` returns `true` (or another truthy value)
             if(br) { break outer; }
         }
     }
