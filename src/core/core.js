@@ -15,11 +15,15 @@ var Game;
 Game = function(options, plugins, categories) {
     if(!options) {
         var options = {};
-        console.warn(warnings.noOptions);
+        console.warn(warnings.noOptionsConstructor);
     }
     if(!plugins) {
         var plugins = [];
         console.warn(warnings.noPluginsConstructor);
+    }
+    if(!categories) {
+        var categories = [];
+        console.warn(warnings.noCategoriesConstructor);
     }
 
 
@@ -31,8 +35,8 @@ Game = function(options, plugins, categories) {
     this.Draw       = null;
     this.Sound      = null;
     this.World      = null;
-    this.Categories = new Categories(this, categories);
     this.Plugins    = new Plugins(this, plugins);
+    this.Categories = new Categories(this, categories);
 
     this.initTime   = null;
     this.startTime  = null;
@@ -113,6 +117,20 @@ Game.prototype.Utils = {
 }
 
 
+Game.prototype.plugin = function(plugin) {
+    this.Plugins.add(plugin);
+
+    return this;
+}
+
+
+Game.prototype.category = function(category) {
+    this.Categories.add(category);
+
+    return this;
+}
+
+
 
 
 
@@ -132,8 +150,10 @@ var Plugins = function(game, plugins) {
     this.plugins = {"Assets": [], "Camera": [], "Colliders": [], "Draw": [], "Sound": [], "World": []}
 
     //Add already provided plugins
-    for(var i = 0, len = plugins.length; i < len; i++) {
-        this.add(plugins[i]);
+    if(plugins instanceof Array) {
+        for(var i = 0, len = plugins.length; i < len; i++) {
+            this.add(plugins[i]);
+        }
     }
 
     return this;
@@ -270,10 +290,6 @@ Plugins.prototype.Init = function() {
 }
 
 
-//Attach to Game
-Game.prototype.plugin = Plugins.prototype.add;
-
-
 
 
 
@@ -291,15 +307,17 @@ var Categories = function(game, categories) {
     this.game = game;
 
     //Add already provided catgories
-    for(var i = 0, len = categories.length; i < len; i++) {
-        this.add(categories[i]);
+    if(categories instanceof Array) {
+        for(var i = 0, len = categories.length; i < len; i++) {
+            this.add(categories[i]);
+        }
     }
 
     return this;
 }
 
 Categories.prototype.add = function(category) {
-    var name = category.name;
+    var name = category.name = this.game.Utils.capitalize(category.name);
 
     if(!/^(add|remove|get|loop)$/.test(name)) {
         this[name] = category;
@@ -309,6 +327,28 @@ Categories.prototype.add = function(category) {
     }
     else {
         console.warn(warnings.invalidName, name);
+    }
+}
+
+Categories.prototype.remove = function(name) {
+    var name = this.game.Utils.capitalize(name);
+
+    this[name] = undefined;
+
+    return this;
+}
+
+Categories.prototype.get = function(name) {
+    var name = this.game.Utils.capitalize(name);
+
+    return this[name] || null;
+}
+
+Categories.prototype.loop = function(cb) {
+    for(name in this) {
+        if(!/^(add|remove|get|loop)$/.test(name)) {
+            cb(this[name], name);
+        }
     }
 }
 
@@ -325,12 +365,15 @@ Categories.prototype.add = function(category) {
 
 
     var warnings = {
-        "noOptions": "WARN: No options passed to the constructor. Default options will be used.",
+        "noOptionsConstructor": "WARN: No options passed to the constructor. Default options will be used.",
         "noPluginsConstructor": "WARN: No plugins passed to the constructor. Make sure to add plugins with 'Game.plugin(plugin);'.",
+        "noCategoriesConstructor": "WARN: No categories passed to the constructor. Make sure to add categories with 'Game.category(category);'.",
         "pluginDoesNotExist": "WARN: A plugin with the name '%s' does not exist.",
         "useNonExistentPlugin": "WARN: You are trying to use() a non-existent plugin, named '%s'.",
         "useAlreadySet": "WARN: You are trying to use() a plugin, named '%s', but a plugin of this type is already in use. Please use Plugins.use(name, true) to override any plugins already in use.",
-        "invalidName": "WARN: The name '%s' is invalid."
+        "invalidName": "WARN: The name '%s' is invalid.",
+        "noPluginPassed": "WARN: No plugin passed to Plugin.add().",
+        "noCategoryPassed": "WARN: No category passed to Categories.add()."
     }
 
 
