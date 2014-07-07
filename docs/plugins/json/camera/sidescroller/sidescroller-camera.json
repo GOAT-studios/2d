@@ -43,6 +43,18 @@
                 ]
             },
             {
+                "name": "followPlayer",
+                "type": "method",
+                "description": "Follow the player from now on. Use `Camera.unFollowPlayer()` to keep the Camera static.",
+                "return": "Camera"
+            },
+            {
+                "name": "unFollowPlayer",
+                "type": "method",
+                "description": "Do not follow the player anymore. Use `Camera.followPlayer()` to follow the player again.",
+                "return": "Camera"
+            },
+            {
                 "name": "Init",
                 "type": "method",
                 "description": "Init the camera. Called when Game initializes.",
