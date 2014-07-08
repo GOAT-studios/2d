@@ -53,14 +53,21 @@
                     },
                     {
                         "name": "B",
-                        "type": "Collider",
-                        "description": "The second Collider."
+                        "type": "array",
+                        "description": "An array of Colliders to test A against."
                     },
                     {
                         "name": "callback",
                         "type": "function",
                         "description": "A callback function that will be called on every collision, which takes one argument: the Response object.",
-                        "optional": true
+                        "optional": true,
+                        "arguments": [
+                            {
+                                "name": "response",
+                                "type": "Response",
+                                "description": "The Response object."
+                            }
+                        ]
                     }
                 ]
             }
