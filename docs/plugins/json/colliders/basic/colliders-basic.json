@@ -59,13 +59,18 @@
                     {
                         "name": "callback",
                         "type": "function",
-                        "description": "A callback function that will be called on every collision, which takes one argument: the Response object.",
+                        "description": "A callback function that will be called on every test.",
                         "optional": true,
                         "arguments": [
                             {
                                 "name": "response",
                                 "type": "Response",
                                 "description": "The Response object."
+                            },
+                            {
+                                "name": "collision",
+                                "type": "boolean",
+                                "description": "Whether the two Colliders collide. `true` if they are colliding, `false` otherwise."
                             }
                         ]
                     }
