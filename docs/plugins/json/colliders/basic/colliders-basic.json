@@ -7,7 +7,9 @@
         "description": "A basic Collider plugin, inspired by the excellent SAT.js.",
         "children": [
 
-            "Collider",
+            "Box",
+            "Polygon",
+            "Circle",
             "Response",
 
             {
