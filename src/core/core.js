@@ -365,9 +365,9 @@ Categories.prototype.loop = function(cb) {
 
 
     var warnings = {
-        "noOptionsConstructor": "WARN: No options passed to the constructor. Default options will be used.",
-        "noPluginsConstructor": "WARN: No plugins passed to the constructor. Make sure to add plugins with 'Game.plugin(plugin);'.",
-        "noCategoriesConstructor": "WARN: No categories passed to the constructor. Make sure to add categories with 'Game.category(category);'.",
+        "noOptionsConstructor": "WARN: No options passed to the Game constructor. Default options will be used.",
+        "noPluginsConstructor": "WARN: No plugins passed to the Game constructor. Make sure to add plugins with 'Game.plugin(plugin);'.",
+        "noCategoriesConstructor": "WARN: No categories passed to the Game constructor. Make sure to add categories with 'Game.category(category);'.",
         "pluginDoesNotExist": "WARN: A plugin with the name '%s' does not exist.",
         "useNonExistentPlugin": "WARN: You are trying to use() a non-existent plugin, named '%s'.",
         "useAlreadySet": "WARN: You are trying to use() a plugin, named '%s', but a plugin of this type is already in use. Please use Plugins.use(name, true) to override any plugins already in use.",
