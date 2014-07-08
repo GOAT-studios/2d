@@ -12,8 +12,30 @@ Colliders = function(options) {
 	return this;
 }
 
-Colliders.prototype.name = "colliders-basic";
-Colliders.prototype.type = "Colliders";
+Colliders.prototype.name  = "colliders-basic";
+Colliders.prototype.type  = "Colliders";
+Colliders.prototype.types = ["Box", "Polygon", "Circle"];
+
+Colliders.prototype.test = function(a, b, res) {
+	if(a instanceof this.Box) a = a.toPolygon();
+
+	if(a instanceof this.Polygon) {
+		if(b instanceof this.Polygon) {
+			return SAT.testPolygonPolygon(a, b, res);
+		}
+		else {
+			return SAT.testPolygonCircle(a, b, res);
+		}
+	}
+	else {
+		if(b instanceof this.Polygon) {
+			SAT.testCirclePolygon(a, b, res);
+		}
+		else {
+			SAT.testCircleCircle(a, b, res);
+		}
+	}
+}
 
 
 
