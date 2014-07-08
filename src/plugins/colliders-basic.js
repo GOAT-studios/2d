@@ -29,12 +29,25 @@ Colliders.prototype.test = function(a, b, res) {
 	}
 	else {
 		if(b instanceof this.Polygon) {
-			SAT.testCirclePolygon(a, b, res);
+			return SAT.testCirclePolygon(a, b, res);
 		}
 		else {
-			SAT.testCircleCircle(a, b, res);
+			return SAT.testCircleCircle(a, b, res);
 		}
 	}
+}
+
+Colliders.prototype.testAll= function(a, b, cb) {
+	var res = new this.Response();
+	var collision;
+
+	for(var i = 0, len = b.length; i < len; i++) {
+		collision = this.test(a, b[i], res);
+		cb(res, collision);
+		res.clear();
+	}
+
+	return this;
 }
 
 
