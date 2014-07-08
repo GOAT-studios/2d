@@ -1,0 +1,47 @@
+{
+	"main": {
+		"name": "Box",
+		"type": "constructor",
+		"description": "The main Box Collider constructor. A Box represents a axis-aligned bounding box (AABB). It can be converted to a Polygon with Box.toPolygon().",
+		"arguments": [
+			{
+				"name": "position",
+				"type": "Vector/SAT.Vector",
+				"description": "The position of the (bottom left corner of the) Box."
+			},
+			{
+				"name": "width",
+				"type": "number",
+				"description": "The width of the Box."
+			},
+			{
+				"name": "height",
+				"type": "number",
+				"description": "The height of the Box."
+			}
+		],
+		"children": [
+			{
+				"name": "position",
+				"type": "SAT.Vector",
+				"description": "The position of the (bottom left corner of the) Box."
+			},
+			{
+				"name": "width",
+				"type": "number",
+				"description": "The width of the Box."
+			},
+			{
+				"name": "height",
+				"type": "number",
+				"description": "The height of the Box."
+			},
+			{
+				"name": "toPolygon",
+				"type": "method",
+				"description": "Convert this Box to a Polygon.",
+				"return": "Polygon"
+			}
+		]
+	}
+}
