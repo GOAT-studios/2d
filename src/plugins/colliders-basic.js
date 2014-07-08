@@ -17,7 +17,8 @@ Colliders.prototype.type  = "Colliders";
 Colliders.prototype.types = ["Box", "Polygon", "Circle"];
 
 Colliders.prototype.test = function(a, b, res) {
-	if(a instanceof this.Box) a = a.toPolygon();
+	if(a instanceof this.Box) var a = a.toPolygon();
+	if(b instanceof this.Box) var b = b.toPolygon();
 
 	if(a instanceof this.Polygon) {
 		if(b instanceof this.Polygon) {
@@ -53,6 +54,11 @@ Colliders.prototype.testAll= function(a, b, cb) {
 
 
 
+
+
+
+
+
 /* Include the excellent SAT.js (minified), which does the actual collision checks*/
 /* SAT.js - Version 0.4.1 - Copyright 2014 - Jim Riecken <jimr@jimr.ca> - released under the MIT License. https://github.com/jriecken/sat-js */
 function w(){function a(b,k){this.x=b||0;this.y=k||0}function e(b,k){this.pos=b||new a;this.points=k||[];this.angle=0;this.offset=new a;this.recalc()}function u(b,k,c){this.pos=b||new a;this.w=k||0;this.h=c||0}function v(){this.b=this.a=null;this.overlapN=new a;this.overlapV=new a;this.clear()}function z(b,k,c){for(var a=Number.MAX_VALUE,f=-Number.MAX_VALUE,h=b.length,l=0;l<h;l++){var g=b[l].d(k);g<a&&(a=g);g>f&&(f=g)}c[0]=a;c[1]=f}function A(b,k,c,a,f,h){var l=q.pop(),g=q.pop();b=d.pop().c(k).sub(b);
@@ -67,6 +73,13 @@ return this};e.prototype.translate=e.prototype.translate=function(b,a){for(var c
 d.push(h);return this};m.Box=u;u.prototype.toPolygon=u.prototype.l=function(){var b=this.pos,k=this.w,c=this.h;return new e(new a(b.x,b.y),[new a,new a(k,0),new a(k,c),new a(0,c)])};m.Response=v;v.prototype.clear=v.prototype.clear=function(){this.bInA=this.aInB=!0;this.overlap=Number.MAX_VALUE;return this};for(var d=[],r=0;10>r;r++)d.push(new a);for(var q=[],r=0;5>r;r++)q.push([]);var y=new v,D=(new u(new a,1,1)).l();m.pointInCircle=function(b,a){var c=d.pop().c(b).sub(a.pos),e=a.r*a.r,f=c.e();d.push(c);
 return f<=e};m.pointInPolygon=function(b,a){D.pos.c(b);y.clear();var c=C(D,a,y);c&&(c=y.aInB);return c};m.testCircleCircle=function(b,a,c){var e=d.pop().c(a.pos).sub(b.pos),f=b.r+a.r,h=e.e();if(h>f*f)return d.push(e),!1;c&&(h=Math.sqrt(h),c.a=b,c.b=a,c.overlap=f-h,c.overlapN.c(e.normalize()),c.overlapV.c(e).scale(c.overlap),c.aInB=b.r<=a.r&&h<=a.r-b.r,c.bInA=a.r<=b.r&&h<=b.r-a.r);d.push(e);return!0};m.testPolygonCircle=B;m.testCirclePolygon=function(a,d,c){if((a=B(d,a,c))&&c){d=c.a;var e=c.aInB;c.overlapN.reverse();
 c.overlapV.reverse();c.a=c.b;c.b=d;c.aInB=c.bInA;c.bInA=e}return a};m.testPolygonPolygon=C;return m}var SAT=w()
+
+Colliders.prototype.SAT      = SAT;
+Colliders.prototype.Vector   = SAT.Vector;
+Colliders.prototype.Box      = SAT.Box;
+Colliders.prototype.Polygon  = SAT.Polygon;
+Colliders.prototype.Circle   = SAT.Circle;
+Colliders.prototype.Response = SAT.Response;
 
 
 
