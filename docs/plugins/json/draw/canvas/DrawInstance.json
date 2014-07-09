@@ -1,0 +1,875 @@
+{
+    "title": "Class: DrawInstance",
+    "main": {
+        "name": "DrawInstance",
+        "type": "object",
+        "description": "The DrawInstance as returned by `Draw.getInstance()`.",
+        "children": [
+            {
+                "name": "lineDashOffset",
+                "type": "number",
+                "description": "The offset of the lineDash. Check 'http://www.rgraph.net/blog/2013/january/html5-canvas-dashed-lines.html#linedashoffset' for more info."
+            },
+
+
+
+            {
+                "name": "lineWidth",
+                "type": "number",
+                "description": "The width of the stroke.",
+                "default": 1
+            },
+            {
+                "name": "strokeStyle",
+                "type": "string/color",
+                "description": "The color of the stroke.",
+                "default": "#000000"
+            },
+            {
+                "name": "fillStyle",
+                "type": "string/color",
+                "description": "The color of the fill.",
+                "default": "#000000"
+            },
+            {
+                "name": "stroke",
+                "type": "method",
+                "description": "Stroke the last path.",
+                "return": "DrawInstance"
+            },
+            {
+                "name": "fill",
+                "type": "method",
+                "description": "Fill the last path.",
+                "return": "DrawInstance"
+            },
+            {
+                "name": "beginPath",
+                "type": "method",
+                "description": "Begin a new path.",
+                "return": "DrawInstance"
+            },
+            {
+                "name": "closePath",
+                "type": "method",
+                "description": "End the current path.",
+                "return": "DrawInstance"
+            },
+            {
+                "name": "clip",
+                "type": "method",
+                "description": "Turn the current path into a clipping path (and end it).",
+                "return": "DrawInstance"
+            },
+            {
+                "name": "clearRect",
+                "type": "method",
+                "description": "Clear a part of the space.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the top-left corner of the area to clear."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the top-left corner of the area to clear."
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "description": "The width of the area to clear."
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "description": "The height of the area to clear."
+                    }
+                ]
+            },
+            {
+                "name": "save",
+                "type": "method",
+                "description": "Save the current set-up (font, colors etc.) to be restored later (with `restore()`).",
+                "return": "DrawInstance"
+            },
+            {
+                "name": "restore",
+                "type": "method",
+                "description": "Restore the last saved set-up (font, colors etc.)."
+            },
+
+
+
+
+
+            {
+                "name": "moveTo",
+                "type": "method",
+                "description": "Move the `cursor` to this point.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the point."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the point."
+                    }
+                ]
+            },
+            {
+                "name": "lineTo",
+                "type": "method",
+                "description": "Add a line to the current path that goes from the current position of the `cursor` to this point.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the destination point."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the destination point."
+                    }
+                ]
+            },
+            {
+                "name": "rect",
+                "type": "method",
+                "description": "Add a rectangle to the current path with given coordinates and dimensions.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "description": "The width of the rectangle."
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "description": "The width of the rectangle."
+                    }
+                ]
+            },
+            {
+                "name": "arc",
+                "type": "method",
+                "description": "Add an arc to the current path with given coordinates and dimensions.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the arc."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the arc."
+                    },
+                    {
+                        "name": "radius",
+                        "type": "number",
+                        "description": "The radius of the arc."
+                    },
+                    {
+                        "name": "startAngle",
+                        "type": "number",
+                        "description": "The starting angle, in radians."
+                    },
+                    {
+                        "name": "endAngle",
+                        "type": "number",
+                        "description": "The ending angle, in radians."
+                    },
+                    {
+                        "name": "counterClockwise",
+                        "type": "boolean",
+                        "description": "Whether the drawing should be counterclockwise or clockwise. `true` for counterclockwise, `false` for clockwise.",
+                        "default": false,
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "arcTo",
+                "type": "method",
+                "description": "Add an arc to the path.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x1",
+                        "type": "number",
+                        "description": "The x-coordinate of the first control point."
+                    },
+                    {
+                        "name": "y1",
+                        "type": "number",
+                        "description": "The y-coordinate of the first control point."
+                    },
+                    {
+                        "name": "x2",
+                        "type": "number",
+                        "description": "The x-coordinate of the second control point."
+                    },
+                    {
+                        "name": "y2",
+                        "type": "number",
+                        "description": "The y-coordinate of the second control point."
+                    },
+                    {
+                        "name": "radius",
+                        "type": "number",
+                        "description": "The radius of the arc."
+                    }
+                ]
+            }
+            {
+                "name": "bezierCurveTo",
+                "type": "method",
+                "description": "Add a Bezier curve to the current path with given coordinates and dimensions.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "cp1x",
+                        "type": "number",
+                        "description": "The x-coordinate of the first control point."
+                    },
+                    {
+                        "name": "cp1y",
+                        "type": "number",
+                        "description": "The y-coordinate of the first control point."
+                    },
+                    {
+                        "name": "cp2x",
+                        "type": "number",
+                        "description": "The x-coordinate of the second control point."
+                    },
+                    {
+                        "name": "cp2y",
+                        "type": "number",
+                        "description": "The y-coordinate of the second control point."
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the end point."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the end point."
+                    }
+                ]
+            },
+            {
+                "name": "quadraticCurveTo",
+                "type": "method",
+                "description": "Add a quadratic curve to the current path with given coordinates and dimensions.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "cpx",
+                        "type": "number",
+                        "description": "The x-coordinate of the control point."
+                    },
+                    {
+                        "name": "cpy",
+                        "type": "number",
+                        "description": "The y-coordinate of the control point."
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the end point."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the end point."
+                    }
+                ]
+            },
+
+
+
+
+
+
+
+            {
+                "name": "fillRect",
+                "type": "method",
+                "description": "Fill the rectangle with the given coordinates.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "description": "The width of the rectangle."
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "description": "The height of the rectangle."
+                    }
+                ]
+            },
+            {
+                "name": "strokeRect",
+                "type": "method",
+                "description": "Stroke the rectangle with the given coordinates.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "description": "The width of the rectangle."
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "description": "The height of the rectangle."
+                    }
+                ]
+            },
+            {
+                "name": "fullRect",
+                "type": "method",
+                "description": "Fill and stroke the rectangle with the given coordinates.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the rectangle."
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "description": "The width of the rectangle."
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "description": "The height of the rectangle."
+                    }
+                ]
+            },
+            {
+                "name": "strokeCircle",
+                "type": "method",
+                "description": "Stroke a circle.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the center of the circle."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the center of the circle."
+                    },
+                    {
+                        "name": "radius",
+                        "type": "number",
+                        "description": "The radius of the circle."
+                    }
+                ]
+            },
+            {
+                "name": "FillCircle",
+                "type": "method",
+                "description": "Fill a circle.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the center of the circle."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the center of the circle."
+                    },
+                    {
+                        "name": "radius",
+                        "type": "number",
+                        "description": "The radius of the circle."
+                    }
+                ]
+            },
+            {
+                "name": "fullCircle",
+                "type": "method",
+                "description": "Stroke and fill a circle.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the center of the circle."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the center of the circle."
+                    },
+                    {
+                        "name": "radius",
+                        "type": "number",
+                        "description": "The radius of the circle."
+                    }
+                ]
+            },
+            {
+                "name": "strokeText",
+                "type": "method",
+                "description": "Stroke some text.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "text",
+                        "type": "string",
+                        "description": "The text to draw."
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the top-left corner of the text."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the top-left corner of the text."
+                    },
+                    {
+                        "name": "maxWidth",
+                        "type": "number",
+                        "description": "The maximum width of the text.",
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "fillText",
+                "type": "method",
+                "description": "Fill some text.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "text",
+                        "type": "string",
+                        "description": "The text to draw."
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the top-left corner of the text."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the top-left corner of the text."
+                    },
+                    {
+                        "name": "maxWidth",
+                        "type": "number",
+                        "description": "The maximum width of the text.",
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "FullText",
+                "type": "method",
+                "description": "Fill and stroke some text.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "text",
+                        "type": "string",
+                        "description": "The text to draw."
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the top-left corner of the text."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the top-left corner of the text."
+                    },
+                    {
+                        "name": "maxWidth",
+                        "type": "number",
+                        "description": "The maximum width of the text.",
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "measureText",
+                "type": "method",
+                "description": "Measure the text as if it were drawn on the Canvas. More info here: http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#dom-context-2d-measuretext",
+                "return": "TextMetrics",
+                "arguments": [
+                    {
+                        "name": "text",
+                        "type": "string",
+                        "description": "The text to measure."
+                    }
+                ]
+            },
+
+
+
+
+
+            {
+                "name": "drawImage",
+                "type": "method",
+                "description": "Draw an image to the Canvas. For more detailed information, check out 'https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D#drawImage()'. This method can be used in three different ways:\n\n1. `drawImage(image, dx, dy)`: Draws the image at the given coordinate.\n\n2. `drawImage(image, dx, dy, dw, dh)`: Scales the image to the right dimaensions before drawing it at the given coordinates.\n\n3. `drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)`: Cuts the a part of the image out of the original, scales it and draws it to the Canvas.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "image",
+                        "type": "DOMImgElement",
+                        "description": "The image to draw to the Canvas."
+                    },
+                    {
+                        "name": "sx",
+                        "type": "number",
+                        "description": "The x-coordinate of the top-left corner of the sub-rectangle of the source."
+                    },
+                    {
+                        "name": "sy",
+                        "type": "number",
+                        "description": "The y-coordinate of the top-left corner of the sub-rectangle of the source."
+                    },
+                    {
+                        "name": "sw",
+                        "type": "number",
+                        "description": "The width of the sub-rectangle of the source."
+                    },
+                    {
+                        "name": "sh",
+                        "type": "number",
+                        "description": "The height of the sub-rectangle of the source."
+                    },
+                    {
+                        "name": "dx",
+                        "type": "number",
+                        "description": "The x-coordinate at which to draw the image on the Canvas."
+                    },
+                    {
+                        "name": "dy",
+                        "type": "number",
+                        "description": "The y-coordinate at which to draw the image on the Canvas."
+                    },
+                    {
+                        "name": "dw",
+                        "type": "number",
+                        "description": "The width of the image on the Canvas (this will scale the image)."
+                    },
+                    {
+                        "name": "dh",
+                        "type": "number",
+                        "description": "The height of the image on the Canvas (this will scale the image)."
+                    }
+                ]
+            },
+
+
+
+
+            {
+                "name": "createImageData",
+                "type": "method",
+                "description": "Create an empty ImageData object. Pass in some dimensions, or another ImageData object, from which the dimensions will be copied (the image won't be copied!).",
+                "return": "ImageData",
+                "arguments": [
+                    {
+                        "name": "width/ImageData",
+                        "type": "number/ImageData",
+                        "description": "The width of the new ImageData object, or the ImageData object to copy dimensions from."
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "description": "The height of the new ImageData object."
+                    }
+                ]
+            },
+            {
+                "name": "getImageData",
+                "type": "method",
+                "description": "Get an ImageData object from a part on the Canvas.",
+                "return": "ImageData",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the top-left corner of the area to capture."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the top-left corner of the area to capture."
+                    },
+                    {
+                        "name": "width",
+                        "type": "number",
+                        "description": "The width of the area to capture."
+                    },
+                    {
+                        "name": "height",
+                        "type": "number",
+                        "description": "The height of the area to capture."
+                    }
+                ]
+            },
+            {
+                "name": "putImageData",
+                "type": "method",
+                "description": "Draw an ImageData object to the Canvas.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "ImageData",
+                        "type": "ImageData",
+                        "description": "The ImageData to draw."
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the top-left corner of the area on the Canvas where the ImageData should be drawn."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the top-left corner of the area on the Canvas where the ImageData should be drawn."
+                    },
+                    {
+                        "name": "sx",
+                        "type": "number",
+                        "description": "The x-coordinate of the sub-rectangle of the ImageData that should be drawn.",
+                        "optional": true
+                    },
+                    {
+                        "name": "sy",
+                        "type": "number",
+                        "description": "The y-coordinate of the sub-rectangle of the ImageData that should be drawn.",
+                        "optional": true
+                    },
+                    {
+                        "name": "sw",
+                        "type": "number",
+                        "description": "The width of the sub-rectangle of the ImageData that should be drawn.",
+                        "optional": true
+                    },
+                    {
+                        "name": "sh",
+                        "type": "number",
+                        "description": "The height of the sub-rectangle of the ImageData that should be drawn.",
+                        "optional": true
+                    }
+                ]
+            },
+
+
+
+
+            {
+                "name": "createLinearGradient",
+                "type": "method",
+                "description": "Create a radial gradient. To add colors, use the `addColorStop` method on the returned Gradient, like this:\n\n> gradient.addColorStop(0, 'black');\n> gradient.addColorStop(0.5, '#2222FF');\n> gradient.addColorStop(1, 'rgba(0,0,0,0');\n\n The first argument is the place of the stop: `0` is the starting point, `1` is the end. The second argument is the color at that stop; any CSS-compatible color is allowed.\n\n> __Note:__ Use a gradient as a value for strokeStyle or fillStyle.",
+                "return": "LinearGradient",
+                "arguments": [
+                    {
+                        "name": "x0",
+                        "type": "number",
+                        "description": "The x-coordinate of the starting point."
+                    },
+                    {
+                        "name": "y0",
+                        "type": "number",
+                        "description": "The y-coordinate of the starting point."
+                    },
+                    {
+                        "name": "x1",
+                        "type": "number",
+                        "description": "The x-coordinate of the ending point."
+                    },
+                    {
+                        "name": "y1",
+                        "type": "number",
+                        "description": "The y-coordinate of the ending point."
+                    }
+                ]
+            },
+            {
+                "name": "createRadialGradient",
+                "type": "method",
+                "description": "Create a radial gradient. To add colors, use the `addColorStop` method on the returned Gradient, like this:\n\n> gradient.addColorStop(0, 'black');\n> gradient.addColorStop(0.5, '#2222FF');\n> gradient.addColorStop(1, 'rgba(0,0,0,0');\n\n The first argument is the place of the stop: `0` is the starting point, `1` is the end. The second argument is the color at that stop; any CSS-compatible color is allowed.\n\n> __Note:__ Use a gradient as a value for strokeStyle or fillStyle.",
+                "return": "RadialGradient",
+                "arguments": [
+                    {
+                        "name": "x0",
+                        "type": "number",
+                        "description": "The x-coordinate of the center of the starting circle."
+                    },
+                    {
+                        "name": "y0",
+                        "type": "number",
+                        "description": "The y-coordinate of the center of the starting circle."
+                    },
+                    {
+                        "name": "radius0",
+                        "type": "number",
+                        "description": "The radius of the starting circle."
+                    },
+                    {
+                        "name": "x1",
+                        "type": "number",
+                        "description": "The x-coordinate of the center of the ending circle."
+                    },
+                    {
+                        "name": "y1",
+                        "type": "number",
+                        "description": "The y-coordinate of the center of the ending circle."
+                    },
+                    {
+                        "name": "radius1",
+                        "type": "number",
+                        "description": "The radius of the sending circle."
+                    }
+                ]
+            },
+            {
+                "name": "createPattern",
+                "type": "method",
+                "description": "Create a pattern from any DOM Element.\n\n> __Note:__ Use a pattern as a value for strokeStyle or fillStyle;",
+                "return": "Pattern",
+                "arguments": [
+                    {
+                        "name": "DOM element",
+                        "type": "DOMElement",
+                        "description": "The Element to repeat in the pattern. This can be any DOM Element, although typically an `<img>` element is used."
+                    },
+                    {
+                        "name": "type",
+                        "type": "string",
+                        "description": "How the element should be repeated. Possible values are:\n\n- *repeat*: A normal repetition, in all directions. This is the default.\n\n- *repeat-x*: Only repeat horizontally.\n\n- *repeat-y*: Only repeat vertically.\n\n- *no-repeat*: Do not repeat the element."
+                    }
+                ]
+            },
+            {
+                "name": "setLineDash",
+                "type": "method",
+                "description": "Set the line dash for the current path. A good tutorial can be found here: http://www.rgraph.net/blog/2013/january/html5-canvas-dashed-lines.html.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "sequence",
+                        "type": "array",
+                        "description": "An array of en even amount of positive numbers, indicating the length of the dashes and spaces. Check 'http://www.rgraph.net/blog/2013/january/html5-canvas-dashed-lines.html' for more info."
+                    }
+                ]
+            },
+            {
+                "name": "getLineDash",
+                "type": "method",
+                "description": "Get the current line dash setting."
+            },
+
+
+
+
+
+            {
+                "name": "isPointInPath",
+                "type": "method",
+                "description": "Check whether a point is inside the current path.",
+                "return": "boolean",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the point."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the point."
+                    }
+                ]
+            },
+            {
+                "name": "isPointInStroke",
+                "type": "method",
+                "description": "Check whether a point is inside the stroke of the current path.",
+                "return": "boolean",
+                "arguments": [
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the point."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the point."
+                    }
+                ]
+            }
+        ]
+    }
+}
