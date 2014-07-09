@@ -1,4 +1,6 @@
 {
+	"title": "Class: Colliders.Box",
+	"intro": "This is an exact copy of the SAT.Box class.",
 	"main": {
 		"name": "Box",
 		"type": "constructor",
