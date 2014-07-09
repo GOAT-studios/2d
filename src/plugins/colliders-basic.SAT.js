@@ -76,6 +76,7 @@ c.overlapV.reverse();c.a=c.b;c.b=d;c.aInB=c.bInA;c.bInA=e}return a};m.testPolygo
 
 Colliders.prototype.SAT      = SAT;
 Colliders.prototype.Vector   = SAT.Vector;
+Colliders.prototype.V        = SAT.Vector;
 Colliders.prototype.Box      = SAT.Box;
 Colliders.prototype.Polygon  = SAT.Polygon;
 Colliders.prototype.Circle   = SAT.Circle;
