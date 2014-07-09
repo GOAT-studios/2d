@@ -49,6 +49,27 @@
                 "return": "Vector"
             },
             {
+                "name": "rotateP",
+                "alias": ["rotate"],
+                "type": "method",
+                "description": "Rotate this Vector (counter-clockwise) around the given point. If no point is given, rotate around (0,0).",
+                "return": "Vector",
+                "arguments": [
+                    {
+                        "name": "angle",
+                        "type": "number",
+                        "description": "The angle by which to rotate, in radians."
+                    },
+                    {
+                        "name": "point",
+                        "type": "Vector",
+                        "description": "The point around which to rotate.",
+                        "optional": true,
+                        "default": "(0,0)"
+                    }
+                ]
+            },
+            {
                 "name": "reverse",
                 "type": "method",
                 "description": "Reverse this Vector.",
@@ -106,25 +127,6 @@
                 ]
             },
             {
-                "name": "rotateP",
-                "alias": ["rotate"],
-                "type": "method",
-                "description": "Rotate this Vector (counter-clockwise) around the given point.",
-                "return": "Vector",
-                "arguments": [
-                    {
-                        "name": "angle",
-                        "type": "number",
-                        "description": "The angle by which to rotate, in radians."
-                    },
-                    {
-                        "name": "point",
-                        "type": "Vector",
-                        "description": "The point around which to rotate."
-                    }
-                ]
-            },
-            {
                 "name": "project",
                 "type": "method",
                 "description": "Project this Vector onto another one.",
@@ -138,9 +140,35 @@
                 ]
             },
             {
+                "name": "projectN",
+                "type": "method",
+                "description": "Project this Vector onto a unit vector.",
+                "return": "Vector",
+                "arguments": [
+                    {
+                        "name": "other",
+                        "type": "Vector",
+                        "description": "The Vector to project the original on."
+                    }
+                ]
+            },
+            {
                 "name": "reflect",
                 "type": "method",
                 "description": "Reflect this Vector on an arbitrary axis.",
+                "return": "Vector",
+                "arguments": [
+                    {
+                        "name": "axis",
+                        "type": "Vector",
+                        "description": "The axis to reflect on."
+                    }
+                ]
+            },
+            {
+                "name": "reflectN",
+                "type": "method",
+                "description": "Reflect this Vector on an arbitrary axis (unit vector).",
                 "return": "Vector",
                 "arguments": [
                     {
