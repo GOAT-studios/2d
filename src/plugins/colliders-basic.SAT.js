@@ -5,11 +5,11 @@ var Colliders;
 
 
 Colliders = function(options) {
-	if(!options) var options = {};
+    if(!options) var options = {};
 
-	this.options = options;
+    this.options = options;
 
-	return this;
+    return this;
 }
 
 Colliders.prototype.name  = "colliders-basic";
@@ -17,40 +17,39 @@ Colliders.prototype.type  = "Colliders";
 Colliders.prototype.types = ["Box", "Polygon", "Circle"];
 
 Colliders.prototype.test = function(a, b, res) {
-	if(a instanceof this.Box) var a = a.toPolygon();
-	if(b instanceof this.Box) var b = b.toPolygon();
+    if(a instanceof this.Box) var a = a.toPolygon();
+    if(b instanceof this.Box) var b = b.toPolygon();
 
-	if(a instanceof this.Polygon) {
-		if(b instanceof this.Polygon) {
-			return SAT.testPolygonPolygon(a, b, res);
-		}
-		else {
-			return SAT.testPolygonCircle(a, b, res);
-		}
-	}
-	else {
-		if(b instanceof this.Polygon) {
-			return SAT.testCirclePolygon(a, b, res);
-		}
-		else {
-			return SAT.testCircleCircle(a, b, res);
-		}
-	}
+    if(a instanceof this.Polygon) {
+        if(b instanceof this.Polygon) {
+            return SAT.testPolygonPolygon(a, b, res);
+        }
+        else {
+            return SAT.testPolygonCircle(a, b, res);
+        }
+    }
+    else {
+        if(b instanceof this.Polygon) {
+            return SAT.testCirclePolygon(a, b, res);
+        }
+        else {
+            return SAT.testCircleCircle(a, b, res);
+        }
+    }
 }
 
 Colliders.prototype.testAll= function(a, b, cb) {
-	var res = new this.Response();
-	var collision;
+    var res = new this.Response();
+    var collision;
 
-	for(var i = 0, len = b.length; i < len; i++) {
-		collision = this.test(a, b[i], res);
-		cb(res, collision);
-		res.clear();
-	}
+    for(var i = 0, len = b.length; i < len; i++) {
+        collision = this.test(a, b[i], res);
+        cb(res, collision);
+        res.clear();
+    }
 
-	return this;
+    return this;
 }
-
 
 
 
@@ -72,15 +71,21 @@ function(){return this.d(this)};a.prototype.len=a.prototype.f=function(){return 
 return this};e.prototype.translate=e.prototype.translate=function(b,a){for(var c=this.points,d=c.length,f=0;f<d;f++)c[f].x+=b,c[f].y+=a;this.recalc();return this};e.prototype.recalc=e.prototype.recalc=function(){var b,k=this.calcPoints=[],c=this.edges=[],d=this.normals=[],f=this.points,h=this.offset,l=this.angle,g=f.length;for(b=0;b<g;b++){var e=f[b].i();k.push(e);e.x+=h.x;e.y+=h.y;0!==l&&e.rotate(l)}for(b=0;b<g;b++)f=(new a).c(b<g-1?k[b+1]:k[0]).sub(k[b]),h=(new a).c(f).g().normalize(),c.push(f),
 d.push(h);return this};m.Box=u;u.prototype.toPolygon=u.prototype.l=function(){var b=this.pos,k=this.w,c=this.h;return new e(new a(b.x,b.y),[new a,new a(k,0),new a(k,c),new a(0,c)])};m.Response=v;v.prototype.clear=v.prototype.clear=function(){this.bInA=this.aInB=!0;this.overlap=Number.MAX_VALUE;return this};for(var d=[],r=0;10>r;r++)d.push(new a);for(var q=[],r=0;5>r;r++)q.push([]);var y=new v,D=(new u(new a,1,1)).l();m.pointInCircle=function(b,a){var c=d.pop().c(b).sub(a.pos),e=a.r*a.r,f=c.e();d.push(c);
 return f<=e};m.pointInPolygon=function(b,a){D.pos.c(b);y.clear();var c=C(D,a,y);c&&(c=y.aInB);return c};m.testCircleCircle=function(b,a,c){var e=d.pop().c(a.pos).sub(b.pos),f=b.r+a.r,h=e.e();if(h>f*f)return d.push(e),!1;c&&(h=Math.sqrt(h),c.a=b,c.b=a,c.overlap=f-h,c.overlapN.c(e.normalize()),c.overlapV.c(e).scale(c.overlap),c.aInB=b.r<=a.r&&h<=a.r-b.r,c.bInA=a.r<=b.r&&h<=b.r-a.r);d.push(e);return!0};m.testPolygonCircle=B;m.testCirclePolygon=function(a,d,c){if((a=B(d,a,c))&&c){d=c.a;var e=c.aInB;c.overlapN.reverse();
-c.overlapV.reverse();c.a=c.b;c.b=d;c.aInB=c.bInA;c.bInA=e}return a};m.testPolygonPolygon=C;return m}var SAT=w()
+c.overlapV.reverse();c.a=c.b;c.b=d;c.aInB=c.bInA;c.bInA=e}return a};m.testPolygonPolygon=C;return m}var SAT=w();
+
+
+//Replace SAT's Vector by Game's. SAT.Vector is still incuded in the minified code,
+//as I can't get it through the closure compiler without it messing up SAT without Vector.
+SAT.Vector = SAT.V = Game.prototype.Vector;
 
 Colliders.prototype.SAT      = SAT;
-Colliders.prototype.Vector   = SAT.Vector;
-Colliders.prototype.V        = SAT.Vector;
 Colliders.prototype.Box      = SAT.Box;
 Colliders.prototype.Polygon  = SAT.Polygon;
 Colliders.prototype.Circle   = SAT.Circle;
 Colliders.prototype.Response = SAT.Response;
+
+Colliders.prototype.Vector   = Game.prototype.Vector;
+Colliders.prototype.V        = Game.prototype.Vector;
 
 
 
