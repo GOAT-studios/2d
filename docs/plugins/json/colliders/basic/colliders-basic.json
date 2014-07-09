@@ -1,10 +1,10 @@
 {
     "title": "Colliders",
-    "intro": "test test test",
+    "intro": "`Colliders` holds all the collider logic.",
     "main": {
         "name": "Colliders",
         "type": "object",
-        "description": "A basic Collider plugin, inspired by the excellent SAT.js.",
+        "description": "A basic Collider plugin, powered by the excellent SAT.js.",
         "children": [
 
             "Box",
