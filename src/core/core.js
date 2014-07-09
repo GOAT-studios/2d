@@ -357,6 +357,147 @@ Categories.prototype.loop = function(cb) {
 
 
 /*
+ * Vector
+ * ======
+ *
+ * The main Vector constructor
+ * A Vector represents a point in the coordinate system.
+ * This constructor allows you to do some transformations on it, like scaling, rotatting, copying, etc.
+ * 
+ * Most code borrowed from SAT.js (https://github.com/jriecken/sat-js)
+ */
+
+var Vector = function(x, y) {
+    this.x = x || 0;
+    this.y = y || 0;
+
+    return this;
+}
+
+Vector.prototype.copy = function(other) {
+    this.x = other.x;
+    this.y = other.y;
+
+    return this;
+}
+
+Vector.prototype.clone = function() {
+    return new Vector(this.x, this.y);
+}
+
+Vector.prototype.perp = function() {
+    var x  = this.x;
+    this.x = this.y;
+    this.y = -x;
+
+    return this;
+}
+
+Vector.prototype.rotate = function(angle, p) {
+    if(!p) var p = new Vector();
+
+    var x = this.x;
+    var y = this.y;
+    this.x = (x - p.x) * Math.cos(angle) - (y - p.y) * Math.sin(angle) + p.x;
+    this.y = (x - p.x) * Math.sin(angle) + (y - p.y) * Math.cos(angle) + p.y;
+
+    return this;
+}
+
+Vector.prototype.reverse = function() {
+    this.x = -this.x;
+    this.y = -this.y;
+
+    return this;
+}
+
+Vector.prototype.normalize = function() {
+    var d = this.len();
+    if(d > 0) {
+        this.x = this.x / d;
+        this.y = this.y / d;
+    }
+
+    return this;
+}
+
+Vector.prototype.add = function(other) {
+    this.x += other.x;
+    this.y += other.y;
+
+    return this;
+}
+
+Vector.prototype.subtract = Vector.prototype.sub = function(other) {
+    this.x -= other.x;
+    this.y -= other.y;
+
+    return this;
+}
+
+Vector.prototype.scale = function(xs, ys) {
+    this.x *= xs;
+    this.y *= ys || xs;
+
+    return this;
+}
+
+Vector.prototype.project = function(other) {
+    var amt = this.dot(other) / other.len2();
+    this.x = amt * other.x;
+    this.y = amt * other.y;
+
+    return this;
+}
+
+Vector.prototype.projectN = function(other) {
+    var amt = this.dot(other);
+    this.x = amt * other.x;
+    this.y = amt * other.y;
+
+    return this;
+}
+
+Vector.prototype.reflect = function(axis) {
+    var x = this.x;
+    var y = this.y;
+    this.project(axis).scale(2);
+    this.x -= x;
+    this.y -= y;
+
+    return this;
+}
+
+Vector.prototype.projectN = function(axis) {
+    var x = this.x;
+    var y = this.y;
+    this.projectN(axis).scale(2);
+    this.x -= x;
+    this.y -= y;
+
+    return this;
+}
+
+Vector.prototype.dot = function(other) {
+    return this.x * other.x + this.y * other.y;
+}
+
+Vector.prototype.len2 = function() {
+    return this.dot(this);
+}
+
+Vector.prototype.len = function() {
+    return Math.sqrt(this.len2());
+}
+
+Game.prototype.Vector = Vector;
+Game.prototype.V      = Vector;
+
+
+
+
+
+/*
  * VARS
  * ====
  *
