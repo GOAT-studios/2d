@@ -117,7 +117,7 @@ Game.prototype.Utils = {
             }
         }
 
-        return newObj;
+        return first;
     },
     toRadians: function(deg) {
         return (deg * Math.PI) / 180;
