@@ -4,20 +4,12 @@
 	"main": {
 		"name": "Draw",
 		"type": "object",
-		"description": "`Game.Draw` holds all the drawing logic of the Game, provided by a `Draw` plugin. The API is free to implement by the plugin, but one thing is required: the `Init` function, which returns the DOM element on which the Game will be displayed.",
+		"description": "`Game.Draw` holds all the drawing logic of the Game, provided by a `Draw` plugin. The API is free to implement by the plugin, but one thing is required: after Init is called (if any), Draw.domElement must hold the DOM Element on which the Game will be drawn, so the user can add it to the DOM.",
 		"children": [
 			{
-				"name": "Init",
-				"type": "method",
-				"description": "Initialize the Draw object. Called when Game inits. Returns the DOM element on which the Game will be drawn. Required.",
-				"return": "DOMElement",
-				"arguments": [
-					{
-						"name": "game",
-						"type": "Game",
-						"description": "The Game object."
-					}
-				]
+				"name": "domElement",
+				"type": "DOMElement",
+				"description": "The DOM Element on which the Game will be drawn. Must be present after Init() has been called (if any)."
 			}
 		]
 	}
