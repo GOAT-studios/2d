@@ -163,9 +163,9 @@
                         "description": "The width of the rectangle."
                     },
                     {
-                        "name": "width",
+                        "name": "height",
                         "type": "number",
-                        "description": "The width of the rectangle."
+                        "description": "The height of the rectangle."
                     }
                 ]
             },
