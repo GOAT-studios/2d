@@ -43,6 +43,29 @@
                 "type": "method",
                 "description": "Get the current time, as precise as possible.",
                 "return": "DOMTimeStamp/Date"
+            },
+            {
+                "name": "merge",
+                "type": "method",
+                "description": "Merge the two objects, i.e. copy the properties from the second one to the first one. So, if the two objects have the same property, the value from the second object will be used.",
+                "return": "Game",
+                "arguments": [
+                    {
+                        "name": "first",
+                        "type": "object",
+                        "description": "The first object."
+                    },
+                    {
+                        "name": "second",
+                        "type": "object",
+                        "description": "The second object."
+                    },
+                    {
+                        "name": "blacklist",
+                        "type": "[string]",
+                        "description": "A list of properties that should not be copied over."
+                    }
+                ]
             }
         ]
     }
