@@ -88,7 +88,15 @@ Game.prototype.init = function() {
     // Throw an Error if a plugin is missing.
     // If Game[plugin] is null, that plugin is missing
     if(!this.Assets || !this.Camera || !this.Colliders || !this.Draw || !this.Sound || !this.World) {
-        throw new Error("Missing plugin.");
+        console.warn(warnings.missingPluginInit);
+    }
+
+    // Attach Draw.domElement to Game
+    if(this.Draw && this.Draw.domElement) {
+        this.domElement = this.Draw.domElement;
+    }
+    else {
+        console.warn(warnings.noDomElement);
     }
 }
 
@@ -525,7 +533,9 @@ Game.prototype.V      = Vector;
         "useAlreadySet": "WARN: You are trying to use() a plugin, named '%s', but a plugin of this type is already in use. Please use Plugins.use(name, true) to override any plugins already in use.",
         "invalidName": "WARN: The name '%s' is invalid.",
         "noPluginPassed": "WARN: No plugin passed to Plugin.add().",
-        "noCategoryPassed": "WARN: No category passed to Categories.add()."
+        "noCategoryPassed": "WARN: No category passed to Categories.add().",
+        "missingPluginInit": "A plugin is missing on Game.init().",
+        "noDomElement": "Game.Draw.domElement is empty."
     }
 
 
