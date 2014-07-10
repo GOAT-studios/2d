@@ -8,8 +8,6 @@
 	</head>
 	<body>
 
-		<canvas></canvas>
-		
 		<script type="text/javascript">
 		
 			var assets = {
@@ -89,6 +87,8 @@
 
 
 			var game = new Game({}, plugins);
+
+			document.body.appendChild(game.Draw.domElement);
 
 		</script>
 	</body>
