@@ -6,31 +6,64 @@
         "description": "The DrawInstance as returned by `Draw.getInstance()`.",
         "children": [
             {
-                "name": "lineDashOffset",
-                "type": "number",
-                "description": "The offset of the lineDash. Check 'http://www.rgraph.net/blog/2013/january/html5-canvas-dashed-lines.html#linedashoffset' for more info."
-            },
-
-
-
-            {
-                "name": "lineWidth",
-                "type": "number",
-                "description": "The width of the stroke.",
-                "default": 1
-            },
-            {
                 "name": "strokeStyle",
-                "type": "string/color",
-                "description": "The color of the stroke.",
-                "default": "#000000"
+                "type": "method",
+                "description": "Set the color of the stroke. Any CSS-compatible color is allowed.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "strokeStyle",
+                        "type": "string(color)",
+                        "description": "The value for strokeStyle.",
+                        "default": "#000000"
+                    }
+                ]
             },
             {
                 "name": "fillStyle",
-                "type": "string/color",
-                "description": "The color of the fill.",
-                "default": "#000000"
+                "type": "method",
+                "description": "Set the color of the fill. Any CSS-compatible color is allowed.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "fillStyle",
+                        "type": "string(color)",
+                        "description": "The value for fillStyle.",
+                        "default": "#0000"
+                    }
+                ]
             },
+            {
+                "name": "lineWidth",
+                "type": "method",
+                "description": "Set the width of the stroke.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "lineWidth",
+                        "type": "number",
+                        "description": "The value for lineWidth.",
+                        "default": 1
+                    }
+                ]
+            },
+            {
+                "name": "lineDashOffset",
+                "type": "method",
+                "description": "Set the offset of the lineDash. Check 'http://www.rgraph.net/blog/2013/january/html5-canvas-dashed-lines.html#linedashoffset' for more info.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "lineDashOffset",
+                        "type": "number",
+                        "description": "The value for lineDashOffset."
+                    }
+                ]
+            },
+
+
+
+
             {
                 "name": "stroke",
                 "type": "method",
@@ -241,7 +274,35 @@
                         "description": "The radius of the arc."
                     }
                 ]
-            }
+            },
+            {
+                "name": "quadraticCurveTo",
+                "type": "method",
+                "description": "Add a quadratic curve to the current path with given coordinates and dimensions.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "cpx",
+                        "type": "number",
+                        "description": "The x-coordinate of the control point."
+                    },
+                    {
+                        "name": "cpy",
+                        "type": "number",
+                        "description": "The y-coordinate of the control point."
+                    },
+                    {
+                        "name": "x",
+                        "type": "number",
+                        "description": "The x-coordinate of the end point."
+                    },
+                    {
+                        "name": "y",
+                        "type": "number",
+                        "description": "The y-coordinate of the end point."
+                    }
+                ]
+            },
             {
                 "name": "bezierCurveTo",
                 "type": "method",
@@ -280,34 +341,7 @@
                     }
                 ]
             },
-            {
-                "name": "quadraticCurveTo",
-                "type": "method",
-                "description": "Add a quadratic curve to the current path with given coordinates and dimensions.",
-                "return": "DrawInstance",
-                "arguments": [
-                    {
-                        "name": "cpx",
-                        "type": "number",
-                        "description": "The x-coordinate of the control point."
-                    },
-                    {
-                        "name": "cpy",
-                        "type": "number",
-                        "description": "The y-coordinate of the control point."
-                    },
-                    {
-                        "name": "x",
-                        "type": "number",
-                        "description": "The x-coordinate of the end point."
-                    },
-                    {
-                        "name": "y",
-                        "type": "number",
-                        "description": "The y-coordinate of the end point."
-                    }
-                ]
-            },
+            
 
 
 
@@ -316,9 +350,9 @@
 
 
             {
-                "name": "fillRect",
+                "name": "strokeRect",
                 "type": "method",
-                "description": "Fill the rectangle with the given coordinates.",
+                "description": "Stroke the rectangle with the given coordinates.",
                 "return": "DrawInstance",
                 "arguments": [
                     {
@@ -344,9 +378,9 @@
                 ]
             },
             {
-                "name": "strokeRect",
+                "name": "fillRect",
                 "type": "method",
-                "description": "Stroke the rectangle with the given coordinates.",
+                "description": "Fill the rectangle with the given coordinates.",
                 "return": "DrawInstance",
                 "arguments": [
                     {
@@ -423,7 +457,7 @@
                 ]
             },
             {
-                "name": "FillCircle",
+                "name": "fillCircle",
                 "type": "method",
                 "description": "Fill a circle.",
                 "return": "DrawInstance",
@@ -527,7 +561,7 @@
                 ]
             },
             {
-                "name": "FullText",
+                "name": "fullText",
                 "type": "method",
                 "description": "Fill and stroke some text.",
                 "return": "DrawInstance",
