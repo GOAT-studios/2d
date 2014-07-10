@@ -4,8 +4,11 @@
 		<title>Core test</title>
 
 		<script type="text/javascript" src="../src/core/core.js"></script>
+		<script type="text/javascript" src="../src/plugins/draw-canvas.js"></script>
 	</head>
 	<body>
+
+		<canvas></canvas>
 		
 		<script type="text/javascript">
 		
@@ -58,24 +61,6 @@
 				}
 			}
 
-			var draw = {
-				name: "very-basic-draw",
-				type: "Draw",
-				Init: function(game) {
-
-					// Use 'Singleton Pattern' to reuse a draw object, but still be able to use private vars (e.g. offset)
-					// http://addyosmani.com/resources/essentialjsdesignpatterns/book/#singletonpatternjavascript
-					this.canvas  = document.createElement("canvas");
-					this.context = this.canvas.getContext("2d");
-
-					return this.canvas;
-				},
-				rect: function(x, y, w, h) {
-					this.fillStyle = "#FF0000";
-					this.context.fillRect(x, y, w, y);
-				}
-			}
-
 			var sound = {
 				name: "very-basic-sound",
 				type: "Sound",
@@ -100,7 +85,7 @@
 			}
 
 
-			var plugins = [assets, camera, colliders, draw, sound, world];
+			var plugins = [new Draw(), assets, camera, colliders, sound, world];
 
 
 			var game = new Game({}, plugins);
