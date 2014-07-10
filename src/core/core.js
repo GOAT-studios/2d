@@ -108,6 +108,17 @@ Game.prototype.Utils = {
     capitalize: function(str) {
         return str.substr(0,1).toUpperCase() + str.substr(1).toLowerCase();
     },
+    merge: function(first, second, blacklist) {
+        if(!blacklist) var blacklist = [];
+
+        for(key in second) {
+            if(blacklist.indexOf(key) === -1) {
+                first[key] = second[key];
+            }
+        }
+
+        return newObj;
+    },
     toRadians: function(deg) {
         return (deg * Math.PI) / 180;
     },
