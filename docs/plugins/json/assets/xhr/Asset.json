@@ -1,0 +1,73 @@
+{
+    "main": {
+        "name": "Asset",
+        "type": "constructor",
+        "description": "The main Asset constructor. The object returned by `Assets.get()` is an instance of this.",
+        "arguments": [
+            {
+                "name": "url",
+                "type": "string(URL)",
+                "description": "The URL of this asset."
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "description": "A __unique__ name for this asset.",
+                "optional": true
+            }
+        ],
+        "children": [
+            {
+                "name": "url",
+                "type": "string(URL)",
+                "description": "The URL of this asset."
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "description": "A __unique__ name for this asset.",
+                "optional": true
+            },
+            {
+                "name": "mime",
+                "type": "string",
+                "description": "The mime type string as provided by the `Content-Type` header. Only available after the XHR Request has reached readyState 2."
+            },
+            {
+                "name": "done",
+                "type": "boolean",
+                "description": "Whether this asset is done loading. This includes errors, so an XHR Request that fails will result in `done` being `true`."
+            },
+            {
+                "name": "error",
+                "type": "boolean",
+                "description": "Whether this asset has encountered an error while loading."
+            },
+            {
+                "name": "loadedSize",
+                "type": "number",
+                "description": "The amount of data (in bytes) that has been downloaded. Updated on `progress` event."
+            },
+            {
+                "name": "totalSize",
+                "type": "number",
+                "description": "The total size of this asset. When the request reaches readyState 2, the size is retrieved from the `Content-Length` header, until the first `progress` event is fired: after that, `totalSize`is updated from the `progress` event object."
+            },
+            {
+                "name": "xhr",
+                "type": "XMLHttpRequest",
+                "description": "The XHR object used for this asset."
+            },
+            {
+                "name": "data",
+                "type": "ArrayBuffer/string",
+                "description": "If you used `forceText` on `Assets.load()`, then `data` will be a string (equal to `XHR.responseText`). Otherwise, it will be an ArrayBuffer (equal to `XHR.response`)."
+            },
+            {
+                "name": "blobURL",
+                "type": "string(URL)",
+                "description": "A URL pointing to the binary data (only available if you didn't use `forceText` on `Assets.load()`). You can use this as the value for a `src` attribute (on an image or `<audio` element, ffor example)."
+            }
+        ]
+    }
+}
