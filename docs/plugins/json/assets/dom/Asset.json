@@ -1,0 +1,53 @@
+{
+    "main": {
+        "name": "Asset",
+        "type": "constructor",
+        "description": "The main Asset constructor. The object returned by `Assets.get()` is an instance of this.",
+        "arguments": [
+            {
+                "name": "url",
+                "type": "string(URL)",
+                "description": "The URL of this asset."
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "description": "A __unique__ name for this asset.",
+                "optional": true
+            },
+            {
+                "name": "mime",
+                "type": "string(MIME)",
+                "description": "The mime type of this asset."
+            }
+        ],
+        "children": [
+            {
+                "name": "url",
+                "type": "string(URL)",
+                "description": "The URL of this asset."
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "description": "A __unique__ name for this asset.",
+                "optional": true
+            },
+            {
+                "name": "mime",
+                "type": "string",
+                "description": "The mime type string as provided by the `Content-Type` header. Only available after the XHR Request has reached readyState 2."
+            },
+            {
+                "name": "done",
+                "type": "boolean",
+                "description": "Whether this asset is done loading. This includes errors, so an XHR Request that fails will result in `done` being `true`."
+            },
+            {
+                "name": "error",
+                "type": "boolean",
+                "description": "Whether this asset has encountered an error while loading."
+            }
+        ]
+    }
+}

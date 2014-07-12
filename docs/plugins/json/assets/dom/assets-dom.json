@@ -1,0 +1,62 @@
+{
+    "title": "Assets",
+    "intro": "test test test",
+    "main": {
+        "name": "Assets",
+        "type": "object",
+        "description": "`Game.assets` makes it easy to download and organize assets that are needed for your game. When the first Game is created on the page, a `<div>` with id `2D-loaders` will be added at the bottom of the DOM. Each game will place a `<div>` with class `2D-loader` inside that `<div>`. With `Game.Assets.load()`, the appropriate element will be placed inside the respective `2D-loader` `<div>`.",
+        "children": [
+
+            "Asset",
+
+            {
+                "name": "load",
+                "type": "method",
+                "description": "Load the given file or the file at the given URL. Optionally specify a name to refer to it later. All loaded assets can always be retrieved based on their URL or their optional name.",
+                "return": "Game.Assets",
+                "arguments": [
+                    {
+                        "name": "URL",
+                        "type": "string",
+                        "description": "The URL of the file to download. The URL will be passed directly to the XHR request."
+                    },
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "An optional, unique name to easily retrieve the file later on.",
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "get",
+                "type": "method",
+                "description": "Get the file with the given name or URL. If no identifier is given, Assets will return the last added asset. The file must already be loaded with `Assets.load()`.",
+                "return": "Asset",
+                "arguments": [
+                    {
+                        "name": "URL/name",
+                        "type": "string",
+                        "description": "The name or URL of the file to get.",
+                        "optional": true
+                    }
+                ]
+            },
+            {
+                "name": "loading",
+                "type": "number",
+                "description": "The amount of loading assets."
+            },
+            {
+                "name": "errors",
+                "type": "number",
+                "description": "The amount of assets that have encountered an error while loading."
+            },
+            {
+                "name": "total",
+                "type": "number",
+                "description": "The total amount of assets saved in this plugin. Same as `.assets.length`."
+            }
+        ]
+    }
+}
