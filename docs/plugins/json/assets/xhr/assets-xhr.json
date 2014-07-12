@@ -4,7 +4,7 @@
 	"main": {
 		"name": "Assets",
 		"type": "object",
-		"description": "`Game.assets` makes it easy to download and organize assets that are needed for your game. When the first Game is created on the page, a `<div>` with id `2D-loaders` will be added at the bottom of the DOM. Each game will place a `<div>` with class `2D-loader` inside that `<div>`. With `Game.Assets.load()`, the appropriate element will be placed inside the respective `2D-loader` `<div>`.",
+		"description": "`Game.assets` makes it easy to download and organize assets that are needed for your game.",
 		"children": [
 
 			"Asset",
@@ -12,7 +12,7 @@
 			{
 				"name": "load",
 				"type": "method",
-				"description": "Load the given file or the file at the given URL. Optionally specify a name to refer to it later. All loaded assets can always be retrieved based on their URL or their optional name.",
+				"description": "Load the file at the given URL. Optionally specify a name to refer to it later. All loaded assets can always be retrieved based on their URL or their optional name.",
 				"return": "Game.Assets",
 				"arguments": [
 					{
@@ -38,7 +38,7 @@
 			{
 				"name": "get",
 				"type": "method",
-				"description": "Get the file with the given name or URL. If no ID is given, Assets will return the last added asset. Returns an `Asset` object; check `Asset.json` for more info.",
+				"description": "Get the file with the given name or URL. If no identifier is given, Assets will return the last added asset. Returns an `Asset` object; check `Asset.json` for more info.",
 				"return": "object",
 				"arguments": [
 					{
