@@ -24,6 +24,15 @@
         ],
         "children": [
             {
+                "name": "element",
+                "type": "DOMElement",
+                "description": "The DOM Element containing the data. For text content, look at `asset.data`."
+            },{
+                "name": "data",
+                "type": "string",
+                "description": "For text assets, the content is retrieved from the server using XHR and the response text is stored here. This property is only available for text assets."
+            },
+            {
                 "name": "urls",
                 "type": "[string(URL)]",
                 "description": "The array of URLs of this asset."

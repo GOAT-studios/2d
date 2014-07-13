@@ -1,0 +1,81 @@
+{
+    "title": "Game.Sound",
+    "intro": "test test test",
+    "main": {
+        "name": "Sound",
+        "type": "object",
+        "description": "An `Sound` plugin based on the HTML5 `<audio>` tag. No Web Audio API here, so it is compatible with many browsers.\n\n> __Note:__ Before using this plugin, `Sound.game` must be set to the Game this plugin is a part of, and that Game must have an Assets plugin loaded, which must be compatible with the`assets-xhr` plugin, because `sound-xhr` relies on that plugin (or any compatible one) for the loading of audio files.\n\n> `Sound.Init()` will automatically set `Sound.game` to your Game. Just make sure load the right Assets plugin and call `Sound.Init` before you use `sound-xhr`.",
+        "children": [            
+            {
+                "name": "load",
+                "type": "method",
+                "description": "Add a sound (`<audio>` element) to the Game. Calls `Assets.load()` directly, so you can use that one if you like.",
+                "return": "Game.Sound",
+                "arguments": [
+                    {
+                        "name": "URL",
+                        "type": "string(URL)/[string(URL)]",
+                        "description": "The URL that point to the audio file, or an array of URLs (will be added as individual `<source>` tags)."
+                    },
+                    {
+                        "name": "name",
+                        "type": "string",
+                        "description": "The optional, unique name of this sound, so you can easily play it later on."
+                    }
+                ]
+            },
+            {
+                "name": "get",
+                "type": "method",
+                "description": "Get the sound with the given name or URL. Calls `Assets.get()` directly, so you can use that one, if you like.",
+                "return": "SoundInstance",
+                "arguments": [
+                    {
+                        "name": "URL/name",
+                        "type": "string",
+                        "description": "The name or URL of the sound to get. Used exactly as `Game.assets.load()` on the `assets-dom` plugin."
+                    }
+                ]
+            },
+            {
+                "name": "play",
+                "type": "method",
+                "description": "Play the sound with given name. This actually just perfomrs a `get()` and executes `.play()` on the result.",
+                "return": "Game.Sound",
+                "arguments": [
+                    {
+                        "name": "name/URL",
+                        "type": "string",
+                        "description": "The name or URL of the sound, as passed to `Game.sound.get()`."
+                    }
+                ]
+            },
+            {
+                "name": "pause",
+                "type": "method",
+                "description": "Pause the sound with given name. This actually just perfomrs a `get()` and executes `.pause()` on the result.",
+                "return": "Game.Sound",
+                "arguments": [
+                    {
+                        "name": "name/URL",
+                        "type": "string",
+                        "description": "The name or URL of the sound, as passed to `Game.sound.get()`."
+                    }
+                ]
+            },
+            {
+                "name": "stop",
+                "type": "method",
+                "description": "Stop the sound with given name. This actually just performs a `get()` and executes `.pause()` on the result. This sets `currentTime` to `0` on the `<audio>` element. That way, it won't start off where it was paused when you play it again.",
+                "return": "Game.Sound",
+                "arguments": [
+                    {
+                        "name": "name/URL",
+                        "type": "string",
+                        "description": "The name or URL of the sound, as passed to `Game.sound.get()`."
+                    }
+                ]
+            },
+        ]
+    }
+}
