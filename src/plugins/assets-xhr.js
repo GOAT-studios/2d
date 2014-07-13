@@ -22,7 +22,8 @@ Assets = function() {
 Assets.prototype.name = "assets-xhr";
 Assets.prototype.type = "Assets";
 
-Assets.prototype.load = function(url, name, forceText) {
+Assets.prototype.load = function(urls, name, forceText) {
+    if(typeof urls === "string") urls = [urls];
     if(typeof name === "boolean") {forceText = name; name = undefined;}
     var assets = this;
 
@@ -31,70 +32,52 @@ Assets.prototype.load = function(url, name, forceText) {
     assets.total++;
 
 //Create an Assets object
-    var obj = new Asset(url, name);
+    var obj = new Asset(urls, name);
 
-// Create an XHR request
-    var xhr = obj.xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-
-    if(!forceText) {
-        xhr.responseType = "arraybuffer";
-    }
-
-    xhr.onreadystatechange = function(e) {
-        //Get some info from headers
-        if(xhr.readyState === 2) {
-            obj.totalSize = xhr.getResponseHeader("Content-Length");
-            obj.mime = xhr.getResponseHeader("Content-Type");
-        }
-
-        //Asset loaded/errored
-        if(xhr.readyState === 4) {
-            assets.loading--;
-            if(xhr.status === 200) {
-                assets.success++;
-                obj.done  = true;
-                obj.error = false;
-
-                if(forceText) {
-                    obj.data = xhr.responseText || xhr.response;
-                }
-                else {
-                    obj.data  = xhr.response;
-                    
-                    //Generate objectURL
-                    var arrBuffView = new Uint8Array(obj.data);
-                    var blob = new Blob([arrBuffView], {type: obj.mime});
-                    var url = (window.URL || window.webkitURL).createObjectURL(blob);
-                    obj.blobURL = url;
-                }
-            }
-            else {
-                assets.errors++;
-                obj.done  = true;
-                obj.error = true;
-                obj.data  = null;
-
-                obj.loadedSize = 0;
-                obj.totalSize  = 0;
-            }
-        }
-    }
-
-    //Catch Progress event
-    xhr.onprogress = function(e) {
-        if(xhr.status === 200) {
-            obj.loadedSize = e.loaded;
-            obj.totalSize  = e.total || e.totalSize;
-
+// Load asset
+    loadXHR(urls, 0, !forceText, function(type, xhr) {
+        if(type === "progress") {
+            //xhr is now the ProgressEvent
+            obj.loadedSize = xhr.loaded;
+            obj.totalSize  = xhr.total || xhr.totalSize;
             assets.updateProgress();
         }
-    }
+        else if(type === "error") {
+            assets.loading--;
+            assets.errors++;
+            obj.done  = true;
+            obj.error = true;
+            obj.data  = null;
+            obj.loadedSize = 0;
+            obj.totalSize  = 0;
+        }
+        else if(type === "done") {
+            assets.loading--;
+            assets.success++;
+            obj.done  = true;
+            obj.error = false;
+            obj.xhr = xhr;
 
-    xhr.send();
+            if(forceText) {
+                obj.data = xhr.responseText || xhr.response;
+            }
+            else {
+                obj.data  = xhr.response;
+                //Generate objectURL
+                var arrBuffView = new Uint8Array(obj.data);
+                var blob = new Blob([arrBuffView], {type: obj.mime});
+                var url = (window.URL || window.webkitURL).createObjectURL(blob);
+                obj.blobURL = url;
+            }
+        }
+        else {
+            console.warn("WARN: Unknown event.");
+        }
+    });
 
 // Push the objects to the assets list
     this.assets.push(obj);
+
 
     return this;
 }
@@ -105,7 +88,7 @@ Assets.prototype.get = function(id) {
     if(id) {
         for(var i = 0, len = assets.length; i < len; i++) {
             var asset = assets[i];
-            if(asset.name === id || asset.url === id) {
+            if(asset.name === id || asset.urls.indexOf(id) !== -1) {
                 return asset;
             }
         }
@@ -141,19 +124,77 @@ Assets.prototype.updateProgress = function() {
 
 
 
-var Asset = function(url, name) {
-    this.name = name || null;
-    this.url = url || null;
-    this.mime = null;
-    this.done = false; // Whether the XHR has finished loading (errors included)
-    this.error = null; // Whether the XHR has errored
+
+
+/*
+ * Asset
+ *
+ * Represents a file.
+ */
+
+var Asset = function(urls, name) {
+    if(name) this.name = name;
+    this.urls = urls;
+
+    this.done = false;
+    this.error = null;
+
     this.loadedSize = 0;
     this.totalSize = 0;
+
     this.xhr = null;
-    this.data = null;
-    this.blobURL = null;
 
     return this;
+}
+
+
+
+
+
+
+/*
+ * VARS
+ *
+ * Some useful variables.
+ */
+
+var loadXHR = function(urls, index, loadAsArrayBuffer, cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", urls[index], true);
+
+    if(loadAsArrayBuffer) xhr.responseType = "arraybuffer";
+
+    xhr.onreadystatechange = function() {
+        if(!xhr.old) {
+            if(xhr.readyState >= 2 && xhr.status !== 200) {
+                xhr.old = true;
+                xhr.abort();
+                if(urls[index + 1]) {
+                    loadXHR(urls, index+1, loadAsArrayBuffer, cb);
+                }
+                else {
+                    cb("error", xhr);
+                }
+            }
+            else if(xhr.readyState === 4) {
+                xhr.old = true;
+                if(xhr.status === 200) {
+                    cb("done", xhr);
+                }
+                else {
+                    cb("error", xhr);
+                }
+            }
+        }
+    }
+
+    xhr.onprogress = function(e) {
+        if(!xhr.old) {
+            cb("progress", e);
+        }
+    }
+
+    xhr.send();
 }
 
 
