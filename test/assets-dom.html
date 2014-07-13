@@ -92,6 +92,12 @@
 
 			var game = new Game({}, plugins);
 
+			var a = game.Assets;
+			a.load("core.html");
+			a.load(["image.jpg", "image.gif"]);
+			a.load(["sound.ogg", "sound.mp3"]);
+			a.load("video.mkv");
+
 		</script>
 	</body>
 </html>
