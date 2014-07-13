@@ -5,9 +5,9 @@
         "description": "The main Asset constructor. The object returned by `Assets.get()` is an instance of this.",
         "arguments": [
             {
-                "name": "url",
-                "type": "string(URL)",
-                "description": "The URL of this asset."
+                "name": "urls",
+                "type": "[string(URL)]",
+                "description": "The array of URLs of this asset."
             },
             {
                 "name": "name",
@@ -18,14 +18,15 @@
             {
                 "name": "mime",
                 "type": "string(MIME)",
-                "description": "The mime type of this asset."
+                "description": "The mime type of this asset.",
+                "optional": true
             }
         ],
         "children": [
             {
-                "name": "url",
-                "type": "string(URL)",
-                "description": "The URL of this asset."
+                "name": "urls",
+                "type": "[string(URL)]",
+                "description": "The array of URLs of this asset."
             },
             {
                 "name": "name",
@@ -36,12 +37,12 @@
             {
                 "name": "mime",
                 "type": "string",
-                "description": "The mime type string as provided by the `Content-Type` header. Only available after the XHR Request has reached readyState 2."
+                "description": "The mime type of the asset, based on the resource URL, not on the actual Content-Type header. Only available for images and text assets."
             },
             {
                 "name": "done",
                 "type": "boolean",
-                "description": "Whether this asset is done loading. This includes errors, so an XHR Request that fails will result in `done` being `true`."
+                "description": "Whether this asset is done loading. This includes errors, so if the request for all the URLs fail, `error` will be `true`. If one or more requests load correctly, `error` will be `false`."
             },
             {
                 "name": "error",

@@ -16,9 +16,9 @@
                 "return": "Game.Assets",
                 "arguments": [
                     {
-                        "name": "URL",
-                        "type": "string",
-                        "description": "The URL of the file to download. The URL will be passed directly to the XHR request."
+                        "name": "URLs",
+                        "type": "string(URL)/[string(URL)]",
+                        "description": "The URL of the file to download, or an array of URLs for several alternatives."
                     },
                     {
                         "name": "name",
@@ -45,17 +45,17 @@
             {
                 "name": "loading",
                 "type": "number",
-                "description": "The amount of loading assets."
+                "description": "The number of loading assets."
             },
             {
                 "name": "errors",
                 "type": "number",
-                "description": "The amount of assets that have encountered an error while loading."
+                "description": "The number of assets that have encountered an error while loading."
             },
             {
                 "name": "total",
                 "type": "number",
-                "description": "The total amount of assets saved in this plugin. Same as `.assets.length`."
+                "description": "The total number of assets saved in this plugin. Same as `.assets.length`."
             }
         ]
     }
