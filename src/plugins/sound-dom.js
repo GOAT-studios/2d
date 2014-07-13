@@ -54,7 +54,7 @@ Sound.prototype.load = function(urls, name) {
     }
 
 // Attach events
-    elem.onload = function(e) {
+    elem.onloadeddata = function(e) {
         self.loading--;
         self.success++;
         obj.done = true;

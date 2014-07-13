@@ -149,11 +149,25 @@ Assets.prototype.Asset = Asset;
 
 
 var attachEvents = function(elem, obj, assets) {
+// For 'normal' elements
     elem.onload = function(e) {
-        assets.loading--;
-        assets.success++;
-        obj.done = true;
+        if(!obj.done) {
+            assets.loading--;
+            assets.success++;
+            obj.done = true;
+        }
     }
+
+// For Media elements
+    elem.onloadeddata = function(e) {
+        if(!obj.done) {
+            assets.loading--;
+            assets.success++;
+            obj.done = true;
+        }
+    }
+
+// Error
     elem.onerror = function(e) {
         assets.loading--;
         assets.errors++;
