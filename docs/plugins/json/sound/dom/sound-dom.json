@@ -4,46 +4,12 @@
     "main": {
         "name": "Sound",
         "type": "object",
-        "description": "An `Sound` plugin based on the HTML5 `<audio>` tag. No Web Audio API here, so it is compatibile with many browsers.",
-        "children": [
-
-            "SoundInstance",
-
-            {
-                "name": "sounds",
-                "type": "[SoundInstance]",
-                "description": "An array containing all SoundInstances af all the sound sthat have been loaded."
-            },
-            {
-                "name": "loading",
-                "type": "number",
-                "description": "The number of sounds that are still loading."
-            },
-            {
-                "name": "success",
-                "type": "number",
-                "description": "The number of sounds that have successfully been loaded."
-            },
-            {
-                "name": "error",
-                "type": "number",
-                "description": "The number of sounds that have errored while loading."
-            },
-            {
-                "name": "total",
-                "type": "number",
-                "description": "The total number of sounds. Equal to `sounds.length`."
-            },
-            {
-                "name": "container",
-                "type": "DOMDivElement",
-                "description": "The `<div>` element under which all the `<audio>` elements are stored. It has a class of `2D-sound`."
-            },
-            
+        "description": "An `Sound` plugin based on the HTML5 `<audio>` tag. No Web Audio API here, so it is compatibile with many browsers.\n\n> __Note:__ Before using this plugin, `Sound.game` must be set to the Game this plugin is a part of, and that Game must have an Assets plugin loaded, which must be compatible with the`assets-dom` plugin, because `sound-dom` relies on that plugin (or any compatible one) for the loading of audio files.\n\n> `Sound.Init()` will automatically set `Sound.game` to your Game. Just make sure load the right Assets plugin and call `Sound.Init` before you use `sound-dom`.",
+        "children": [            
             {
                 "name": "load",
                 "type": "method",
-                "description": "Add a sound (`<audio>` element) to the Game. Works like `Game.Assets.load()` on the `assets-dom` plugin.",
+                "description": "Add a sound (`<audio>` element) to the Game. Calls `Assets.load()` directly, so you can use that one if you like.",
                 "return": "Game.Sound",
                 "arguments": [
                     {
@@ -61,7 +27,7 @@
             {
                 "name": "get",
                 "type": "method",
-                "description": "Get the sound with the given name or URL.",
+                "description": "Get the sound with the given name or URL. Calls `Assets.get()` directly, so you can use that one, if you like.",
                 "return": "SoundInstance",
                 "arguments": [
                     {
@@ -80,7 +46,7 @@
                     {
                         "name": "name/URL",
                         "type": "string",
-                        "description": "The name or URL of the sound, as passed to `Game.sound.get()` on the `xhr-assets` plugin."
+                        "description": "The name or URL of the sound, as passed to `Game.sound.get()`."
                     }
                 ]
             },
@@ -93,20 +59,20 @@
                     {
                         "name": "name/URL",
                         "type": "string",
-                        "description": "The name or URL of the sound, as passed to `Game.sound.get()` on the `xhr-assets` plugin."
+                        "description": "The name or URL of the sound, as passed to `Game.sound.get()`."
                     }
                 ]
             },
             {
                 "name": "stop",
                 "type": "method",
-                "description": "Stop the sound with given name. This actually just perfomrs a `get()` and executes `.stop()` on the result. This sets `currentTime` to `0` on the `<audio>` element. That way, it won't start off where it was paused when you play it again.",
+                "description": "Stop the sound with given name. This actually just performs a `get()` and executes `.pause()` on the result. This sets `currentTime` to `0` on the `<audio>` element. That way, it won't start off where it was paused when you play it again.",
                 "return": "Game.Sound",
                 "arguments": [
                     {
                         "name": "name/URL",
                         "type": "string",
-                        "description": "The name or URL of the sound, as passed to `Game.sound.get()` on the `xhr-assets` plugin."
+                        "description": "The name or URL of the sound, as passed to `Game.sound.get()`."
                     }
                 ]
             },
