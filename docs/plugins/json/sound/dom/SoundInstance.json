@@ -1,0 +1,50 @@
+{
+    "main": {
+        "name": "SoundInstance",
+        "type": "constructor",
+        "description": "`SoundInstance` provides a thin wrapper around the `<audio>` DOM API.",
+        "arguments": [
+            {
+                "name": "urls",
+                "type": "array",
+                "description": "An array of URLs pointing to the different sources."
+            },
+            {
+                "name": "name",
+                "type": "string",
+                "description": "A name for this sound, to easily retrieve it later on."
+            },
+            {
+                "name": "done",
+                "type": "boolean",
+                "description": "Whether this sound has done loading. Includes errors, i.e. if an error occurred, `done` will be true."
+            },
+            {
+                "name": "error",
+                "type": "boolean",
+                "description": "Whether this sound has encountered an error while loading."
+            },
+            {
+                "name": "element",
+                "type": "DOMAudioElement",
+                "description": "The `<audio>` element containing this sound."
+            },
+
+            {
+                "name": "play",
+                "type": "method",
+                "description": "Play this sound. Calls `load()` (to be able to set `currentTime` when stopping) and then `play()` on the element."
+            },
+            {
+                "name": "pause",
+                "type": "method",
+                "description": "Pause this sound."
+            },
+            {
+                "name": "stop",
+                "type": "method",
+                "description": "Stop this sound. Calls `pause()` and then sets `currentTime` to `0` on the element."
+            }
+        ]
+    }
+}
