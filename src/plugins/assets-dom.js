@@ -17,6 +17,7 @@ Assets = function() {
     if(!topContainer) {
         topContainer = document.createElement("div");
         topContainer.setAttribute("id", "2D-loaders");
+        topContainer.setAttribute("style", "width:0;height:0;visibility:hidden;");
         document.body.appendChild(topContainer);
     }
     this.container = document.createElement("div");
