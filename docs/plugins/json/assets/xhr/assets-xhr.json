@@ -16,9 +16,9 @@
 				"return": "Game.Assets",
 				"arguments": [
 					{
-						"name": "URL",
-						"type": "string",
-						"description": "The URL of the file to download. The URL will be passed directly to the XHR request."
+						"name": "URLs",
+						"type": "string(URL)/[string(URL)]",
+						"description": "The URL of the file to download, or an array of URLs for several alternatives."
 					},
 					{
 						"name": "name",

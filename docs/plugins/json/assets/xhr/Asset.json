@@ -5,8 +5,8 @@
         "description": "The main Asset constructor. The object returned by `Assets.get()` is an instance of this.",
         "arguments": [
             {
-                "name": "url",
-                "type": "string(URL)",
+                "name": "urls",
+                "type": "[string(URL)]",
                 "description": "The URL of this asset."
             },
             {
@@ -18,20 +18,15 @@
         ],
         "children": [
             {
-                "name": "url",
-                "type": "string(URL)",
-                "description": "The URL of this asset."
+                "name": "URLs",
+                "type": "[string(URL)]",
+                "description": "The array of URLs of this asset."
             },
             {
                 "name": "name",
                 "type": "string",
                 "description": "A __unique__ name for this asset.",
                 "optional": true
-            },
-            {
-                "name": "mime",
-                "type": "string",
-                "description": "The mime type string as provided by the `Content-Type` header. Only available after the XHR Request has reached readyState 2."
             },
             {
                 "name": "done",
