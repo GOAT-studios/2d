@@ -132,6 +132,17 @@ Game.prototype.Utils = {
     },
     toDegrees: function(rad) {
         return (rad * 180) / Math.PI;
+    },
+    getContainer: function() {
+        var topContainer = document.getElementById("2D-loaders");
+        if(!topContainer) {
+            topContainer = document.createElement("div");
+            topContainer.setAttribute("id", "2D-loaders");
+            topContainer.setAttribute("style", "width:0;height:0;visibility:hidden;overflow:hidden");
+            document.body.appendChild(topContainer);
+        }
+
+        return topContainer;
     }
 }
 
