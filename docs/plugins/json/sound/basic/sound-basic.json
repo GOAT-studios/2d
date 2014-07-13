@@ -4,12 +4,15 @@
     "main": {
         "name": "Sound",
         "type": "object",
-        "description": "An `Sound` plugin based on the HTML5 `<audio>` tag. No Web Audio API here, so it is compatible with many browsers.\n\n> __Note:__ Before using this plugin, `Sound.game` must be set to the Game this plugin is a part of, and that Game must have an Assets plugin loaded, which must be compatible with the`assets-xhr` plugin, because `sound-xhr` relies on that plugin (or any compatible one) for the loading of audio files.\n\n> `Sound.Init()` will automatically set `Sound.game` to your Game. Just make sure load the right Assets plugin and call `Sound.Init` before you use `sound-xhr`.",
-        "children": [            
+        "description": "An `Sound` plugin based on the HTML5 `<audio>` tag. No Web Audio API here, so it is compatible with many browsers.\n\n> __Note:__ Before using this plugin, `Sound.game` must be set to the Game this plugin is a part of, and that Game must have an Assets plugin loaded, which must be compatible with the`assets-dom` or `asstes-xhr` plugin, because `sound-basic` relies on one of those plugins (or any compatible one) for the loading of audio files.\n\n> `Sound.Init()` will automatically set `Sound.game` to your Game. Just make sure load the right Assets plugin and call `Sound.Init` before you use `sound-basic`.",
+        "children": [
+
+            "SoundInstance",
+                    
             {
                 "name": "load",
                 "type": "method",
-                "description": "Add a sound (`<audio>` element) to the Game. Calls `Assets.load()` directly, so you can use that one if you like.",
+                "description": "Add a sound (`<audio>` element) to the Game. Calls `Assets.load()` directly, but then adds `play()`, `pause()` and `stop()` functions to the asset.",
                 "return": "Game.Sound",
                 "arguments": [
                     {
