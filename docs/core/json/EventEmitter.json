@@ -52,13 +52,18 @@
 			{
 				"name": "emit",
 				"type": "method",
-				"description": "Emit (fire) an event.",
+				"description": "Emit (fire) an event. As second argument, you may include an array containing some arguments for the listeners.",
 				"return": "EventEmitter",
 				"arguments": [
 					{
 						"name": "event",
 						"type": "string",
 						"description": "The name of the event to emit."
+					},
+					{
+						"name": "arguments",
+						"type": "array",
+						"description": "Some arguments for the listeners."
 					}
 				]
 			},
