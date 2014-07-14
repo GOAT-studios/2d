@@ -124,9 +124,7 @@
             "Camera",
             "Draw",
             "Sound",
-            "Assets",
-
-            "Vector"
+            "Assets"
         ]
     }
 }
