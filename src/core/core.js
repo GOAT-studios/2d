@@ -492,12 +492,12 @@ var EventEmitter = function(obj) {
         if(this.__events[event]) {
             var listeners = this.__events[event];
             for(var i = 0, len = listeners.length; i < len; i++) {
-                listeners[i].call(null, args);
+                listeners[i].apply(null, args);
             }
         }
         var args = [event].concat(args);
         for(var i = 0, len = this.__allEvents.length; i < len; i++) {
-            this.__allEvents[i].call(null, args);
+            this.__allEvents[i].apply(null, args);
         }
 
         return this;
