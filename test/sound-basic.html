@@ -4,8 +4,8 @@
 		<title>Core test</title>
 
 		<script type="text/javascript" src="../src/core/core.js"></script>
-		<script type="text/javascript" src="../src/plugins/assets-xhr.js"></script>
 		<script type="text/javascript" src="../src/plugins/sound-basic.js"></script>
+		<script type="text/javascript" src="../src/plugins/assets-xhr.js"></script>
 	</head>
 	<body>
 		
@@ -80,10 +80,11 @@
 			}
 
 
-			var plugins = [new Sound(), new Assets(), camera, colliders, draw, world];
+			var plugins = [new Assets(), new Sound(), camera, colliders, draw, world];
 
 
 			var game = new Game({}, plugins);
+			game.init();
 
 		</script>
 	</body>
