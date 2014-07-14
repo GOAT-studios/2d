@@ -451,11 +451,17 @@ var EventEmitter = function(obj) {
     if(!obj) obj = this;
 
     obj.__events = {};
+    obj.__allEvents = [];
 
     obj.addListener = obj.on = function(event, listener) {
         if(!this.__events[event]) this.__events[event] = [];
 
-        this.__events[event].push(listener);
+        if(listener) {
+            this.__events[event].push(listener);
+        }
+        else {
+            this.__allEvents.push(event); // event is now the callback
+        }
 
         return this;
     }
@@ -463,11 +469,20 @@ var EventEmitter = function(obj) {
     obj.once = function(event, listener) {
         if(!this.__events[event]) this.__events[event] = [];
 
-        var func = function() {
-            listener.call(null, arguments);
-            obj.removeListener(func);
+        if(listener) {
+            var func = function() {
+                listener.call(null, arguments);
+                obj.removeListener(event, func);
+            }
+            this.__events[event].push(func);
         }
-        this.__events[event].push(func);
+        else {
+            var func = function() {
+                event.call(null, arguments);
+                obj.removeListener(func);
+            }
+            this.__allEvents.push(func);
+        }
 
         return this;
     }
@@ -478,6 +493,10 @@ var EventEmitter = function(obj) {
             for(var i = 0, len = listeners.length; i < len; i++) {
                 listeners[i].call(null, args);
             }
+        }
+        var args = [event].concat(args);
+        for(var i = 0, len = this.__allEvents.length; i < len; i++) {
+            this.__allEvents[i].call(null, args);
         }
 
         return this;
@@ -494,6 +513,9 @@ var EventEmitter = function(obj) {
             var listeners = this.__events[event];
             if(listeners.indexOf(listener) !== -1) {
                 listeners.splice(listeners.indexOf(listener), 1);
+            }
+            if(this.__allEvents.indexOf(listener) !== -1) {
+                this.__allEvents.splice(this.__allEvents.indexOf(listener), 1);
             }
         }
 
