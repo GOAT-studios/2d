@@ -38,6 +38,9 @@ Game = function(options, plugins, categories) {
     this.Plugins    = new Plugins(this, plugins);
     this.Categories = new Categories(this, categories);
 
+    this.EventEmitter = EventEmitter;
+    EventEmitter(this);
+
     this.initTime   = null;
     this.loadTime   = null;
     this.startTime  = null;
@@ -410,6 +413,84 @@ Categories.prototype.loop = function(cb) {
             cb(this[name], name);
         }
     }
+}
+
+
+
+
+
+
+/*
+ * EventEmitter
+ *
+ * EventEmitter allows for easy event registering and emitting. The API is a copy of the Node.js EventEmitter class.
+ */
+
+var EventEmitter = function(obj) {
+    if(!obj) obj = this;
+
+    obj.__events = {};
+
+    obj.addListener = obj.on = function(event, listener) {
+        if(!this.__events[event]) this.__events[event] = [];
+
+        this.__events[event].push(listener);
+
+        return this;
+    }
+
+    obj.once = function(event, listener) {
+        if(!this.__events[event]) this.__events[event] = [];
+
+        var func = function() {
+            listener.call(null, arguments);
+            obj.removeListener(func);
+        }
+        this.__events[event].push(func);
+
+        return this;
+    }
+
+    obj.emit = function(event, args) {
+        if(this.__events[event]) {
+            var listeners = this.__events[event];
+            for(var i = 0, len = listeners.length; i < len; i++) {
+                listeners[i].call(null, args);
+            }
+        }
+
+        return this;
+    }
+
+    obj.removeListener = function(event, listener) {
+        if(!listener) {
+            var listener = event;
+            for(event in this.__events) {
+                this.removeListener(event, listener);
+            }
+        }
+        else {
+            var listeners = this.__events[event];
+            if(listeners.indexOf(listener) !== -1) {
+                listeners.splice(listeners.indexOf(listener), 1);
+            }
+        }
+
+        return this;
+    }
+
+    obj.removeAllListeners = function(event) {
+        this.__events[event] = [];
+
+        return this;
+    }
+
+    obj.listeners = function(event) {
+        return this.__events[event] || [];
+    }
+
+
+    return obj;
 }
 
 
