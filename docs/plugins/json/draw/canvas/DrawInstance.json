@@ -903,6 +903,46 @@
                         "description": "The y-coordinate of the point."
                     }
                 ]
+            },
+
+
+
+            {
+                "name": "getAsset",
+                "type": "method",
+                "description": "Get an Asset from the Assets plugin. Uses `Asset.get(id)` (where `id` is the first argument passed to this function) to retrieve assets.",
+                "return": "DrawInstance",
+                "arguments": [
+                    {
+                        "name": "id",
+                        "type": "any",
+                        "description": "The first argument passed to `Assets.get()`."
+                    }
+                ]
+            },
+            {
+                "name": "getWidth",
+                "type": "method",
+                "description": "Get the (maximum) width of the current object.",
+                "return": "number"
+            },
+            {
+                "name": "getHeight",
+                "type": "method",
+                "description": "Get the (maximum) height of the current object.",
+                "return": "number"
+            },
+            {
+                "name": "getCanvasWidth",
+                "type": "method",
+                "description": "Get the width of the canvas.",
+                "return": "number"
+            },
+            {
+                "name": "getCanvasHeight",
+                "type": "method",
+                "description": "Get the height of the canvas.",
+                "return": "number"
             }
         ]
     }

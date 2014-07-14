@@ -12,11 +12,6 @@
                 "description": "The name of the Category."
             },
             {
-                "name": "type",
-                "type": "string",
-                "description": "The type of the plugin. Possible values are: 'assets', 'sound', 'camera', 'colliders', 'draw', 'world'."
-            }
-            {
                 "name": "Init",
                 "type": "method",
                 "description": "Init the Category. Not required.",
