@@ -14,11 +14,14 @@ Sound.prototype.name = "sound-dom";
 Sound.prototype.type = "Sound";
 
 Sound.prototype.Init = function(game) {
-    this.game = game;
+    var self = this;
+    game.on("init", function() {
+        self.loader = game.Assets;
+    });
 }
 
 Sound.prototype.load = function(urls, name) {
-    var asset = this.game.Assets.load(urls, name).get();
+    var asset = this.loader.load(urls, name).get();
     var sound = this.createSound(asset);
     this.sounds.push(sound);
 
@@ -26,9 +29,7 @@ Sound.prototype.load = function(urls, name) {
 }
 
 Sound.prototype.get = function(id) {
-    this.game.Assets.get(id);
-
-    return this;
+    return this.loader.get(id);
 }
 
 Sound.prototype.play = function(id) {
@@ -73,25 +74,42 @@ var createSound = function(asset) {
 
 
     asset.play = function() {
-        this.element.load();
-        this.element.play();
+        if(this.element) {
+            this.element.load();
+            this.element.play();
+        }
+        else {
+            console.warn("WARN: Asset.play(): No element! Are you sure this Asset loaded successfully?");
+        }
         return this;
     }
 
     asset.pause = function() {
-        this.element.pause();
+        if(this.element) {
+            this.element.pause();
+        }
+        else {
+            console.warn("WARN: Asset.play(): No element! Are you sure this Asset loaded successfully?");
+        }
         return this;
     }
 
     asset.stop = function() {
-        this.element.pause();
-        this.element.currentTime = 0;
+        if(this.element) {
+            this.element.pause();
+            this.element.currentTime = 0;
+        }
+        else {
+            console.warn("WARN: Asset.play(): No element! Are you sure this Asset loaded successfully?");
+        }
         return this;
     }
 
 
-    return this;
+    return asset;
 }
+
+Sound.prototype.createSound = createSound;
 
 
 

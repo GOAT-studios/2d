@@ -4,25 +4,12 @@
 		<title>Core test</title>
 
 		<script type="text/javascript" src="../src/core/core.js"></script>
+		<script type="text/javascript" src="../src/plugins/assets-xhr.js"></script>
 		<script type="text/javascript" src="../src/plugins/sound-basic.js"></script>
 	</head>
 	<body>
 		
 		<script type="text/javascript">
-		
-			var assets = {
-				name: "very-basic-assets",
-				type: "Assets",
-				Init: function(game) {
-					this.assets = [];
-				},
-				load: function(url) {
-					this.assets.push(url);
-				},
-				get: function(url) {
-					return url;
-				}
-			}
 
 			var camera = {
 				name: "very-basic-camera",
@@ -93,7 +80,7 @@
 			}
 
 
-			var plugins = [new Sound(), assets, camera, colliders, draw, world];
+			var plugins = [new Sound(), new Assets(), camera, colliders, draw, world];
 
 
 			var game = new Game({}, plugins);
