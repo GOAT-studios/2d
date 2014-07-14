@@ -39,6 +39,7 @@ Game = function(options, plugins, categories) {
     this.Categories = new Categories(this, categories);
 
     this.initTime   = null;
+    this.loadTime   = null;
     this.startTime  = null;
     this.pauseTime  = null;
     this.stopTime   = null;
@@ -52,18 +53,55 @@ Game = function(options, plugins, categories) {
 }
 
 
+/* Setup Engine */
+Game.prototype.init = function() {
+    // Throw an Error if a plugin is missing.
+    // If Game[plugin] is null, that plugin is missing
+    if(!this.Assets || !this.Camera || !this.Colliders || !this.Draw || !this.Sound || !this.World) {
+        console.warn(warnings.missingPluginInit);
+    }
+
+    this.Plugins.Init(this);
+
+    // Attach Draw.domElement to Game
+    if(this.Draw && this.Draw.domElement) {
+        this.domElement = this.Draw.domElement;
+    }
+    else {
+        console.warn(warnings.noDomElement);
+    }
+
+    return this;
+}
+
+
+/* Setup world */
+Game.prototype.load = function() {
+    if(!this.initTime) {
+        this.innit();
+    }
+
+    this.Plugins.Load(this);
+
+    return this;
+}
+
+
+/* Start game loop */
 Game.prototype.start = function() {
     if(!this.playing) {
         this.startTime = this.Utils.time();
-        if(!this.initTime) {
-            this.init();
+        if(!this.loadTime) {
+            this.load();
         }
+
         this.timer = this.requestAnimationFrame(this.Loop);
         this.Loop();
     }
 
     return this;
 }
+
 
 Game.prototype.pause = function() {
     if(this.playing) {
@@ -81,23 +119,6 @@ Game.prototype.stop = function() {
     }
 
     return this;
-}
-
-
-Game.prototype.init = function() {
-    // Throw an Error if a plugin is missing.
-    // If Game[plugin] is null, that plugin is missing
-    if(!this.Assets || !this.Camera || !this.Colliders || !this.Draw || !this.Sound || !this.World) {
-        console.warn(warnings.missingPluginInit);
-    }
-
-    // Attach Draw.domElement to Game
-    if(this.Draw && this.Draw.domElement) {
-        this.domElement = this.Draw.domElement;
-    }
-    else {
-        console.warn(warnings.noDomElement);
-    }
 }
 
 
@@ -143,7 +164,16 @@ Game.prototype.Utils = {
         }
 
         return topContainer;
-    }
+    },
+    time: (function() {
+        if(performance && performance.now) {
+            return function() { return performance.now(); }
+        } else if(performance && performance.webkitNow) {
+            return function() { return performance.webkitNow(); }
+        } else {
+            return function() { return Date.now(); }
+        }
+    })()
 }
 
 
