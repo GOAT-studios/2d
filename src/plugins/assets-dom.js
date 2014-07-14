@@ -17,7 +17,14 @@ Assets = function() {
     this.container.setAttribute("class", "2D-loader");
     Game.prototype.Utils.getContainer().appendChild(this.container);
 
+    Game.prototype.EventEmitter(this);
+
     return this;
+}
+
+Assets.prototype.Init = function(game) {
+    this.init = true;
+    console.log("assets-dom initialized");
 }
 
 Assets.prototype.name = "assets-dom";
@@ -72,11 +79,18 @@ Assets.prototype.load = function(urls, name) {
                 self.error++;
                 obj.done = true;
                 obj.error = true;
+                obj.emit("error", [xhr]);
+                self.emit("asseterror", [xhr, obj]);
             }
             else {
                 self.loading--;
                 self.success++;
                 obj.done++;
+                obj.emit("done", [xhr]);
+                self.emit("assetdone", [xhr, obj]);
+                if(self.total === (assets.success + assets.errors)) {
+                    assets.emit("done");
+                }
             }
         });
     }
@@ -87,12 +101,19 @@ Assets.prototype.load = function(urls, name) {
                 self.errors++;
                 obj.done = true;
                 obj.error = true;
+                obj.emit("error", [xhr]);
+                self.emit("asseterror", [xhr, obj]);
             }
             else {
                 self.loading--;
                 self.success++;
                 obj.done = true;
                 obj.data = xhr.responseText || xhr.response;
+                obj.emit("done", [xhr]);
+                self.emit("assetdone", [xhr, obj]);
+                if(self.total === (self.success + self.errors)) {
+                    self.emit("done");
+                }
             }
         });
     }
@@ -101,6 +122,8 @@ Assets.prototype.load = function(urls, name) {
     }
 
     if(elem) obj.element = elem;
+
+    this.emit("assetadd", [obj]);
 
 
     return this;
@@ -170,6 +193,11 @@ var attachEventsMedia = function(elem, obj, assets) {
             assets.loading--;
             assets.success++;
             obj.done = true;
+            obj.emit("done", [xhr]);
+            self.emit("assetdone", [xhr, obj]);
+            if(assets.total === (assets.success + assets.errors)) {
+                assets.emit("done");
+            }
         }
     }
 
@@ -179,6 +207,8 @@ var attachEventsMedia = function(elem, obj, assets) {
         assets.errors++;
         obj.done = true;
         obj.error = true;
+        obj.emit("error", [xhr]);
+        assets.emit("asseterror", [xhr, obj]);
     }
 }
 

@@ -16,11 +16,17 @@ Assets = function() {
     this.errorSize  = 0;
     this.totalSize  = 0;
 
+    Game.prototype.EventEmitter(this);
+
     return this;
 }
 
 Assets.prototype.name = "assets-xhr";
 Assets.prototype.type = "Assets";
+
+Assets.prototype.Init = function(game) {
+    game.EventEmitter(this);
+}
 
 Assets.prototype.load = function(urls, name, forceText) {
     if(typeof urls === "string") urls = [urls];
@@ -41,6 +47,8 @@ Assets.prototype.load = function(urls, name, forceText) {
             obj.loadedSize = xhr.loaded;
             obj.totalSize  = xhr.total || xhr.totalSize;
             assets.updateProgress();
+            obj.emit("progress", [xhr, assets]);
+            assets.emit("progress", [xhr, obj]);
         }
         else if(type === "error") {
             assets.loading--;
@@ -50,6 +58,9 @@ Assets.prototype.load = function(urls, name, forceText) {
             obj.data  = null;
             obj.loadedSize = 0;
             obj.totalSize  = 0;
+            obj.emit("error", [xhr]);
+            assets.emit("asseterror", [xhr, obj]);
+
         }
         else if(type === "done") {
             assets.loading--;
@@ -69,6 +80,13 @@ Assets.prototype.load = function(urls, name, forceText) {
                 var url = (window.URL || window.webkitURL).createObjectURL(blob);
                 obj.blobURL = url;
             }
+
+            obj.emit("done", [xhr]);
+            assets.emit("assetdone", [xhr, obj]);
+
+            if(assets.total === (assets.success + assets.errors)) {
+                assets.emit("done");
+            }
         }
         else {
             console.warn("WARN: Unknown event.");
@@ -77,6 +95,8 @@ Assets.prototype.load = function(urls, name, forceText) {
 
 // Push the objects to the assets list
     this.assets.push(obj);
+
+    this.emit("assetadd", [obj]);
 
 
     return this;
@@ -143,6 +163,8 @@ var Asset = function(urls, name) {
     this.totalSize = 0;
 
     this.xhr = null;
+
+    Game.prototype.EventEmitter(this);
 
     return this;
 }

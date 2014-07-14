@@ -7,23 +7,29 @@ var Sound;
 Sound = function() {
     this.sounds = [];
 
+    Game.prototype.EventEmitter(this);
+
     return this;
 }
 
-Sound.prototype.name = "sound-dom";
+Sound.prototype.name = "sound-basic";
 Sound.prototype.type = "Sound";
 
 Sound.prototype.Init = function(game) {
     var self = this;
+    this.init = true;
     game.on("init", function() {
         self.loader = game.Assets;
     });
+    game.EventEmitter(this);
 }
 
 Sound.prototype.load = function(urls, name) {
     var asset = this.loader.load(urls, name).get();
     var sound = this.createSound(asset);
     this.sounds.push(sound);
+
+    this.emit("soundadd", [sound]);
 
     return this;
 }
