@@ -58,6 +58,7 @@ Game = function(options, plugins, categories) {
 
 /* Setup Engine */
 Game.prototype.init = function() {
+    this.emit("beforeinit", [this]);
     // Throw an Error if a plugin is missing.
     // If Game[plugin] is null, that plugin is missing
     if(!this.Assets || !this.Camera || !this.Colliders || !this.Draw || !this.Sound || !this.World) {
@@ -74,6 +75,7 @@ Game.prototype.init = function() {
         console.warn(warnings.noDomElement);
     }
 
+    this.emit("init", [this]);
     return this;
 }
 
@@ -84,8 +86,11 @@ Game.prototype.load = function() {
         this.innit();
     }
 
+    this.emit("beforeload", [this]);
+
     this.Plugins.Load(this);
 
+    this.emit("load", [this]);
     return this;
 }
 
@@ -98,8 +103,12 @@ Game.prototype.start = function() {
             this.load();
         }
 
+        this.emit("beforestart", [this]);
+
         this.timer = this.requestAnimationFrame(this.Loop);
         this.Loop();
+
+        this.emit("start", [this]);
     }
 
     return this;
@@ -108,17 +117,22 @@ Game.prototype.start = function() {
 
 Game.prototype.pause = function() {
     if(this.playing) {
+        this.emit("beforepause", [this]);
         this.pauseTime = this.Utils.time();
         this.cancelAnimationFrame(this.timer);
+        this.emit("pause", [this]);
     }
 }
 
 
 Game.prototype.stop = function() {
     if(this.playing) {
+        this.emit("beforestop", [this]);
         this.stopTime = this.Utils.time();
         this.cancelAnimationFrame(this.timer);
+        this.emit("beforestopreset");
         this.reset();
+        this.emit("stop", [this]);
     }
 
     return this;
@@ -126,12 +140,17 @@ Game.prototype.stop = function() {
 
 
 Game.prototype.Loop = function() {
+    this.emit("beforeframe", [this]);
     this.frames++;
 
+    this.emit("beforeupdate", [this]);
     this.World.Update(this);
     this.Camera.Update(this);
+
+    this.emit("beforedraw", [this]);
     this.World.Draw(this);
 
+    this.emit("frame", [this]);
     return this;
 }
 
@@ -183,6 +202,7 @@ Game.prototype.Utils = {
 Game.prototype.plugin = function(plugin) {
     this.Plugins.add(plugin);
 
+    this.emit("plugin", [this, plugin]);
     return this;
 }
 
@@ -190,6 +210,7 @@ Game.prototype.plugin = function(plugin) {
 Game.prototype.category = function(category) {
     this.Categories.add(category);
 
+    this.emit("category", [this, category]);
     return this;
 }
 
