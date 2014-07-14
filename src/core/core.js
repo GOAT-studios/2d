@@ -26,6 +26,8 @@ Game = function(options, plugins, categories) {
         console.warn(warnings.noCategoriesConstructor);
     }
 
+    EventEmitter(this);
+
 
     this.options    = options;
 
@@ -37,9 +39,6 @@ Game = function(options, plugins, categories) {
     this.World      = null;
     this.Plugins    = new Plugins(this, plugins);
     this.Categories = new Categories(this, categories);
-
-    this.EventEmitter = EventEmitter;
-    EventEmitter(this);
 
     this.initTime   = null;
     this.loadTime   = null;
@@ -364,9 +363,10 @@ Plugins.prototype.loop = function(cb) {
 }
 
 Plugins.prototype.Init = function() {
+    var game = this.game;
     this.loop(function(plugin) {
         if(plugin.Init) {
-            plugin.Init(this.game);
+            plugin.Init(game);
         }
     });
 
@@ -536,6 +536,8 @@ var EventEmitter = function(obj) {
 
     return obj;
 }
+
+Game.prototype.EventEmitter = EventEmitter;
 
 
 
