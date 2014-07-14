@@ -1,6 +1,8 @@
 
 
 var Draw = function(options) {
+	var draw = this;
+
 //Configuration
 	if(!options) var options = {};
 	if(!options.defaultConfig) options.defaultConfig = {};
@@ -10,7 +12,7 @@ var Draw = function(options) {
 	var width  = this.width  = options.width  || 35;
 	var height = this.height = options.height || 35;
 
-	this.domElement = document.createElement("canvas");
+	var domElement = this.domElement = document.createElement("canvas");
 	var ctx = this.context = this.domElement.getContext("2d");
 	
 	var defaultConfig = Game.prototype.Utils.merge({}, ctx, ["canvas", "currentPath"]);
@@ -195,6 +197,23 @@ var Draw = function(options) {
 		},
 		isPointInStroke: function(x, y) {
 			return ctx.isPointInStroke(x+X, y+Y);
+		},
+
+		//Some other functions
+		getAsset: function(id) {
+			return draw.loader.get(id);
+		},
+		getWidth: function() {
+			return width;
+		},
+		getHeight: function() {
+			return height;
+		},
+		getCanvasWidth: function() {
+			return domElement.innerWidth;
+		},
+		getCanvasHeight: function() {
+			return domElement.innerHeight;
 		}
 	}
 
@@ -204,3 +223,10 @@ var Draw = function(options) {
 
 Draw.prototype.name = "draw-canvas";
 Draw.prototype.type = "Draw";
+
+Draw.prototype.Init = function(game) {
+	var self = this;
+	game.on("init", function() {
+		self.loader = Assets;
+	});
+}
