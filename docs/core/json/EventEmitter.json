@@ -1,0 +1,113 @@
+{
+	"main": {
+		"name": "EventEmitter",
+		"type": "constructor",
+		"description": "Create a new EventEmitter, or attach the right methods to the given object to turn it into an EventEmitter-like object. The children layed out here are the function that are added to an EventEmitter. The API is a copy of the Node.js EventEmitter.",
+		"arguments": [
+			{
+				"name": "object",
+				"type": "object",
+				"description": "The objetc to turn into an EventEmitter.",
+				"optional": true
+			}
+		],
+		"children": [
+			{
+				"name": "addListener",
+				"alias": ["on"],
+				"type": "method",
+				"description": "Attach a listener (callback) to an event.",
+				"return": "EventEmitter",
+				"arguments": [
+					{
+						"name": "event",
+						"type": "string",
+						"description": "The name of the event."
+					},
+					{
+						"name": "listener",
+						"type": "function",
+						"description": "The listener (callback) to execute when this event fires."
+					}
+				]
+			},
+			{
+				"name": "once",
+				"type": "method",
+				"description": "Attach a listener to an event, to be executed once.",
+				"return": "EventEmitter",
+				"arguments": [
+					{
+						"name": "event",
+						"type": "string",
+						"description": "The name of the event."
+					},
+					{
+						"name": "callback",
+						"type": "function",
+						"description": "The listener (callback) to execute when this event fires."
+					}
+				]
+			},
+			{
+				"name": "emit",
+				"type": "method",
+				"description": "Emit (fire) an event.",
+				"return": "EventEmitter",
+				"arguments": [
+					{
+						"name": "event",
+						"type": "string",
+						"description": "The name of the event to emit."
+					}
+				]
+			},
+			{
+				"name": "removeListener",
+				"type": "method",
+				"description": "Remove the given listener from the list of listeners. An optional event name may be passed, in which case the listener will only be removed from that list.",
+				"return": "EventEmitter",
+				"arguments": [
+					{
+						"name": "event",
+						"type": "string",
+						"description": "The name of the event from which to remove the listener.",
+						"optional": true
+					},
+					{
+						"name": "listener",
+						"type": "function",
+						"description": "The listener to be removed from the list."
+					}
+				]
+			},
+			{
+				"name": "removeAllListeners",
+				"type": "method",
+				"description": "Remove all the listeners (callbacks) for the specified event. If no event is specified, all events are cleared.",
+				"return": "EventEmitter",
+				"arguments": [
+					{
+						"name": "event",
+						"type": "string",
+						"description": "The name of the event to be cleared.",
+						"optional": true
+					}
+				]
+			},
+			{
+				"name": "listeners",
+				"type": "method",
+				"description": "Get a list of listeners for the specified event.",
+				"return": "[function]",
+				"arguments": [
+					{
+						"name": "event",
+						"type": "string",
+						"description": "The name of the event."
+					}
+				]
+			}
+		]
+	}
+}

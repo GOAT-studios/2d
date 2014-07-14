@@ -115,11 +115,12 @@
                 "include": "Categories>add"
             },
 
+            "EventEmitter",
             "Plugins",
-
-            "Categories",
-            "Colliders",
             "Utils",
+            "Categories",
+
+            "Colliders",
             "World",
             "Camera",
             "Draw",
