@@ -488,6 +488,7 @@ var EventEmitter = function(obj) {
     }
 
     obj.emit = function(event, args) {
+        if(!args) args = [];
         if(this.__events[event]) {
             var listeners = this.__events[event];
             for(var i = 0, len = listeners.length; i < len; i++) {
