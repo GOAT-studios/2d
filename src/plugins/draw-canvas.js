@@ -227,6 +227,6 @@ Draw.prototype.type = "Draw";
 Draw.prototype.Init = function(game) {
 	var self = this;
 	game.on("init", function() {
-		self.loader = Assets;
+		self.loader = game.Assets;
 	});
 }
