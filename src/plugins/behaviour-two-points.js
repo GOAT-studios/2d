@@ -10,8 +10,11 @@ TwoPointBehaviour = function() {
 	return this;
 }
 
+TwoPointBehaviour.prototype.name = "behaviour-two-point";
+TwoPointBehaviour.prototype.type = "behaviour-two-point";
+
 TwoPointBehaviour.prototype.register = function(object, point1, point2, speed) {
-	var length = Math.sqrt( Math.pow(point2.x - poin1.x, 2) + Math.pow(point2.y - point1.y) );
+	var length = Math.sqrt( Math.pow(point2.x - poin1.x, 2) + Math.pow(point2.y - point1.y, 2) );
 	var diff = {
 		x: (speed * (point2.x - point1.x)) / length,
 		y: (speed * (point2.y - point1.y)) / length
@@ -38,12 +41,7 @@ TwoPointBehaviour.prototype.register = function(object, point1, point2, speed) {
 }
 
 TwoPointBehaviour.prototype.update = function(object) {
-	var obj;
-	for(var i = 0, len = this.objects.length; i < len; i++) {
-		if(this.objects[i] === object) {
-			obj = this.objects[i];
-		}
-	}
+	var obj = this.get(object);
 
 	if(obj) {
 		var object = obj.object;
@@ -63,6 +61,16 @@ TwoPointBehaviour.prototype.update = function(object) {
 
 
 	return this;
+}
+
+TwoPointBehaviour.prototype.get = function(object) {
+	for(var i = 0, len = this.objects.length; i < len; i++) {
+		if(this.objects[i] === object) {
+			return this.objects[i];
+		}
+	}
+
+	return null;
 }
 
 
