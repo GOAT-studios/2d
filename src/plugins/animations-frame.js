@@ -46,7 +46,7 @@ var Animation = function(name, frames, speed) {
 
 Animation.prototype.update = function() {
 	var currTime = Game.prototype.Utils.time();
-	var index = (currTime - this.startTime - this.pauseDuration) % this.speed;
+	var index = Math.round((currTime - this.startTime - this.pauseDuration) % this.speed);
 	this.currentFrame = this.frames[index];
 
 	return this;
@@ -59,7 +59,7 @@ Animation.prototype.pause = function() {
 
 Animation.prototype.start = function() {
 	this.lastStartTime = Game.prototype.Utils.time();
-	this.pauseDuration += this.lastStartTime - this.pauseTime;
+	if(this.pauseTime) this.pauseDuration += this.lastStartTime - this.pauseTime;
 
 	return this;
 }
