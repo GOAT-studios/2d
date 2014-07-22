@@ -8,8 +8,7 @@
 
 ### What's the state of 2D at the moment?
 
-At this moment, we are just defining the API that will make up the final engine, hopefully in the not too distant future. We already gather quite some knowledge from the first version, [Game2Go](https://github.com/TuurDutoit/game2go). All the API docs can be found in the `docs` directory, but no code has already been written (although some parts will be copied from Game2Go).
-
+At this moment, the API is stable and the core code is done. The basic plugins are working, although not very well tested at the moment. We're beginning to write a World plugin for sidescroller games, but as that plugin is a little more complex and will have to mature through the developement process of the game, it may take a while before it is ready. We suggest you take a look at the docs and get experimenting with plugins, test them and maybe write your own. Don't be shy to open an issue and pull requests are very welcome.
 
 
 
@@ -17,7 +16,7 @@ At this moment, we are just defining the API that will make up the final engine,
 
 * In the `src` directory, all the source code can be found. It is divided in two main parts, `core` (the core engine) and `plugins` (the basic plugins).
 * In `test`, all the test pages are located. We try to keep them updated, but with a rapidly changing API and code being so young, this can be tedious job, so bear with us!
-* In the `dist` directory, we store all the (combined and minified) major version of the engine.
+* In the `dist` directory, we store all the (combined and minified) major versions of the engine.
 * In `docs`, you can find all the documentation (hopefully updated)
 * And finally, in `examples`, you can find some examples, that demo some awesome features of 2D. Until the engine matures a bit, you probably won't find anything in there.
 
