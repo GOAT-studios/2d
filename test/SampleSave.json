@@ -1,9 +1,9 @@
 {
-	"Extensions": {
-		"level1": {
-			"water": true,
-			"passageClosed": true,
-			"enemy": false
-		}
-	}
+    "Extensions": {
+        "level1": {
+            "water": true,
+            "passageClosed": true,
+            "enemy": false
+        }
+    }
 }
