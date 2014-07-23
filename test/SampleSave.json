@@ -1,5 +1,9 @@
 {
-	"activeChilds": {
-		"level1": "normal"
+	"Extensions": {
+		"level1": {
+			"water": true,
+			"passageClosed": true,
+			"enemy": false
+		}
 	}
 }
