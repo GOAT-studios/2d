@@ -1,3 +1,5 @@
 {
-	"states": [0]
+	"activeChilds": {
+		"level1": "normal"
+	}
 }
