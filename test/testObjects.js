@@ -1,14 +1,25 @@
-var Objects = {
+v-ar Objects = function(){
+    return this;
+}
+Objects.prototype.Draw(object){
+}
 
-    TestObject: {
+Objects.prototype.TestObject = function(options) {
+    this.position = options.position;
+    this.dimension= options.dimentsion;
+    return this;
+}
+Objects.prototype.TestObject.prototype.Init = function(game) {
+    this.collider = new game.Colliders.Box(new game.Colliders.Vector(this.position.x, this.position.y), this.dimension.w, this.dimension.h).toPolygon();
+    return this;
+}
+Objects.prototype.TestObject.prototype.Update = function(game) {
+    return this;
     
-        position: {x:0, y:0},
-        dimensions: {h:234, w:32},
-        Init: function(game) {
-			game.Behaviours.TwoPoint.register(this, {x:0, y:0}, {x:25, y:40}, 2);
-        },
-        Update: function(game) {
-            game.Behaviours.TwoPoint.update(this);
-		}
-    }
+}
+Objects.prototype.TestObject.prototype.Move   = function(direction){
+    this.position.x += direction.x;
+    this.position.y += direction.y;
+    this.collider.translate(direction.x, direction.y);
+    return this;
 }
