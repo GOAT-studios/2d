@@ -64,6 +64,7 @@ Game.prototype.init = function() {
         console.warn(warnings.missingPluginInit);
     }
 
+    this.initTime = this.Utils.time();
     this.Plugins.Init(this);
 
     // Attach Draw.domElement to Game
