@@ -13,6 +13,10 @@ World.prototype.Init = function(game) {
     this.game = game;
 }
 
+World.prototype.Update = function(game) {
+	
+}
+
 World.prototype.load = function(world) {
     this.blocks = world.blocks;
     this.scenes = world.scenes;
