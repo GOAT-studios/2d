@@ -186,13 +186,40 @@ describe("Core", function() {
 		var game = new Game({}, plugins);
 
 		describe("capitalize", function() {
-
 			it("works", function() {
 				expect(game.Utils.capitalize("hello")).toBe("Hello");
 				expect(game.Utils.capitalize("Bye")).toBe("Bye");
 				expect(game.Utils.capitalize(".hi")).toBe(".hi");
 			});
+		});
 
+		describe("merge", function() {
+			it("works", function() {
+				var a = {"hello":"hi"};
+				var b = {"hi": "hello", "bye": "toodeloo"};
+				var blacklist = ["hi"];
+				expect(game.Utils.merge(a, b, blacklist)).toEqual({"hello":"hi", "bye":"toodeloo"});
+			});
+		});
+
+		describe("toRadians", function() {
+			it("works", function() {
+				expect(game.Utils.toRadians(180)).toBe(Math.PI);
+				expect(game.Utils.toRadians(360)).toBe(Math.PI * 2);
+			});
+		});
+
+		describe("toDegrees", function() {
+			it("works", function() {
+				expect(game.Utils.toDegrees(Math.PI)).toBe(180);
+				expect(game.Utils.toDegrees(Math.PI*2)).toBe(360);
+			});
+		});
+
+		describe("time", function() {
+			it("works", function() {
+				expect(typeof game.Utils.time()).toBe("number");
+			});
 		});
 
 	});
