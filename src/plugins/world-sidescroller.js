@@ -23,7 +23,7 @@ World.prototype.load = function(world) {
 World.prototype.loadScene = function(name, spawnPoint) {
     var mother = this.scenes[name];
     var scene = mother[this.game.Save.loadedFile.states[name]];
-    var this.currentScene = this.parseScene(scene);
+    this.currentScene = this.parseScene(scene);
 
     this.game.Player.spawn(this.currentScene.SpawnPoints[spawnPoint]);
     if()
