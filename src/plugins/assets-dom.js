@@ -22,7 +22,6 @@ var Assets = function() {
 
 Assets.prototype.Init = function(game) {
     this.init = true;
-    console.log("assets-dom initialized");
 }
 
 Assets.prototype.name = "assets-dom";
