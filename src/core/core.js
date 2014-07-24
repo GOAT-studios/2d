@@ -367,6 +367,17 @@ Plugins.prototype.Init = function() {
     return this;
 }
 
+Plugins.prototype.Load = function() {
+    var game = this.game;
+    this.loop(function(plugin) {
+        if(plugin.Load) {
+            plugin.Load(game);
+        }
+    });
+
+    return this;
+}
+
 
 
 
