@@ -1,5 +1,3 @@
-var TwoPointBehaviour;
-
 (function() {
 
 
@@ -72,6 +70,10 @@ TwoPointBehaviour.prototype.get = function(object) {
 
     return null;
 }
+
+
+
+Game.plugins.push(TwoPointBehaviour);
 
 
 

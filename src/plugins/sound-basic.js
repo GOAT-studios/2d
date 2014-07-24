@@ -1,5 +1,3 @@
-var Sound;
-
 (function() {
 
 
@@ -116,6 +114,10 @@ var createSound = function(asset) {
 }
 
 Sound.prototype.createSound = createSound;
+
+
+
+Game.plugins.push(Sound);
 
 
 

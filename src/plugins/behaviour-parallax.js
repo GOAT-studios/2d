@@ -1,5 +1,3 @@
-var ParallaxBehaviour;
-
 (function() {
 
 
@@ -50,6 +48,10 @@ ParallaxBehaviour.prototype.get = function(object) {
 
     return null;
 }
+
+
+
+Game.plugins.push(ParallaxBehaviour);
 
 
 
