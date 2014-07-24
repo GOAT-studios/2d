@@ -176,17 +176,6 @@ Game.prototype.Utils = {
     toDegrees: function(rad) {
         return (rad * 180) / Math.PI;
     },
-    getContainer: function() {
-        var topContainer = document.getElementById("2D-loaders");
-        if(!topContainer) {
-            topContainer = document.createElement("div");
-            topContainer.setAttribute("id", "2D-loaders");
-            topContainer.setAttribute("style", "width:0;height:0;visibility:hidden;overflow:hidden");
-            document.body.appendChild(topContainer);
-        }
-
-        return topContainer;
-    },
     time: (function() {
         if(performance && performance.now) {
             return function() { return performance.now(); }
@@ -574,6 +563,14 @@ Game.plugins = [];
         "missingPluginInit": "A vital plugin is missing after Game.init().",
         "noDomElement": "Game.Draw.domElement is empty."
     }
+
+
+    var container = Game.prototype.container = document.createElement("div");
+    container.setAttribute("id", "2D-loaders");
+    container.setAttribute("style", "width:0;height:0;visibility:hidden;overflow:hidden");
+    document.addEventListener("load", function() {
+        document.body.appendChild(container);
+    });
 
 
 })();
