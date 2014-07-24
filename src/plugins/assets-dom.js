@@ -13,7 +13,7 @@ Assets = function() {
 // Set up DOM Elements
     this.container = document.createElement("div");
     this.container.setAttribute("class", "2D-loader");
-    Game.prototype.Utils.getContainer().appendChild(this.container);
+    Game.prototype.container.appendChild(this.container);
 
     Game.prototype.EventEmitter(this);
 
