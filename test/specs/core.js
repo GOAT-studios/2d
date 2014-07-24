@@ -1,6 +1,6 @@
 define("Core", function() {
 
-	define("functions", function() {
+	define("properies", function() {
 
 		it("should have an init() function", function() {
 			expect(typeof game.init).toBe("function");
@@ -36,36 +36,36 @@ define("Core", function() {
 			expect(game.Categories).toBe(jasmine.any(Object));
 		});
 
-		define("init", function() {
+	});
 
-			var beforeInit = jasmine.createSpy("beforeinit");
-			var afterInit = jasmine.createSpy("afterinit");
-			game.on("beforeinit", beforeInit);
-			game.on("init", afterInit);
+	define("init", function() {
 
-			spyOn(game.Plugins, "Init").and.callThrough();
-			var result = game.init();
+		var beforeInit = jasmine.createSpy("beforeinit");
+		var afterInit = jasmine.createSpy("afterinit");
+		game.on("beforeinit", beforeInit);
+		game.on("init", afterInit);
 
-			it("should return the game", function() {
-				expect(result).toBe(game);
-			});
-			it("should call game.Plugins.Init() with the game as only argument", function() {
-				expect(game.Plugins.Init).toHaveBeenCalledWith(game);
-			});
-			it("should set initTime", function() {
-				expect(game.initTime).not.toBeNull();
-			});
-			it("should emit 'beforeinit'", function() {
-				expect(beforeInit).toHaveBeenCalledWith(game);
-				expect(beforeInit.calls.count()).toBe(1);
-			});
-			it("should emit 'init'", function() {
-				expect(afterInit).toHaveBeenCalledWith(game);
-				expect(afterInit.calls.count()).toBe(1);
-			});
+		spyOn(game.Plugins, "Init").and.callThrough();
+		var result = game.init();
 
-		})
+		it("should return the game", function() {
+			expect(result).toBe(game);
+		});
+		it("should call game.Plugins.Init() with the game as only argument", function() {
+			expect(game.Plugins.Init).toHaveBeenCalledWith(game);
+		});
+		it("should set initTime", function() {
+			expect(game.initTime).not.toBeNull();
+		});
+		it("should emit 'beforeinit'", function() {
+			expect(beforeInit).toHaveBeenCalledWith(game);
+			expect(beforeInit.calls.count()).toBe(1);
+		});
+		it("should emit 'init'", function() {
+			expect(afterInit).toHaveBeenCalledWith(game);
+			expect(afterInit.calls.count()).toBe(1);
+		});
 
-	})
+	});
 
-})
+});
