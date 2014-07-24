@@ -2,7 +2,7 @@
 
 
 
-ParallaxBehaviour = function() {
+var ParallaxBehaviour = function() {
     this.objects = [];
 
     return this;

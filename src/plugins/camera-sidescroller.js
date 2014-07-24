@@ -2,7 +2,7 @@
 
 
 
-Camera = function(options) {
+var Camera = function(options) {
     if(!options) options = {};
 
     this.x = options.x || 0;

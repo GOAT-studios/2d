@@ -2,7 +2,7 @@
 
 
 
-Assets = function() {
+var Assets = function() {
     this.assets = [];
 
     this.loading = 0;

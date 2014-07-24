@@ -2,7 +2,7 @@
 
 
 
-Animations = function() {
+var Animations = function() {
     return this;
 }
 

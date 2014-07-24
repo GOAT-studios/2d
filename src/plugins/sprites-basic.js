@@ -2,7 +2,7 @@
 
 
 
-Sprite = function(spriteSheet, pos, dim) {
+var Sprite = function(spriteSheet, pos, dim) {
 	this.sheet = spriteSheet;
 	this.position = pos;
 	this.dimensions = dim;

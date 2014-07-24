@@ -2,7 +2,7 @@
 
 
 
-Sound = function() {
+var Sound = function() {
     this.sounds = [];
 
     Game.prototype.EventEmitter(this);
