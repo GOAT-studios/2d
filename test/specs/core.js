@@ -1,6 +1,6 @@
-define("Core", function() {
+describe("Core", function() {
 
-	define("properies", function() {
+	describe("properies", function() {
 
 		it("should have an init() function", function() {
 			expect(typeof game.init).toBe("function");
@@ -27,35 +27,38 @@ define("Core", function() {
 			expect(typeof game.category).toBe("function");
 		});
 		it("should have a Utils property", function() {
-			expect(game.Utils).toBe(jasmine.any(Object));
+			expect(game.Utils).toBeDefined();
 		});
 		it("should have a Plugins property", function() {
-			expect(game.Plugins).toBe(jasmine.any(Object));
+			expect(game.Plugins).toBeDefined()
 		});
 		it("should have a Categories property", function() {
-			expect(game.Categories).toBe(jasmine.any(Object));
+			expect(game.Categories).toBeDefined();
 		});
 
 	});
 
-	define("init", function() {
+	describe("init", function() {
+		var result;
 
 		var beforeInit = jasmine.createSpy("beforeinit");
 		var afterInit = jasmine.createSpy("afterinit");
 		game.on("beforeinit", beforeInit);
 		game.on("init", afterInit);
 
-		spyOn(game.Plugins, "Init").and.callThrough();
-		var result = game.init();
+		it("should call game.Plugins.Init() with the game as only argument", function() {
+			spyOn(game.Plugins, "Init").and.callThrough();
+			result = game.init();
 
+			expect(game.Plugins.Init).toHaveBeenCalledWith(game);
+			expect(game.Plugins.Init.calls.count()).toBe(1);
+		});
 		it("should return the game", function() {
 			expect(result).toBe(game);
 		});
-		it("should call game.Plugins.Init() with the game as only argument", function() {
-			expect(game.Plugins.Init).toHaveBeenCalledWith(game);
-		});
 		it("should set initTime", function() {
 			expect(game.initTime).not.toBeNull();
+			expect(typeof game.initTime).toBe("number");
 		});
 		it("should emit 'beforeinit'", function() {
 			expect(beforeInit).toHaveBeenCalledWith(game);
