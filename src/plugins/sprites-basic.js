@@ -1,5 +1,3 @@
-var Sprite;
-
 (function() {
 
 
@@ -16,6 +14,8 @@ Sprite.prototype.name = "sprites-basic";
 Sprite.prototype.type = "Sprites";
 
 
+
+Game.plugins.push(Sprite);
 
 
 

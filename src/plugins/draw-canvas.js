@@ -1,3 +1,5 @@
+(function() {
+
 
 
 var Draw = function(options) {
@@ -230,3 +232,11 @@ Draw.prototype.Init = function(game) {
 		self.loader = game.Assets;
 	});
 }
+
+
+
+Game.plugins.push(Draw);
+
+
+
+})();

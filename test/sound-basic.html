@@ -11,76 +11,7 @@
 		
 		<script type="text/javascript">
 
-			var camera = {
-				name: "very-basic-camera",
-				type: "Camera",
-				Init: function(game) {
-					this.x = 0;
-					this.y = 0;
-				},
-				Update: function(game) {
-					this.x++;
-					this.y++;
-				},
-				translate: function(vector) {
-					this.x += vector.x;
-					this.y += vector.y;
-				},
-				moveTo: function(vector) {
-					this.x = vector.x;
-					this.y = vector.y;
-				}
-			}
-
-			var colliders = {
-				name: "very-basic-colliders",
-				type: "Colliders",
-				Box: function(vector, w, h) {
-					this.pos    = vector;
-					this.width  = x;
-					this.height = h;
-					return this;
-				},
-				test: function(a, b) {
-					return a === b;
-				}
-			}
-
-			var draw = {
-				name: "very-basic-draw",
-				type: "Draw",
-				Init: function(game) {
-
-					// Use 'Singleton Pattern' to reuse a draw object, but still be able to use private vars (e.g. offset)
-					// http://addyosmani.com/resources/essentialjsdesignpatterns/book/#singletonpatternjavascript
-					this.canvas  = document.createElement("canvas");
-					this.context = this.canvas.getContext("2d");
-
-					return this.canvas;
-				},
-				rect: function(x, y, w, h) {
-					this.fillStyle = "#FF0000";
-					this.context.fillRect(x, y, w, y);
-				}
-			}
-
-			var world = {
-				name: "very-basic-world",
-				type: "World",
-				Init: function(game) {
-					this.world = [
-						function(d) {d.rect(0,0,100,150);}
-					];
-				},
-				Update: function(game) {
-					for(var i = 0, len = this.world.length; i < len; i++) {
-						this.world[i](game.Draw);
-					}
-				}
-			}
-
-
-			var plugins = [new Assets(), new Sound(), camera, colliders, draw, world];
+			var plugins = ["sound-basic", "assets-xhr"];
 
 
 			var game = new Game({}, plugins);

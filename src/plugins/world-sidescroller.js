@@ -1,5 +1,3 @@
-var World;
-
 (function() {
 
 
@@ -30,6 +28,10 @@ World.prototype.loadScene = function(name, spawnPoint) {
     this.game.Player.spawn(this.currentScene.SpawnPoints[spawnPoint]);
     if()
 }
+
+
+
+Game.plugins.push(World);
 
 
 

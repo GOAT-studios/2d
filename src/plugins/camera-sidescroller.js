@@ -1,5 +1,3 @@
-var Camera;
-
 (function () {
 
 
@@ -80,6 +78,10 @@ Camera.prototype.unFollowPlayer = function() {
 
     return this;
 }
+
+
+
+Game.plugins.push(Camera);
 
 
 

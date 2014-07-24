@@ -1,5 +1,3 @@
-var Colliders;
-
 (function() {
 
 
@@ -86,6 +84,10 @@ Colliders.prototype.Response = SAT.Response;
 
 Colliders.prototype.Vector   = Game.prototype.Vector;
 Colliders.prototype.V        = Game.prototype.Vector;
+
+
+
+Game.plugins.push(Colliders);
 
 
 

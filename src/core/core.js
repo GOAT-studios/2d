@@ -229,13 +229,17 @@ Game.prototype.category = function(category) {
 var Plugins = function(game, plugins) {
     //Save Game for later
     this.game = game;
-    //Set up some basic plugin types
-    this.plugins = {"Assets": [], "Camera": [], "Colliders": [], "Draw": [], "Sound": [], "World": []}
+
+    this.plugins = {};
 
     //Add already provided plugins
     if(plugins instanceof Array) {
-        for(var i = 0, len = plugins.length; i < len; i++) {
-            this.add(plugins[i]);
+        for(var i = 0, len = Game.plugins.length; i < len; i++) {
+            var plugin = new Game.plugins[i]();
+            var index = plugins.indexOf(plugin.name);
+            if(index !== -1) {
+                this.add(plugin);
+            }
         }
     }
 
@@ -541,6 +545,10 @@ Game.prototype.EventEmitter = EventEmitter;
 
 
 
+Game.plugins = [];
+
+
+
 
 
 
@@ -562,7 +570,7 @@ Game.prototype.EventEmitter = EventEmitter;
         "invalidName": "WARN: The name '%s' is invalid.",
         "noPluginPassed": "WARN: No plugin passed to Plugin.add().",
         "noCategoryPassed": "WARN: No category passed to Categories.add().",
-        "missingPluginInit": "A plugin is missing on Game.init().",
+        "missingPluginInit": "A vital plugin is missing after Game.init().",
         "noDomElement": "Game.Draw.domElement is empty."
     }
 

@@ -1,5 +1,3 @@
-var Animations;
-
 (function() {
 
 
@@ -66,6 +64,9 @@ Animation.prototype.start = function() {
 
 Animations.prototype.Animation = Animation;
 
+
+
+Game.plugins.push(Animations);
 
 
 })();

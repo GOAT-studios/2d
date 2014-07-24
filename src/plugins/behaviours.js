@@ -1,5 +1,3 @@
-var Behaviours;
-
 (function() {
 
 
@@ -39,6 +37,10 @@ Behaviours.prototype.get = function(name) {
 
     return null;
 }
+
+
+
+Game.plugins.push(Behaviours);
 
 
 

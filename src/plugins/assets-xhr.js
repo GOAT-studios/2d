@@ -1,5 +1,3 @@
-var Assets;
-
 (function() {
 
 
@@ -218,6 +216,10 @@ var loadXHR = function(urls, index, loadAsArrayBuffer, cb) {
 
     xhr.send();
 }
+
+
+
+Game.plugins.push(Assets);
 
 
 
