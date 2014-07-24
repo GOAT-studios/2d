@@ -204,6 +204,16 @@ Game.prototype.category = function(category) {
     return this;
 }
 
+// Add Polyfill HERE!
+Game.prototype.requestAnimationFrame = function(callback) {
+    return requestAnimationFrame(callback);
+}
+
+//Add Polyfill HERE!
+Game.prototype.cancelAnimationFrame = function(af) {
+    cancelAnimationFrame(af);
+}
+
 
 
 
