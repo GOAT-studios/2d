@@ -145,11 +145,11 @@ Game.prototype.Loop = function() {
     this.frames++;
 
     this.emit("beforeupdate", [this]);
-    this.World.Update(this);
-    this.Camera.Update(this);
+    // this.World.Update(this);
+    // this.Camera.Update(this);
 
     this.emit("beforedraw", [this]);
-    this.World.Draw(this);
+    // this.World.Draw(this);
 
     this.emit("frame", [this]);
     return this;
