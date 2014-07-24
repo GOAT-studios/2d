@@ -26,7 +26,6 @@ World.prototype.loadScene = function(name, spawnPoint) {
     this.currentScene = this.parseScene(scene);
 
     this.game.Player.spawn(this.currentScene.SpawnPoints[spawnPoint]);
-    if()
 }
 
 
