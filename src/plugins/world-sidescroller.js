@@ -2,7 +2,7 @@
 
 
 
-World = function() {
+var World = function() {
     return this;
 }
 

@@ -2,7 +2,7 @@
 
 
 
-Behaviours = function() {
+var Behaviours = function() {
     this.behaviours = [];
     return this;
 }

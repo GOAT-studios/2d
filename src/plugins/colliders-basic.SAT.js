@@ -2,7 +2,7 @@
 
 
 
-Colliders = function(options) {
+var Colliders = function(options) {
     if(!options) var options = {};
 
     this.options = options;

@@ -2,7 +2,7 @@
 
 
 
-TwoPointBehaviour = function() {
+var TwoPointBehaviour = function() {
     this.objects = [];
 
     return this;
