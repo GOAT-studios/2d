@@ -88,6 +88,7 @@ Game.prototype.load = function() {
 
     this.emit("beforeload", [this]);
 
+    this.loadTime = this.Utils.time();
     this.Plugins.Load(this);
 
     this.emit("load", [this]);
