@@ -83,7 +83,7 @@ Game.prototype.init = function() {
 /* Setup world */
 Game.prototype.load = function() {
     if(!this.initTime) {
-        this.innit();
+        this.init();
     }
 
     this.emit("beforeload", [this]);
