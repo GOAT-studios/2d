@@ -224,4 +224,76 @@ describe("Core", function() {
 
 	});
 
+	describe("requestAnimationFrame", function() {
+
+		var game = new Game();
+
+		it("works", function(done) {
+			spyOn(game, "Loop");
+			var result = game.requestAnimationFrame();
+
+			expect(result).toBe(game);
+			expect(game.timer).toBeDefined();
+			expect(game.timer).not.toBeNull();
+
+			setTimeout(function() {
+				expect(game.Loop).toHaveBeenCalled();
+			}, 200);
+
+			done();
+		});
+
+	});
+
+	describe("cancelAnimationFrame", function() {
+
+		var game = new Game();
+
+		it("works", function() {
+			game.requestAnimationFrame();
+			var result = game.cancelAnimationFrame();
+			spyOn(game, "Loop");
+
+			expect(result).toBe(game);
+
+			jasmine.clock().install();
+			jasmine.clock().tick(100);
+
+			expect(game.Loop).not.toHaveBeenCalled();
+			jasmine.clock().uninstall();
+
+		});
+
+	});
+
+	describe("Plugins", function() {
+
+		var game = new Game({}, plugins);
+
+		describe("game.plugin", function() {
+
+			var plugin = {
+				name: "some-plugin",
+				type: "someType",
+				someFunc: function(a, b) {
+					return (a + b) / 2;
+				}
+			};
+
+			it("calls Plugins.add()", function() {
+				spyOn(game.Plugins, "add");
+				game.plugin(plugin);
+
+				expect(game.Plugins.add).toHaveBeenCalledWith(plugin);
+				expect(game.Plugins.add.calls.count()).toBe(1);
+			});
+
+			it("returns game", function() {
+				expect(game.plugin(plugin)).toEqual(game);
+			});
+
+		});
+
+	});
+
 });
