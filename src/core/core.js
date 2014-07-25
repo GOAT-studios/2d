@@ -205,13 +205,15 @@ Game.prototype.category = function(category) {
 }
 
 // Add Polyfill HERE!
-Game.prototype.requestAnimationFrame = function(callback) {
-    return requestAnimationFrame(callback);
+Game.prototype.requestAnimationFrame = function() {
+    this.timer = requestAnimationFrame(this.Loop);
+    return this;
 }
 
 //Add Polyfill HERE!
-Game.prototype.cancelAnimationFrame = function(af) {
-    cancelAnimationFrame(af);
+Game.prototype.cancelAnimationFrame = function() {
+    cancelAnimationFrame(this.timer);
+    return game;
 }
 
 
