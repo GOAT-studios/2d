@@ -213,7 +213,7 @@ Game.prototype.requestAnimationFrame = function() {
 //Add Polyfill HERE!
 Game.prototype.cancelAnimationFrame = function() {
     cancelAnimationFrame(this.timer);
-    return game;
+    return this;
 }
 
 
