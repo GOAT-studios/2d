@@ -46,6 +46,10 @@ AnimationCollection.prototype.play = function(name) {
 	return this;
 }
 
+AnimationCollection.prototype.getCurrent = function() {
+	return this.animations[this.current];
+}
+
 
 
 })();
