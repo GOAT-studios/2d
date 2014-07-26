@@ -44,7 +44,7 @@ var Animation = function(name, frames, speed) {
 
 Animation.prototype.update = function() {
     var currTime = Game.prototype.Utils.time();
-    var index = Math.round((currTime - this.startTime - this.pauseDuration) % this.speed);
+    var index = Math.round(((currTime - this.startTime - this.pauseDuration) / this.speed) % this.frames.length);
     this.currentFrame = this.frames[index];
 
     return this;
