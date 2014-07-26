@@ -58,8 +58,13 @@ var SampleWorld = {
                     awesomeSong: ["song.mp3","song.ogg"]
                 }
             },
-            snowy: {
-                
+            randomBlock: {
+                Terrain: [
+                    {
+                        position: {x:2, y:5},
+                        block: "earth"
+                    }
+                ]
             }
         }
     }
