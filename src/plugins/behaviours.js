@@ -3,39 +3,39 @@
 
 
 var Behaviours = function() {
-    this.behaviours = [];
     return this;
 }
 
-Behaviours.prototype.name = "behaviours";
+Behaviours.prototype.name = "behaviours-basic";
 Behaviours.prototype.type = "behaviours";
 
+Behaviours.prototype.Init = function(game) {
+    this.game = game;
+
+    var arr = Object.keys(this);
+    for(var i = 0, len = arr.length; i < len; i++) {
+        if(arr[i].Init) {
+            arr[i].Init(game);
+        }
+    }
+
+    return this;
+}
+
 Behaviours.prototype.register = function(behaviour) {
-    this.behaviours.push(behaviour);
+    this[behaviour.name] = behaviour;
+
+    if(this.game && behaviour.Init) {
+        behaviour.Init(this.game);
+    }
 
     return this;
 }
 
 Behaviours.prototype.remove = function(name) {
-    var behaviours = this.behaviours;
-    for(var i = 0, len = behaviours.length; i < len; i++) {
-        if(behaviours[i].name === name) {
-            behaviours.splice(i, 1);
-        }
-    }
+    delete this[name];
 
     return this;
-}
-
-Behaviours.prototype.get = function(name) {
-    var behaviours = this.behaviours;
-    for(var i = 0, len = behaviours.length; i < len; i++) {
-        if(behaviours[i].name === name) {
-            return behaviours[i];
-        }
-    }
-
-    return null;
 }
 
 

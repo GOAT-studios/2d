@@ -2,8 +2,9 @@
 
 
 
-var ParallaxBehaviour = function() {
-    this.objects = [];
+var ParallaxBehaviour = function(parallax) {
+    this.parallax = parallax;
+    this.oldCameraPos = this.game.Camera.position;
 
     return this;
 }
@@ -11,48 +12,24 @@ var ParallaxBehaviour = function() {
 ParallaxBehaviour.prototype.name = "behaviour-parallax";
 ParallaxBehaviour.prototype.type = "behaviour-parallax";
 
-ParallaxBehaviour.prototype.Init = function(game) {
-    this.game = game;
-}
-
-ParallaxBehaviour.prototype.register = function(object, parallax) {
-    this.objects.push({
-        object: object,
-        parallax: parallax,
-        oldCameraPos: this.game.Camera.position
-    });
-
-    return this;
+ParallaxBehaviour.Init = function(game) {
+    this.prototype.game = game;
 }
 
 ParallaxBehaviour.prototype.update = function(object) {
-    var obj = this.get(object);
-    var diff = {
-        x: this.game.Camera.position.x - obj.oldCameraPos.x,
-        y: this.game.Camera.position.y - obj.oldCameraPos.y
-    }
-    object.position.x += diff.x * obj.parallax.x;
-    object.position.y += diff.y * obj.parallax.y;
+    var diffX = this.game.Camera.position.x - this.oldCameraPos.x;
+    var diffY = this.game.Camera.position.y - this.oldCameraPos.y;
+    object.position.x += diffX * this.parallax.x;
+    object.position.y += diffX * this.parallax.y;
 
-    obj.oldCameraPos = this.game.Camera.position;
-
-    return this;
-}
-
-ParallaxBehaviour.prototype.get = function(object) {
-    for(var i = 0, len = this.objects.length; i < len; i++) {
-        if(this.objects[i].object === object) {
-            return this.objects[i];
-        }
-    }
-
-    return null;
+    this.oldCameraPos = this.game.Camera.position;
 }
 
 
 
-Game.plugins.push(ParallaxBehaviour);
+if(!Game.behaviours) Game.behaviours = [];
+Game.behaviours.push(Plugin);
 
 
 
-})()
+})();
