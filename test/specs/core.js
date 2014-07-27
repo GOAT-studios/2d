@@ -1,6 +1,6 @@
 describe("Core", function() {
 
-	describe("properies", function() {
+	describe("properties", function() {
 
 		var game = new Game({}, plugins);
 
@@ -238,9 +238,8 @@ describe("Core", function() {
 
 			setTimeout(function() {
 				expect(game.Loop).toHaveBeenCalled();
-			}, 200);
-
-			done();
+				done();
+			}, 20);
 		});
 
 	});
@@ -269,16 +268,15 @@ describe("Core", function() {
 	describe("Plugins", function() {
 
 		var game = new Game({}, plugins);
+		var plugin = {
+			name: "some-plugin",
+			type: "someType",
+			someFunc: function(a, b) {
+				return (a + b) / 2;
+			}
+		};
 
 		describe("game.plugin", function() {
-
-			var plugin = {
-				name: "some-plugin",
-				type: "someType",
-				someFunc: function(a, b) {
-					return (a + b) / 2;
-				}
-			};
 
 			it("calls Plugins.add()", function() {
 				spyOn(game.Plugins, "add");
@@ -290,6 +288,57 @@ describe("Core", function() {
 
 			it("returns game", function() {
 				expect(game.plugin(plugin)).toEqual(game);
+			});
+
+		});
+
+		describe("add", function() {
+
+			var result = game.Plugins.add(plugin);
+
+			it("returns Plugins", function() {
+				expect(result).toBe(game.Plugins);
+			});
+			it("adds to plugin to plugins list", function() {
+				expect(game.Plugins.plugins.Sometype).toContain(plugin);
+			});
+			it("adds the plugin to the game", function() {
+				expect(game.Sometype).toBe(plugin);
+			});
+			it("does not add a plugin twice", function() {
+				game.Plugins.add(plugin);
+				var count = 0;
+				var plugins = game.Plugins.plugins.Sometype;
+
+				for(var i = 0, len = plugins.length; i < len; i++) {
+					if(plugins[i] === plugin) count++;
+				}
+
+				expect(count).toEqual(1);
+			});
+
+		});
+
+		describe("remove", function() {
+			game.Plugins.plugins.Sometype = [];
+			game.Plugins.add(plugin);
+			var result = game.Plugins.remove("some-plugin");
+
+			it("returns Plugins", function() {
+				expect(result).toBe(game.Plugins);
+			});
+			it("removes the plugin from the plugins list", function() {
+				game.Plugins.remove("some-plugin");
+				expect(game.Plugins.plugins.Sometype).not.toContain(plugin);
+			});
+			it("removes the plugin from the game", function() {
+				expect(game.Sometype).toBeNull();
+			});
+			it("replaces the plugin by the last added plugin", function() {
+				var otherPlugin = game.Utils.merge(plugin, {name:"another-plugin"});
+				game.plugin(otherPlugin).plugin(plugin);
+				game.Plugins.remove("some-plugin");
+				expect(game.Sometype).toBe(otherPlugin);
 			});
 
 		});
