@@ -38,7 +38,8 @@ TestPlatform.prototype.Draw = function(d) {
 
 
 
-Objects.TestObject
+Objects.TestObject = TestObject;
+Objects.TestPlatform = TestPlatform;
 
 
 
