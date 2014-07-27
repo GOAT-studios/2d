@@ -147,7 +147,7 @@ Game.prototype.Loop = function() {
 
 Game.prototype.Utils = {
     capitalize: function(str) {
-        return str.substr(0,1).toUpperCase() + str.substr(1).toLowerCase();
+        return str.substr(0,1).toUpperCase() + str.substr(1);
     },
     merge: function(first, second, blacklist) {
         if(!blacklist) var blacklist = [];
