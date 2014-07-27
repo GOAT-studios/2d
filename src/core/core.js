@@ -227,7 +227,10 @@ var Plugins = function(game, plugins) {
     //Add already provided plugins
     if(plugins instanceof Array) {
         for(var i = 0, len = Game.plugins.length; i < len; i++) {
-            var plugin = new Game.plugins[i]();
+            var plugin = Game.plugins[i];
+            if(!plugin.__noConstructor) {
+                var plugin = new plugin();
+            }
             var index = plugins.indexOf(plugin.name);
             if(index !== -1) {
                 this.add(plugin);
