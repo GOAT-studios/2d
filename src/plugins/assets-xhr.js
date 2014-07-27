@@ -22,10 +22,6 @@ var Assets = function() {
 Assets.prototype.name = "assets-xhr";
 Assets.prototype.type = "Assets";
 
-Assets.prototype.Init = function(game) {
-    game.EventEmitter(this);
-}
-
 Assets.prototype.load = function(urls, name, forceText) {
     if(typeof urls === "string") urls = [urls];
     if(typeof name === "boolean") {forceText = name; name = undefined;}

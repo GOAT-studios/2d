@@ -2,10 +2,6 @@
 
 
 
-var Plugin = function() {
-	return AnimationCollection;
-}
-
 var AnimationCollection = function(animations, current) {
 	if(animations instanceof Array) {
 		var obj = {};
@@ -23,8 +19,7 @@ var AnimationCollection = function(animations, current) {
 	return this;
 }
 
-AnimationCollection.prototype.name = "animation-collection-basic";
-AnimationCollection.prototype.type = "AnimationCollection";
+AnimationCollection.name = "Collection";
 
 AnimationCollection.prototype.add = function(animation) {
 	this.animations[animation.name] = animation;
@@ -46,13 +41,25 @@ AnimationCollection.prototype.play = function(name) {
 	return this;
 }
 
+AnimationCollection.prototype.pause = function() {
+	this.getCurrent().pause();
+
+	return this;
+}
+
+AnimationCollection.prototype.stop = function() {
+	this.getCurrent().stop();
+
+	return this;
+}
+
 AnimationCollection.prototype.getCurrent = function() {
 	return this.animations[this.current];
 }
 
 
 
-Game.plugins.push(Plugin);
+Game.animations.push(AnimationCollection);
 
 
 

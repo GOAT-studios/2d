@@ -12,6 +12,7 @@ var Sprite = function(spriteSheet, pos, dim) {
 
 Sprite.prototype.name = "sprites-basic";
 Sprite.prototype.type = "Sprites";
+Sprite.__noConstructor = true;
 
 
 

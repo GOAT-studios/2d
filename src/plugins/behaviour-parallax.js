@@ -9,8 +9,7 @@ var ParallaxBehaviour = function(parallax) {
     return this;
 }
 
-ParallaxBehaviour.prototype.name = "behaviour-parallax";
-ParallaxBehaviour.prototype.type = "behaviour-parallax";
+ParallaxBehaviour.name = "Parallax";
 
 ParallaxBehaviour.Init = function(game) {
     this.prototype.game = game;
@@ -27,8 +26,7 @@ ParallaxBehaviour.prototype.update = function(object) {
 
 
 
-if(!Game.behaviours) Game.behaviours = [];
-Game.behaviours.push(Plugin);
+Game.behaviours.push(ParallaxBehaviour);
 
 
 

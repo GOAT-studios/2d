@@ -72,18 +72,13 @@ return f<=e};m.pointInPolygon=function(b,a){D.pos.c(b);y.clear();var c=C(D,a,y);
 c.overlapV.reverse();c.a=c.b;c.b=d;c.aInB=c.bInA;c.bInA=e}return a};m.testPolygonPolygon=C;return m}var SAT=w();
 
 
-//Replace SAT's Vector by Game's. SAT.Vector is still incuded in the minified code,
-//as I can't get it through the closure compiler without it messing up SAT without Vector.
-SAT.Vector = SAT.V = Game.prototype.Vector;
-
 Colliders.prototype.SAT      = SAT;
+Colliders.prototype.Vector   = SAT.Vector;
+Colliders.prototype.V        = SAT.V;
 Colliders.prototype.Box      = SAT.Box;
 Colliders.prototype.Polygon  = SAT.Polygon;
 Colliders.prototype.Circle   = SAT.Circle;
 Colliders.prototype.Response = SAT.Response;
-
-Colliders.prototype.Vector   = Game.prototype.Vector;
-Colliders.prototype.V        = Game.prototype.Vector;
 
 
 

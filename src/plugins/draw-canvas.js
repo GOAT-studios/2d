@@ -15,7 +15,7 @@ var Draw = function(options) {
 	var height = this.height = options.height || 35;
 
 	var domElement = this.domElement = document.createElement("canvas");
-	var ctx = this.context = this.domElement.getContext("2d");
+	var ctx = this.context = domElement.getContext("2d");
 	
 	var defaultConfig = Game.prototype.Utils.merge({}, ctx, ["canvas", "currentPath"]);
 	defaultConfig = this.defaultConfig = Game.prototype.Utils.merge(defaultConfig, options.defaultConfig);
