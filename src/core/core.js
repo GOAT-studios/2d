@@ -280,28 +280,25 @@ Plugins.prototype.add = function(plugin, override) {
 }
 
 Plugins.prototype.remove = function(name) {
-    var Plugin = this.get(name);
+    var self = this;
 
-    if(Plugin) {
-        var type = Plugin.type;
+    this.loop(function(plugin, index, array) {
+        if(plugin.name === name) {
+            //Remove plugin from plugin list
+            array.splice(index, 1);
 
-        //Remove from plugin pool
-        this.loop(function(plugin, index, array) {
-            if(plugin.name === name) {
-                array.splice(index, 1);
-            }
-        });
-        //Remove from Game
-        if(Plugin === this.game[type]) {
-            this.game[type] = null;
-
-            //Replace by last added plugin of the same type (if any)
-            var plugins = this.plugins[type];
-            if(plugins && plugins.length) {
-                this.game[type] = plugins[ plugins.length-1 ];
+            var type = plugin.type;
+            if(self.game[type] === plugin) {
+                //Remove plugin from game
+                self.game[type] = null;
+                if(self.plugins[type] && self.plugins[type].length) {
+                    //Add last added plugin to the game
+                    self.game[type] = self.plugins[type].slice(-1)[0];
+                }
             }
         }
-    }
+    });
+
 
     return this;
 }
@@ -360,7 +357,7 @@ Plugins.prototype.loop = function(cb) {
 
         //Loop through plugins (per type)
         for(var i = 0; i < plugins.length; i++) {
-            var br = cb(plugins[i], i, plugins);
+            var br = cb(plugins[i], i, this.plugins[type]);
             // Break loop if `cb` returns `true` (or another truthy value)
             if(br) { break outer; }
         }
