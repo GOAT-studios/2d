@@ -1,10 +1,12 @@
+Game.animations = [];
+
+
+
 (function() {
 
 
 
 var Animations = function() {
-    Game.animations = [];
-
     return this;
 }
 

@@ -1,10 +1,12 @@
+Game.behaviours = [];
+
+
+
 (function() {
 
 
 
 var Behaviours = function() {
-    Game.behaviours = [];
-    
     return this;
 }
 
