@@ -246,23 +246,21 @@ Plugins.prototype.add = function(plugin, override) {
     var name   = plugin.name;
     var Plugin = this.get(name);
 
-    if(!/^(add|remove|get|use|loop)$/.test(name)) {
-        //This type is not yet registered
-        if(!this.plugins[type]) {
-            this.plugins[type] = [];
-        }
+    //This type is not yet registered
+    if(!this.plugins[type]) {
+        this.plugins[type] = [];
+    }
 
-        //A plugin with this name already exists, but may be overridden
-        if(Plugin && override) {
-            this.remove(name);
-            this.add(plugin);
-        }
-        else if(!Plugin) {
-            //Push to plugin pool
-            this.plugins[type].push(plugin);
-            //Use the new plugin. If one already exists, it will not be overridden.
-            this.use(name);
-        }
+    //A plugin with this name already exists, but may be overridden
+    if(Plugin && override) {
+        this.remove(name);
+        this.add(plugin);
+    }
+    else if(!Plugin) {
+        //Push to plugin pool
+        this.plugins[type].push(plugin);
+        //Use the new plugin. If one already exists, it will not be overridden.
+        this.use(name);
     }
 
     return this;
@@ -395,12 +393,12 @@ var Categories = function(game, categories) {
 Categories.prototype.add = function(category) {
     var name = category.name = this.game.Utils.capitalize(category.name);
 
-    if(!/^(add|remove|get|loop)$/.test(name)) {
-        this[name] = category;
-        if(this.game.initTime && category.Init) {
-            category.Init(this.game);
-        }
+    this[name] = category;
+    if(this.game.initTime && category.Init) {
+        category.Init(this.game);
     }
+
+    return this;
 }
 
 Categories.prototype.remove = function(name) {
