@@ -12,6 +12,10 @@ Behaviours.prototype.type = "behaviours";
 Behaviours.prototype.Init = function(game) {
     this.game = game;
 
+    for(var i = 0, len = Game.behaviours.length; i < len; i++) {
+        this.register(Game.behaviours[i]);
+    }
+
     var arr = Object.keys(this);
     for(var i = 0, len = arr.length; i < len; i++) {
         if(arr[i].Init) {
@@ -23,7 +27,8 @@ Behaviours.prototype.Init = function(game) {
 }
 
 Behaviours.prototype.register = function(behaviour) {
-    this[behaviour.name] = behaviour;
+    var name = behaviour.name = Game.prototype.Utils.capitalize(behaviour.name);
+    this[name] = behaviour;
 
     if(this.game && behaviour.Init) {
         behaviour.Init(this.game);

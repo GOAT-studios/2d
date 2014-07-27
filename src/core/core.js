@@ -15,15 +15,12 @@ var Game;
 Game = function(options, plugins, categories) {
     if(!options) {
         var options = {};
-        console.warn(warnings.noOptionsConstructor);
     }
     if(!plugins) {
         var plugins = [];
-        console.warn(warnings.noPluginsConstructor);
     }
     if(!categories) {
         var categories = [];
-        console.warn(warnings.noCategoriesConstructor);
     }
 
     EventEmitter(this);
@@ -58,11 +55,6 @@ Game = function(options, plugins, categories) {
 /* Setup Engine */
 Game.prototype.init = function() {
     this.emit("beforeinit", [this]);
-    // Throw an Error if a plugin is missing.
-    // If Game[plugin] is null, that plugin is missing
-    if(!this.Assets || !this.Camera || !this.Colliders || !this.Draw || !this.Sound || !this.World) {
-        console.warn(warnings.missingPluginInit);
-    }
 
     this.initTime = this.Utils.time();
     this.Plugins.Init(this);
@@ -70,9 +62,6 @@ Game.prototype.init = function() {
     // Attach Draw.domElement to Game
     if(this.Draw && this.Draw.domElement) {
         this.domElement = this.Draw.domElement;
-    }
-    else {
-        console.warn(warnings.noDomElement);
     }
 
     this.emit("init", [this]);
@@ -272,9 +261,6 @@ Plugins.prototype.add = function(plugin, override) {
             this.use(name);
         }
     }
-    else {
-        console.warn(warnings.invalidName, name);
-    }
 
     return this;
 }
@@ -315,12 +301,6 @@ Plugins.prototype.get = function(name, warn) {
     });
 
 
-    //No plugin with this name exists
-    if(!Plugin && warn) {
-        console.warn(warnings.pluginDoesNotExist, name);
-        console.trace();
-    }
-
     return Plugin;
 }
 
@@ -338,12 +318,6 @@ Plugins.prototype.use = function(name, override) {
                 plugin.Init(this.game);
             }
         }
-        else if(this.game[type]) {
-            console.warn(warnings.useAlreadySet, name);
-        }
-    }
-    else {
-        console.warn(warnings.useNonExistentPlugin, name);
     }
 
     return this;
@@ -423,9 +397,6 @@ Categories.prototype.add = function(category) {
         if(this.game.initTime && category.Init) {
             category.Init(this.game);
         }
-    }
-    else {
-        console.warn(warnings.invalidName, name);
     }
 }
 
@@ -569,22 +540,6 @@ Game.plugins = [];
  *
  * Some variables used  by Game.
  */
-
-
-    var warnings = {
-        "noOptionsConstructor": "WARN: No options passed to the Game constructor. Default options will be used.",
-        "noPluginsConstructor": "WARN: No plugins passed to the Game constructor. Make sure to add plugins with 'Game.plugin(plugin);'.",
-        "noCategoriesConstructor": "WARN: No categories passed to the Game constructor. Make sure to add categories with 'Game.category(category);'.",
-        "pluginDoesNotExist": "WARN: A plugin with the name '%s' does not exist.",
-        "useNonExistentPlugin": "WARN: You are trying to use() a non-existent plugin, named '%s'.",
-        "useAlreadySet": "WARN: You are trying to use() a plugin, named '%s', but a plugin of this type is already in use. Please use Plugins.use(name, true) to override any plugins already in use.",
-        "invalidName": "WARN: The name '%s' is invalid.",
-        "noPluginPassed": "WARN: No plugin passed to Plugin.add().",
-        "noCategoryPassed": "WARN: No category passed to Categories.add().",
-        "missingPluginInit": "A vital plugin is missing after Game.init().",
-        "noDomElement": "Game.Draw.domElement is empty."
-    }
-
 
     var container = Game.prototype.container = document.createElement("div");
     container.setAttribute("id", "2D-loaders");
