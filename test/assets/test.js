@@ -1,1 +1,1 @@
-var plugins = ["animations-frame","assets-dom","assets-xhr","behaviours","camera-sidescroller","colliders-basic","draw-canvas","sound-basic","sprites-basic","world-sidescroller"];
+var plugins = ["animations-basic","assets-dom","assets-xhr","behaviours-basic","camera-sidescroller","colliders-basic","draw-canvas","sound-basic","sprites-basic","world-sidescroller"];

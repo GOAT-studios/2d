@@ -300,15 +300,15 @@ describe("Core", function() {
 				expect(result).toBe(game.Plugins);
 			});
 			it("adds to plugin to plugins list", function() {
-				expect(game.Plugins.plugins.Sometype).toContain(plugin);
+				expect(game.Plugins.plugins.SomeType).toContain(plugin);
 			});
 			it("adds the plugin to the game", function() {
-				expect(game.Sometype).toBe(plugin);
+				expect(game.SomeType).toBe(plugin);
 			});
 			it("does not add a plugin twice", function() {
 				game.Plugins.add(plugin);
 				var count = 0;
-				var plugins = game.Plugins.plugins.Sometype;
+				var plugins = game.Plugins.plugins.SomeType;
 
 				for(var i = 0, len = plugins.length; i < len; i++) {
 					if(plugins[i] === plugin) count++;
@@ -329,16 +329,16 @@ describe("Core", function() {
 			});
 			it("removes the plugin from the plugins list", function() {
 				game.Plugins.remove("some-plugin");
-				expect(game.Plugins.plugins.Sometype).not.toContain(plugin);
+				expect(game.Plugins.plugins.SomeType).not.toContain(plugin);
 			});
 			it("removes the plugin from the game", function() {
-				expect(game.Sometype).toBeNull();
+				expect(game.SomeType).toBeNull();
 			});
 			it("replaces the plugin by the last added plugin", function() {
 				var otherPlugin = game.Utils.merge(plugin, {name:"another-plugin"});
 				game.plugin(otherPlugin).plugin(plugin);
 				game.Plugins.remove("some-plugin");
-				expect(game.Sometype).toBe(otherPlugin);
+				expect(game.SomeType).toBe(otherPlugin);
 			});
 
 		});

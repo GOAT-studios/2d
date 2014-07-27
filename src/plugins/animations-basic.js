@@ -17,7 +17,7 @@ Animations.prototype.Init = function(game) {
     this.game = game;
 
     for(var i = 0, len = Game.animations.length; i < len; i++) {
-        this.register(Game.animations[i]);
+        this.add(Game.animations[i]);
     }
 
     var arr = Object.keys(this);
