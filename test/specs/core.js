@@ -34,9 +34,6 @@ describe("Core", function() {
 		it("has a Plugins property", function() {
 			expect(game.Plugins).toBeDefined()
 		});
-		it("has a Categories property", function() {
-			expect(game.Categories).toBeDefined();
-		});
 
 	});
 

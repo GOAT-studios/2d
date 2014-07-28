@@ -12,15 +12,12 @@ var Game;
  * The main Game constructor
  */
 
-Game = function(options, plugins, categories) {
+Game = function(options, plugins) {
     if(!options) {
         var options = {};
     }
     if(!plugins) {
         var plugins = [];
-    }
-    if(!categories) {
-        var categories = [];
     }
 
     EventEmitter(this);
@@ -35,7 +32,6 @@ Game = function(options, plugins, categories) {
     this.Sound      = null;
     this.World      = null;
     this.Plugins    = new Plugins(this, plugins);
-    this.Categories = new Categories(this, categories);
 
     this.initTime   = null;
     this.loadTime   = null;
@@ -229,7 +225,7 @@ var Plugins = function(game, plugins) {
         for(var i = 0, len = Game.plugins.length; i < len; i++) {
             var plugin = Game.plugins[i];
             if(!plugin.__noConstructor) {
-                var plugin = new plugin();
+                var plugin = new plugin(game);
             }
             var index = plugins.indexOf(plugin.name);
             if(index !== -1) {
@@ -361,66 +357,6 @@ Plugins.prototype.Load = function() {
     });
 
     return this;
-}
-
-
-
-
-
-
-/*
- * Categories
- * ==========
- *
- * The main Categories constructor
- * Provides the categories system for Game
- */
-
-var Categories = function(game, categories) {
-    //Save Game for later
-    this.game = game;
-
-    //Add already provided catgories
-    if(categories instanceof Array) {
-        for(var i = 0, len = categories.length; i < len; i++) {
-            this.add(categories[i]);
-        }
-    }
-
-    return this;
-}
-
-Categories.prototype.add = function(category) {
-    var name = category.name = this.game.Utils.capitalize(category.name);
-
-    this[name] = category;
-    if(this.game.initTime && category.Init) {
-        category.Init(this.game);
-    }
-
-    return this;
-}
-
-Categories.prototype.remove = function(name) {
-    var name = this.game.Utils.capitalize(name);
-
-    this[name] = undefined;
-
-    return this;
-}
-
-Categories.prototype.get = function(name) {
-    var name = this.game.Utils.capitalize(name);
-
-    return this[name] || null;
-}
-
-Categories.prototype.loop = function(cb) {
-    for(name in this) {
-        if(!/^(add|remove|get|loop)$/.test(name)) {
-            cb(this[name], name);
-        }
-    }
 }
 
 
