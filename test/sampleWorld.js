@@ -64,7 +64,7 @@ var SampleWorld = {
                 [1,1,1,2,2,2,2,2,2,2,2,2,1,1,1]
             ],
             Objects: [
-                new Objects.MovingPlatform({72 * 3, 72 * 2}, {72 * 2, 72}, {72 * 3, 72 * 2}, {72 * 11, 72 *2})
+                new Objects.MovingPlatform({x: 72 * 3,y: 72 * 2}, {d: 72 * 2,w: 72}, {x: 72 * 3,y: 72 * 2}, {x:72 * 11, y: 72 *2})
             ],
             Foregrounds: [
             ],
