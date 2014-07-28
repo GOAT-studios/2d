@@ -301,15 +301,14 @@ Plugins.prototype.get = function(name, warn) {
     return Plugin;
 }
 
-Plugins.prototype.use = function(name, override) {
+Plugins.prototype.use = function(name) {
     var plugin = this.get(name);
 
     //Plugin exists
     if(plugin) {
         var type = plugin.type;
 
-        //Only proceed when no plugin of this type is in use, or the plugin in use may be overridden
-        if(!this.game[type] || override) {
+        if(!this.game[type]) {
             this.game[type] = plugin;
             if(this.game.initTime && plugin.Init) {
                 plugin.Init(this.game);
