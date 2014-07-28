@@ -16,7 +16,7 @@ TestObject.prototype.Draw = function(d) {
 }
 
 
-var TestPlatform = function(position, dimensions, point1, point2, speed) {
+var MovingPlatform = function(position, dimensions, point1, point2, speed) {
 	this.position = position;
 	this.dimensions = dimensions;
 	this.behaviour = new game.Behaviours.TwoPoint(point1, point2, speed);
