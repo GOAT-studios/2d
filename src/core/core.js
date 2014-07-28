@@ -308,11 +308,9 @@ Plugins.prototype.use = function(name) {
     if(plugin) {
         var type = plugin.type;
 
-        if(!this.game[type]) {
-            this.game[type] = plugin;
-            if(this.game.initTime && plugin.Init) {
-                plugin.Init(this.game);
-            }
+        this.game[type] = plugin;
+        if(this.game.initTime && plugin.Init) {
+            plugin.Init(this.game);
         }
     }
 
