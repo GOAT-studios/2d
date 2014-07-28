@@ -41,10 +41,10 @@ var SampleWorld = {
                     position: {x:0, y:0},
                     dimensions: {h:72 * 20, w: 72 * 20},
                     Init: function(game) {
-                        this.parralax = new game.Behaviours.Parralax(parallax: {x:0.75, y:1});
+                        this.parallax = new game.Behaviours.Parallax({x:0.75, y:1});
                     }
                     Update: function(game) {
-                        this.parralax.update(this);
+                        this.parallax.update(this);
                     },
                     Draw: function(d) {
                         d.drawImage(d.getAsset("background1"), this.position.x, this.position.y);
