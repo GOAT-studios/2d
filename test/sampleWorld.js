@@ -1,14 +1,50 @@
 var SampleWorld = {
-    level1: {
+    ChrisHouliham: {
         Base: {
             Backgrounds: [
                 {
                     position: {x:0, y:0},
                     dimensions: {h:768, w:1366},
-                    parallax: {x:0.75, y:1},
+                    Draw: function(d) {
+                        d.drawImage(d.getAsset("background1"), this.position.x, this.position.y);
+                    }
+                }
+            ],
+            Terrain: [
+                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+            ],
+            Objects: [
+            ],
+            Foregrounds: [
+            ],
+            SpawnPoints: {
+                main: {x: 0, y: 72 * 2}
+            },
+            Music: {
+                Main: ["mainSong.mp3", "mainSong.ogg"],
+            }
+        }
+    },
+    TestScene: {
+        Base: {
+            Backgrounds: [
+                {
+                    position: {x:0, y:0},
+                    dimensions: {h:72 * 20, w: 72 * 20},
+                    Init: function(game) {
+                        this.parallax = new game.Behaviours.Parallax({x:0.75, y:1});
+                    }
                     Update: function(game) {
-                        this.position.x = game.Camera.position.x * this.parallax.x;
-                        this.position.y = game.Camera.position.y * this.parallax.y;
+                        this.parallax.update(this);
                     },
                     Draw: function(d) {
                         d.drawImage(d.getAsset("background1"), this.position.x, this.position.y);
@@ -16,38 +52,29 @@ var SampleWorld = {
                 }
             ],
             Terrain: [
-                ["earth",""]
+                [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [1,1,1,0,0,0,0,0,0,0,0,0,1,1,1],
+                [1,1,1,0,0,0,0,0,0,0,0,0,1,1,1],
+                [1,1,1,2,2,2,2,2,2,2,2,2,1,1,1]
             ],
             Objects: [
-                {
-                    position: {x:0, y:0},
-                    dimensions: {h:234, w:32},
-                    Init: function(game) {
-                        game.Behaviours.TwoPoint.register(this, {x:0, y:0}, {x:25, y:40}, 2);
-                    },
-                    Update: function(game) {
-                        game.Behaviours.TwoPoint.update(this);
-                    }
-                }
+                new Objects.MovingPlatform({x: 72 * 3,y: 72 * 2}, {d: 72 * 2,w: 72}, {x: 72 * 3,y: 72 * 2}, {x:72 * 11, y: 72 *2})
             ],
             Foregrounds: [
-
             ],
             SpawnPoints: {
-                spawnPoint1: {x:25, y:567}
+                leftDoor: {x: 0, y: 72 * 3},
+                rightDoor: {x: 72 * 14, y:  72 * 3}
             },
             Music: {
                 Main: ["mainSong.mp3", "mainSong.ogg"],
-                awesomeSong: ["song.mp3","song.ogg"]
             }
-        },
-        randomBlock: {
-            Terrain: [
-                {
-                    position: {x:0, y:2},
-                    block: "earth"
-                }
-            ]
         }
-    }
+    }                    
 }
