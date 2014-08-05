@@ -22,14 +22,19 @@
 		<script type="text/javascript" src="../src/plugins/world-sidescroller.js"></script>
 
 		<script type="text/javascript" src="assets/test.js"></script>
-		<script type="text/javascript" src="sampleWorld.js"></script>
-	</head>
-	<body>
+		<script type="text/javascript" src="assets/Blocks.js"></script>
+		<script type="text/javascript" src="assets/Objects.js"></script>
 		<script type="text/javascript">
 			var game = new Game({}, plugins);
 			game.init();
+		</script>
+		<script type="text/javascript" src="sampleWorld.js"></script>
+		<script type="text/javascript">
 			game.World.load(SampleWorld);
 			// game.World.loadScene("level1");
 		</script>
+	</head>
+	<body>
+		
 	</body>
 </html>

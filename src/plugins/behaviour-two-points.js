@@ -3,7 +3,7 @@
 
 
 var TwoPointBehaviour = function(point1, point2, speed) {
-    var length = Math.sqrt( Math.pow(point2.x - poin1.x, 2) + Math.pow(point2.y - point1.y, 2) );
+    var length = Math.sqrt( Math.pow(point2.x - point1.x, 2) + Math.pow(point2.y - point1.y, 2) );
     var diff = {
         x: (speed * (point2.x - point1.x)) / length,
         y: (speed * (point2.y - point1.y)) / length
