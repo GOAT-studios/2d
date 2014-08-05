@@ -42,7 +42,7 @@ var SampleWorld = {
                     dimensions: {h:72 * 20, w: 72 * 20},
                     Init: function(game) {
                         this.parallax = new game.Behaviours.Parallax({x:0.75, y:1});
-                    }
+                    },
                     Update: function(game) {
                         this.parallax.update(this);
                     },
