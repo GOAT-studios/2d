@@ -19,7 +19,8 @@ var AnimationCollection = function(animations, current) {
 	return this;
 }
 
-AnimationCollection.name = "Collection";
+AnimationCollection.Name = "Collection";
+AnimationCollection.__noConstructor = true;
 
 AnimationCollection.prototype.add = function(animation) {
 	this.animations[animation.name] = animation;

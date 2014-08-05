@@ -11,8 +11,8 @@ var Camera = function(options) {
     return this;
 }
 
-Camera.prototype.name = "camera-sidescroller";
-Camera.prototype.type = "Camera";
+Camera.prototype.Name = "camera-sidescroller";
+Camera.prototype.Type = "Camera";
 
 Camera.prototype.Init = function(game) {
     this.game   = game;

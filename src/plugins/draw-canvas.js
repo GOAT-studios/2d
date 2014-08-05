@@ -223,8 +223,8 @@ var Draw = function(options) {
 	return this;
 }
 
-Draw.prototype.name = "draw-canvas";
-Draw.prototype.type = "Draw";
+Draw.prototype.Name = "draw-canvas";
+Draw.prototype.Type = "Draw";
 
 Draw.prototype.Init = function(game) {
 	var self = this;

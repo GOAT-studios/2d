@@ -6,18 +6,24 @@ Game.animations = [];
 
 
 
-var Animations = function() {
+var Animations = function(game) {
+    this.game = game;
+    
     return this;
 }
 
-Animations.prototype.name = "animations-basic";
-Animations.prototype.type = "Animations";
+Animations.prototype.Name = "animations-basic";
+Animations.prototype.Type = "Animations";
 
 Animations.prototype.Init = function(game) {
     this.game = game;
 
     for(var i = 0, len = Game.animations.length; i < len; i++) {
-        this.add(Game.animations[i]);
+        var animation = Game.animations[i];
+        if(!animation.__noConstructor) {
+            var animation = new animation(this.game);
+        }
+        this.add(animation);
     }
 
     var arr = Object.keys(this);
@@ -31,7 +37,7 @@ Animations.prototype.Init = function(game) {
 }
 
 Animations.prototype.add = function(animation) {
-    var name = animation.name = Game.prototype.Utils.capitalize(animation.name);
+    var name = animation.Name = Game.prototype.Utils.capitalize(animation.Name);
     this[name] = animation;
 
     if(this.game && animation.Init) {

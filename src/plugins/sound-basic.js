@@ -10,8 +10,8 @@ var Sound = function() {
     return this;
 }
 
-Sound.prototype.name = "sound-basic";
-Sound.prototype.type = "Sound";
+Sound.prototype.Name = "sound-basic";
+Sound.prototype.Type = "Sound";
 
 Sound.prototype.Init = function(game) {
     var self = this;

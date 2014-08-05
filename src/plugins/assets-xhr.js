@@ -19,8 +19,8 @@ var Assets = function() {
     return this;
 }
 
-Assets.prototype.name = "assets-xhr";
-Assets.prototype.type = "Assets";
+Assets.prototype.Name = "assets-xhr";
+Assets.prototype.Type = "Assets";
 
 Assets.prototype.load = function(urls, name, forceText) {
     if(typeof urls === "string") urls = [urls];

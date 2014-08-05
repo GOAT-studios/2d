@@ -9,7 +9,8 @@ var ParallaxBehaviour = function(parallax) {
     return this;
 }
 
-ParallaxBehaviour.name = "Parallax";
+ParallaxBehaviour.Name = "Parallax";
+ParallaxBehaviour.__noConstructor = true;
 
 ParallaxBehaviour.Init = function(game) {
     this.prototype.game = game;

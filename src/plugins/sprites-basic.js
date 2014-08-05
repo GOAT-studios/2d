@@ -10,8 +10,8 @@ var Sprite = function(spriteSheet, pos, dim) {
 	return this;
 }
 
-Sprite.prototype.name = "sprites-basic";
-Sprite.prototype.type = "Sprites";
+Sprite.prototype.Name = "sprites-basic";
+Sprite.prototype.Type = "Sprites";
 Sprite.__noConstructor = true;
 
 

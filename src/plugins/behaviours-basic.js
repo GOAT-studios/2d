@@ -6,18 +6,24 @@ Game.behaviours = [];
 
 
 
-var Behaviours = function() {
+var Behaviours = function(game) {
+    this.game = game;
+
     return this;
 }
 
-Behaviours.prototype.name = "behaviours-basic";
-Behaviours.prototype.type = "Behaviours";
+Behaviours.prototype.Name = "behaviours-basic";
+Behaviours.prototype.Type = "Behaviours";
 
 Behaviours.prototype.Init = function(game) {
     this.game = game;
-
+    
     for(var i = 0, len = Game.behaviours.length; i < len; i++) {
-        this.add(Game.behaviours[i]);
+        var behaviour = Game.behaviours[i];
+        if(!behaviour.__noConstructor) {
+            var behaviour = new behaviour(this.game);
+        }
+        this.add(behaviour);
     }
 
     var arr = Object.keys(this);
@@ -27,14 +33,16 @@ Behaviours.prototype.Init = function(game) {
         }
     }
 
+    this.hadInit = true;
+
     return this;
 }
 
 Behaviours.prototype.add = function(behaviour) {
-    var name = behaviour.name = Game.prototype.Utils.capitalize(behaviour.name);
+    var name = behaviour.name = this.game.Utils.capitalize(behaviour.Name);
     this[name] = behaviour;
 
-    if(this.game && behaviour.Init) {
+    if(this.hadInit && behaviour.Init) {
         behaviour.Init(this.game);
     }
 

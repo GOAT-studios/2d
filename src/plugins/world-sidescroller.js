@@ -2,21 +2,63 @@
 
 
 
-var World = function() {
-    this.blocks = {};
+var World = function(game) {
+    this.game = game;
+    this.objects = {};
+
+    this.blockSize = {width:72, height:72};
+
+    game.Save = {
+        modifiers:{
+            level1: {
+                randomBlock:true
+            }
+        }
+    };
 
     return this;
 }
 
-World.prototype.name = "world-sidescroller";
-World.prototype.type = "World";
-
-World.prototype.Init = function(game) {
-    this.game = game;
-}
+World.prototype.Name = "world-sidescroller";
+World.prototype.Type = "World";
 
 World.prototype.Update = function(game) {
-	
+    var filter = /[^(terrainBuffer)]/i;
+	this.loop(game.Categories, filter, function(type, object) {
+        if(object.Update) object.Update(game);
+    });
+
+    this.updateBuffer(game);
+
+    return this;
+}
+
+World.prototype.Draw = function(game) {
+    var blockSize = this.blockSize;
+    var Draw = this.game.Draw;
+    var d = Draw.instance;
+    var terrainType = /^terrainBuffer$/i;
+    var otherType = /^(backgrounds|foregrounds|objects)$/i;
+    var allTypes = /^(backgrounds|foregrounds|objects|terrainBuffer)$/i
+
+    this.loop(game.Categories, allTypes, function(type, object, i, arr) {
+        if(otherType.test(type) && object.Draw) {
+            Draw.x = object.position.x;
+            Draw.y = object.position.y;
+            Draw.width = object.dimensions.width;
+            Draw.height = object.dimensions.height;
+            object.Draw(d);
+        }
+        else if(terrainType.test(type) && object.Draw) {
+            Draw.x = i.x;
+            Draw.y = i.y;
+            Draw.width = blockSize.width;
+            Draw.height = blockSize.height;
+            object.Draw(d);
+        }
+    });
+
+    return this;
 }
 
 
@@ -25,15 +67,25 @@ World.prototype.Update = function(game) {
  * Scenes
  */
 World.prototype.load = function(world) {
-    this.world = Game.prototype.Utils.merge({}, world);
+    this.world = world;
 
     return this;
 }
 
 World.prototype.loadScene = function(name) {
-    var modifiers = this.game.Save.file.modifiers[name] || {};
-    this.currentScene = this.parseScene(this.world[name], modifiers);
     this.current = name;
+    var modifiers = this.game.Save.modifiers[name] || {};
+    this.currentScene = this.parseScene(this.world[name], modifiers);
+    
+    for(name in this.currentScene) {
+        this.game.Categories.add(name, this.currentScene[name]);
+    }
+
+    var game = this.game;
+    var filter = /[^(terrainBuffer)]/i;
+    this.loop(game.Categories, filter, function(type, object) {
+        if(object.Init) object.Init(game);
+    })
 
     return this;
 }
@@ -44,14 +96,14 @@ World.prototype.loadScene = function(name) {
  * Blocks
  */
 
-World.prototype.saveBlock = function(name, block) {
-    this.blocks[name] = block;
+World.prototype.saveObject = function(name, object) {
+    this.object[name] = object;
 
     return this;
 }
 
-World.prototype.saveBlocks = function(blocks) {
-    Game.prototype.Utils.merge(this, blocks);
+World.prototype.saveObjects = function(object) {
+    Game.prototype.Utils.merge(this.objects, object);
 
     return this;
 }
@@ -61,14 +113,17 @@ World.prototype.saveBlocks = function(blocks) {
  * Parsers
  */
 
-World.prototype.parseScene = function(scene, modifiers) {
-    for(name in scene) {
+World.prototype.parseScene = function(Scene, modifiers) {
+    var scene = Game.prototype.Utils.merge({}, Scene.Base);
+    for(name in Scene) {
         if(name !== "Base" && modifiers[name]) {
-            this.mergeModifier(scene.Base, scene[name]);
+            this.mergeModifier(scene, Scene[name]);
         }
     }
 
-    var scene = scene.Base;
+    this.replaceObjects(scene);
+
+    return scene;
 }
 
 World.prototype.mergeModifier = function(base, mod) {
@@ -92,6 +147,101 @@ World.prototype.mergeModifier = function(base, mod) {
 /**
  * Other
  */
+
+World.prototype.updateBuffer = function(game) {
+    var rows = {
+        min: Math.floor(game.Camera.position.y % this.blockSize.height),
+        max: Math.ceil((game.Camera.position.y+game.canvasHeight) % this.blockSize.height)
+    }
+    var columns = {
+        min: Math.floor(game.Camera.position.x % this.blockSize.width),
+        max: Math.ceil((game.Camera.position.x+game.canvasWidth) % this.blockSize.width)
+    }
+
+    var buffer = game.Categories.Terrain.slice(rows.min, rows.max);
+    buffer = buffer.map(function(row) {
+        return column.slice(columns.min, columns.max);
+    });
+    game.Categories.TerrainBuffer = buffer;
+
+    return this;
+}
+
+World.prototype.loop = function(scene, filter, cb) {
+    if(typeof filter === "function") {cb = filter; filter = /(.|\n)*/i};
+
+    if(filter.test("backgrounds")) {
+        var backgrounds = scene.Backgrounds;
+        for(var i = 0, len = backgrounds.length; i < len; i++) {
+            cb("backgrounds", backgrounds[i], i, backgrounds);
+        }
+    }
+
+    if(filter.test("terrain")) {
+        var terrain = scene.Terrain;
+        for(var i = 0, len = terrain.length; i < len; i++) {
+            var column = terrain[i];
+
+            for(var j = 0, lenj = column.length; j < lenj; j++) {
+                cb("terrain", column[j], {x:i,y:j}, column);
+            }
+        }
+    }
+
+    if(filter.test("terrainBuffer")) {
+        var terrainBuffer = scene.TerrainBuffer;
+        for(var i = 0, len = terrainBuffer.length; i < len; i++) {
+            var column = terrainBuffer[i];
+
+            for(var j = 0, lenj = column.length; j < lenj; j++) {
+                cb("terrainBuffer", column[j], {x:i,y:j}, terrainBuffer);
+            }
+        }
+    }
+
+    if(filter.test("objects")) {
+        var objects = scene.Objects;
+        for(var i = 0, len = objects.length; i < len; i++) {
+            cb("objects", objects[i], i, objects);
+        }
+    }
+
+    if(filter.test("foregrounds")) {
+        var foregrounds = scene.Foregrounds;
+        for(var i = 0, len = foregrounds.length; i < len; i++) {
+            cb("foregrounds", foregrounds[i], i, foregrounds);
+        }
+    }
+
+    if(filter.test("spawnPoints")) {
+        var spawnpoints = scene.SpawnPoints;
+        for(var i = 0, len = spawnpoints.length; i < len; i++) {
+            cb("spawnpoints", spawnpoints[i], i, spawnpoints);
+        }
+    }
+
+
+    return this;
+}
+
+World.prototype.replaceObjects = function(scene) {
+    var objects = this.objects;
+    var filter = /[^(terrainBuffer)]/i;
+
+    this.loop(scene, filter, function(type, object) {
+        if(typeof object === "string" || typeof object === "number") {
+            object = objects[object];
+        }
+    });
+
+    return this;
+}
+
+World.prototype.setBlockSize = function(width, height) {
+    this.blockSize = {width: width || 72, height: height || 72};
+
+    return this;
+}
 
 World.prototype.getCurrent = function() {
     return this.currentScene;

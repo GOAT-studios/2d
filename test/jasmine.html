@@ -29,8 +29,17 @@
 		<script type="text/javascript" src="../src/plugins/world-sidescroller.js"></script>
 
 		<script type="text/javascript" src="assets/test.js"></script>
+		<script type="text/javascript" src="sampleWorld.js"></script>
 
 		<!-- Specs -->
 		<script type="text/javascript" src="specs/core.js"></script>
 	</head>
+	<body>
+		<script type="text/javascript">
+			var game = new Game({}, plugins);
+			game.init();
+			game.World.load(SampleWorld);
+			// game.World.loadScene("level1");
+		</script>
+	</body>
 </html>

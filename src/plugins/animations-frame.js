@@ -23,7 +23,8 @@ var Animation = function(name, frames, speed) {
     return this;
 }
 
-Animation.name = "Frames";
+Animation.Name = "Frames";
+Animation.__noConstructor = true;
 
 Animation.Init = function(game) {
     this.prototype.game = game;

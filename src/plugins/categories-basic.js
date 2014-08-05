@@ -13,8 +13,8 @@ var Categories = function(game) {
     return this;
 }
 
-Categories.prototype.name = "categories-basic";
-Categories.prototype.type = "Categories";
+Categories.prototype.Name = "categories-basic";
+Categories.prototype.Type = "Categories";
 
 Categories.prototype.Init = function(game) {
 	for(var i = 0, len = Game.categories.length; i < len; i++) {
@@ -24,8 +24,8 @@ Categories.prototype.Init = function(game) {
 	return this;
 }
 
-Categories.prototype.add = function(category) {
-    var name = category.name = this.game.Utils.capitalize(category.name);
+Categories.prototype.add = function(name, category) {
+    var name = this.game.Utils.capitalize(name);
 
     this[name] = category;
     if(this.game.initTime && category.Init) {

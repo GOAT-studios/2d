@@ -24,8 +24,8 @@ Assets.prototype.Init = function(game) {
     this.init = true;
 }
 
-Assets.prototype.name = "assets-dom";
-Assets.prototype.type = "Assets";
+Assets.prototype.Name = "assets-dom";
+Assets.prototype.Type = "Assets";
 
 Assets.prototype.load = function(urls, name) {
     if(typeof urls === "string") urls = [urls];

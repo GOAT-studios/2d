@@ -26,7 +26,8 @@ var TwoPointBehaviour = function(point1, point2, speed) {
     return this;
 }
 
-TwoPointBehaviour.name = "TwoPoints";
+TwoPointBehaviour.Name = "TwoPoints";
+TwoPointBehaviour.__noConstructor = true;
 
 TwoPointBehaviour.prototype.update = function(object) {
     object.position.x += this.diff.x;

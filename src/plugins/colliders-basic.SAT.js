@@ -10,8 +10,8 @@ var Colliders = function(options) {
     return this;
 }
 
-Colliders.prototype.name  = "colliders-basic";
-Colliders.prototype.type  = "Colliders";
+Colliders.prototype.Name  = "colliders-basic";
+Colliders.prototype.Type  = "Colliders";
 Colliders.prototype.types = ["Box", "Polygon", "Circle"];
 
 Colliders.prototype.test = function(a, b, res) {

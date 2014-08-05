@@ -227,8 +227,7 @@ var Plugins = function(game, plugins) {
             if(!plugin.__noConstructor) {
                 var plugin = new plugin(game);
             }
-            var index = plugins.indexOf(plugin.name);
-            if(index !== -1) {
+            if(plugins.indexOf(plugin.Name) !== -1) {
                 this.add(plugin);
             }
         }
@@ -238,8 +237,8 @@ var Plugins = function(game, plugins) {
 }
 
 Plugins.prototype.add = function(plugin, override) {
-    var type   = plugin.type = this.game.Utils.capitalize(plugin.type);
-    var name   = plugin.name;
+    var type   = plugin.Type = this.game.Utils.capitalize(plugin.Type);
+    var name   = plugin.Name;
     var Plugin = this.get(name);
 
     //This type is not yet registered
@@ -266,11 +265,11 @@ Plugins.prototype.remove = function(name) {
     var self = this;
 
     this.loop(function(plugin, index, array) {
-        if(plugin.name === name) {
+        if(plugin.Name === name) {
             //Remove plugin from plugin list
             array.splice(index, 1);
 
-            var type = plugin.type;
+            var type = plugin.Type;
             if(self.game[type] === plugin) {
                 //Remove plugin from game
                 self.game[type] = null;
@@ -291,7 +290,7 @@ Plugins.prototype.get = function(name, warn) {
 
     //Loop through all the plugins and get the right one out
     this.loop(function(plugin, index, array) {
-        if(plugin.name === name) {
+        if(plugin.Name === name) {
             Plugin = plugin;
             return true;
         }
@@ -306,7 +305,7 @@ Plugins.prototype.use = function(name) {
 
     //Plugin exists
     if(plugin) {
-        var type = plugin.type;
+        var type = plugin.Type;
 
         this.game[type] = plugin;
         if(this.game.initTime && plugin.Init) {
