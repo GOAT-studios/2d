@@ -40,12 +40,12 @@ World.prototype.Draw = function(game) {
     var Draw = game.Draw;
     var d = Draw.instance;
     var blockSize = this.blockSize;
-// filter matches anything except 'terrainBuffer'
+// terrainType matches anything except 'terrainBuffer'
     var terrainType = /^terrainBuffer$/i;
     var otherType = /^(backgrounds|foregrounds|objects)$/i;
     var allTypes = /^(backgrounds|foregrounds|objects|terrainBuffer)$/i
 
-    this.loop(game.Categories, allTypes, function(type, object, i, arr) {
+    this.loop(game.Categories, allTypes, function(type, object, i) {
         if(otherType.test(type) && object.Draw) {
             Draw.x = object.position.x;
             Draw.y = object.position.y;
@@ -55,7 +55,7 @@ World.prototype.Draw = function(game) {
         }
         else if(terrainType.test(type) && object.Draw) {
             Draw.x = (i.x * blockSize.width) - Camera.x;
-            Draw.y = (game.height - (i.y * blockSize.height)) + Camera.y;
+            Draw.y = (game.height - ((i.y + 1) * blockSize.height)) + Camera.y;
             Draw.width = blockSize.width;
             Draw.height = blockSize.height;
             object.Draw(d);
@@ -171,7 +171,7 @@ World.prototype.updateBuffer = function(game) {
     buffer = buffer.map(function(row) {
         return column.slice(columns.min, columns.max);
     });
-    game.Categories.TerrainBuffer = buffer;
+    game.Categories.add("terrainBuffer", buffer);
 
     return this;
 }

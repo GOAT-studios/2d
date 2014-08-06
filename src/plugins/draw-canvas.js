@@ -16,6 +16,12 @@ var Draw = function(options) {
 
 	var domElement = this.domElement = document.createElement("canvas");
 	var ctx = this.context = domElement.getContext("2d");
+ var canvasWidth  = this.canvasWidth  = domElement.innerWidth;
+ var canvasHeight = this.canvasHeight = domElement.innerHeight;
+ domElement.addEventListener("resize", function(e) {
+  canvasWidth  = domElement.innerWidth;
+  canvasHeight = domElement.innerHeight;
+ });
 	
 	var defaultConfig = Game.prototype.Utils.merge({}, ctx, ["canvas", "currentPath"]);
 	defaultConfig = this.defaultConfig = Game.prototype.Utils.merge(defaultConfig, options.defaultConfig);
