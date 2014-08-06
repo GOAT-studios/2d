@@ -31,10 +31,12 @@
 		<script type="text/javascript" src="sampleWorld.js"></script>
 		<script type="text/javascript">
 			game.World.load(SampleWorld);
-			// game.World.loadScene("level1");
+			game.World.loadScene("TestScene");
 		</script>
 	</head>
 	<body>
-		
+		<script type="text/javascript">
+			document.body.appendChild(game.domElement);
+		</script>
 	</body>
 </html>
