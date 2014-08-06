@@ -33,7 +33,7 @@ TwoPointBehaviour.prototype.update = function(object) {
     object.position.x += this.diff.x;
     object.position.y += this.diff.y;
 
-    if(object.position.x < this.min.x || object.position.y < this.min.y || object.position.x > this.max.x || object.position.y > ovj.max.y) {
+    if(object.position.x < this.min.x || object.position.y < this.min.y || object.position.x > this.max.x || object.position.y > this.max.y) {
         this.diff.x = -this.diff.x;
         this.diff.y = -this.diff.y;
 

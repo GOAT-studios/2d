@@ -10,3 +10,5 @@ var Blocks = {
 		}
 	}
 }
+
+game.World.saveObjects(Blocks);

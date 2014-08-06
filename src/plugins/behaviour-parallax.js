@@ -2,9 +2,10 @@
 
 
 
-var ParallaxBehaviour = function(parallax) {
+var ParallaxBehaviour = function(parallax, game) {
+	this.game = game;
     this.parallax = parallax;
-    this.oldCameraPos = this.game.Camera.position;
+    this.oldCameraPos = game.Camera;
 
     return this;
 }
@@ -12,17 +13,13 @@ var ParallaxBehaviour = function(parallax) {
 ParallaxBehaviour.Name = "Parallax";
 ParallaxBehaviour.__noConstructor = true;
 
-ParallaxBehaviour.Init = function(game) {
-    this.prototype.game = game;
-}
-
 ParallaxBehaviour.prototype.update = function(object) {
-    var diffX = this.game.Camera.position.x - this.oldCameraPos.x;
-    var diffY = this.game.Camera.position.y - this.oldCameraPos.y;
+    var diffX = this.game.Camera.x - this.oldCameraPos.x;
+    var diffY = this.game.Camera.y - this.oldCameraPos.y;
     object.position.x += diffX * this.parallax.x;
     object.position.y += diffX * this.parallax.y;
 
-    this.oldCameraPos = this.game.Camera.position;
+    this.oldCameraPos = this.game.Camera;
 }
 
 

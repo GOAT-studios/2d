@@ -36,7 +36,7 @@ World.prototype.Update = function(game) {
 
 World.prototype.Draw = function(game) {
     var game = this.game;
-    var Camera = game.Camera.position;
+    var Camera = game.Camera;
     var Draw = game.Draw;
     var d = Draw.instance;
     var blockSize = this.blockSize;
@@ -159,12 +159,12 @@ World.prototype.mergeModifier = function(base, mod) {
 
 World.prototype.updateBuffer = function(game) {
     var rows = {
-        min: Math.floor(game.Camera.position.y % this.blockSize.height),
-        max: Math.ceil((game.Camera.position.y+game.canvasHeight) % this.blockSize.height)
+        min: Math.floor(game.Camera.y % this.blockSize.height),
+        max: Math.ceil((game.Camera.y+game.canvasHeight) % this.blockSize.height)
     }
     var columns = {
-        min: Math.floor(game.Camera.position.x % this.blockSize.width),
-        max: Math.ceil((game.Camera.position.x+game.canvasWidth) % this.blockSize.width)
+        min: Math.floor(game.Camera.x % this.blockSize.width),
+        max: Math.ceil((game.Camera.x+game.canvasWidth) % this.blockSize.width)
     }
 
     var buffer = game.Categories.Terrain.slice(rows.min, rows.max);
