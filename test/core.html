@@ -21,12 +21,16 @@
 		<script type="text/javascript" src="../src/plugins/sprites-basic.js"></script>
 		<script type="text/javascript" src="../src/plugins/world-sidescroller.js"></script>
 
-		<script type="text/javascript" src="assets/test.js"></script>
-		<script type="text/javascript" src="assets/Objects.js"></script>
 		<script type="text/javascript">
-			var game = new Game({}, plugins);
-			game.init();
+			var plugins = [
+				"animations-basic","assets-dom","assets-xhr",
+				"behaviours-basic","camera-sidescroller","categories-basic",
+				"colliders-basic","draw-canvas","sound-basic",
+				"sprites-basic","world-sidescroller"
+			];
+			var game = new Game().options({}).plugins(plugins).init();
 		</script>
+		<script type="text/javascript" src="assets/Objects.js"></script>
 		<script type="text/javascript" src="assets/Blocks.js"></script>
 		<script type="text/javascript" src="sampleWorld.js"></script>
 		<script type="text/javascript">

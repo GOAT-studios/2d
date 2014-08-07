@@ -90,7 +90,10 @@ World.prototype.loadScene = function(name) {
     var filter = /[^(terrainBuffer)]/i;
     this.loop(game.Categories, filter, function(type, object) {
         if(object.Init) object.Init(game);
-    })
+    });
+
+    this.game.load();
+    
 
     return this;
 }

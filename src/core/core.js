@@ -12,36 +12,22 @@ var Game;
  * The main Game constructor
  */
 
-Game = function(options, plugins) {
-    if(!options) {
-        var options = {};
-    }
-    if(!plugins) {
-        var plugins = [];
-    }
+Game = function() {
+    this.Plugins   = new Plugins(this, plugins);
+
+    this.initTime  = null;
+    this.loadTime  = null;
+    this.startTime = null;
+    this.pauseTime = null;
+    this.stopTime  = null;
+
+    this.playing   = false;
+    this.timer     = null;
+    this.frames    = 0;
+
+    this._options = {};
 
     EventEmitter(this);
-
-
-    this.options    = options;
-
-    this.Assets     = null;
-    this.Camera     = null;
-    this.Colliders  = null;
-    this.Draw       = null;
-    this.Sound      = null;
-    this.World      = null;
-    this.Plugins    = new Plugins(this, plugins);
-
-    this.initTime   = null;
-    this.loadTime   = null;
-    this.startTime  = null;
-    this.pauseTime  = null;
-    this.stopTime   = null;
-
-    this.playing    = false;
-    this.timer      = null;
-    this.frames     = 0;
 
 
     return this;
@@ -174,10 +160,24 @@ Game.prototype.Utils = {
 }
 
 
+Game.prototype.options = function(options) {
+    this.Utils.merge(this.options, options);
+
+    return this;
+}
+
+
 Game.prototype.plugin = function(plugin) {
     this.Plugins.add(plugin);
 
     this.emit("plugin", [this, plugin]);
+    return this;
+}
+
+Game.prototype.plugins = function(plugins) {
+    this.Plugins.addMultiple(plugins);
+
+    this.emit("plugins", [this, plugins]);
     return this;
 }
 
@@ -214,48 +214,58 @@ Game.prototype.cancelAnimationFrame = function() {
  * Provides the plugin system for Game
  */
 
-var Plugins = function(game, plugins) {
+var Plugins = function(game) {
     //Save Game for later
     this.game = game;
-
     this.plugins = {};
-
-    //Add already provided plugins
-    if(plugins instanceof Array) {
-        for(var i = 0, len = Game.plugins.length; i < len; i++) {
-            var plugin = Game.plugins[i];
-            if(!plugin.__noConstructor) {
-                var plugin = new plugin(game);
-            }
-            if(plugins.indexOf(plugin.Name) !== -1) {
-                this.add(plugin);
-            }
-        }
-    }
 
     return this;
 }
 
-Plugins.prototype.add = function(plugin, override) {
-    var type   = plugin.Type = this.game.Utils.capitalize(plugin.Type);
-    var name   = plugin.Name;
-    var Plugin = this.get(name);
+Plugins.prototype.add = function(plugin) {
+    if(typeof plugin === "string") {
+        // Get the plugin from Game.plugins
+        for(var i = 0, len = Game.plugins.length; i < len; i++) {
+            if(Game.plugins[i].Name === plugin || Game.plugins[i].prototype.Name === plugin) {
+                var plugin = Game.plugins[i];
+                break;
+            }
+        }
+        // call new plugin() if it is a constructor
+        var plugin = plugin.__noConstructor ? plugin : new plugin(this.game);
+    }
+
+    var type = plugin.Type = this.game.Utils.capitalize(plugin.Type);
+    var name = plugin.Name;
 
     //This type is not yet registered
     if(!this.plugins[type]) {
         this.plugins[type] = [];
     }
 
-    //A plugin with this name already exists, but may be overridden
-    if(Plugin && override) {
-        this.remove(name);
-        this.add(plugin);
+    //Remove all plugins with the same name
+    this.remove(name);
+    //Push to plugin pool
+    this.plugins[type].push(plugin);
+
+    //Initialize the plugin
+    if(this.initTime && plugin.Init) {
+        plugin.Init(this.game);
     }
-    else if(!Plugin) {
-        //Push to plugin pool
-        this.plugins[type].push(plugin);
-        //Use the new plugin. If one already exists, it will not be overridden.
-        this.use(name);
+    //Load plugin
+    if(this.loadTime && plugin.Load) {
+        plugin.Load(this.game);
+    }
+
+    //Use the new plugin
+    this.use(name);
+
+    return this;
+}
+
+Plugins.prototype.addMultiple = function(plugins) {
+    for(var i = 0, len = plugins.length; i < len; i++) {
+        this.add(plugins[i]);
     }
 
     return this;
@@ -308,8 +318,8 @@ Plugins.prototype.use = function(name) {
         var type = plugin.Type;
 
         this.game[type] = plugin;
-        if(this.game.initTime && plugin.Init) {
-            plugin.Init(this.game);
+        if(plugin.Use) {
+            plugin.Use(this.game);
         }
     }
 
@@ -341,6 +351,8 @@ Plugins.prototype.Init = function() {
         }
     });
 
+    this.initTime = game.Utils.time();
+
     return this;
 }
 
@@ -351,6 +363,8 @@ Plugins.prototype.Load = function() {
             plugin.Load(game);
         }
     });
+
+    this.loadTime = game.Utils.time();
 
     return this;
 }
