@@ -24,7 +24,7 @@ World.prototype.Type = "World";
 
 World.prototype.Update = function(game) {
 // filter matches anything except 'terrainBuffer'
-    var filter = /[^(terrainBuffer)]/i;
+    var filter = /^(?!terrainBuffer)/i;
 	this.loop(game.Categories, filter, function(type, object) {
         if(object.Update) object.Update(game);
     });
@@ -41,7 +41,7 @@ World.prototype.Draw = function(game) {
     var d = Draw.instance;
     var blockSize = this.blockSize;
 // terrainType matches anything except 'terrainBuffer'
-    var terrainType = /^terrainBuffer$/i;
+    var terrainType = /^(?!terrainBuffer)/i;
     var otherType = /^(backgrounds|foregrounds|objects)$/i;
     var allTypes = /^(backgrounds|foregrounds|objects|terrainBuffer)$/i
 
@@ -87,7 +87,7 @@ World.prototype.loadScene = function(name) {
 
     var game = this.game;
 // filter matches anything except 'terrainBuffer'
-    var filter = /[^(terrainBuffer)]/i;
+    var filter = /^(?!terrainBuffer)/i
     this.loop(game.Categories, filter, function(type, object) {
         if(object.Init) object.Init(game);
     });
@@ -240,11 +240,16 @@ World.prototype.loop = function(scene, filter, cb) {
 World.prototype.replaceObjects = function(scene) {
     var objects = this.objects;
 // filter matches anything except 'terrainBuffer'
-    var filter = /[^(terrainBuffer)]/i;
+    var filter = /^(?!terrainBuffer)/i
 
-    this.loop(scene, filter, function(type, object) {
+    this.loop(scene, filter, function(type, object, index, array) {
         if(typeof object === "string" || typeof object === "number") {
-            object = objects[object];
+            if(/terrain/i.test(type)) {
+                array[index.y] = objects[object];
+            }
+            else {
+                array[index] = objects[object];
+            }
         }
     });
 
