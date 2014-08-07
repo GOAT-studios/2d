@@ -24,6 +24,7 @@ Game = function() {
     this.playing   = false;
     this.timer     = null;
     this.frames    = 0;
+    this.drawTimes = [];
 
     this._options = {};
 
@@ -78,7 +79,7 @@ Game.prototype.start = function() {
         this.emit("beforestart", [this]);
 
         this.timer = this.requestAnimationFrame(this.Loop);
-        this.Loop();
+        this.playing = true;
 
         this.emit("start", [this]);
     }
@@ -92,6 +93,7 @@ Game.prototype.pause = function() {
         this.emit("beforepause", [this]);
         this.pauseTime = this.Utils.time();
         this.cancelAnimationFrame(this.timer);
+        this.playing = false;
         this.emit("pause", [this]);
     }
 }
@@ -102,6 +104,7 @@ Game.prototype.stop = function() {
         this.emit("beforestop", [this]);
         this.stopTime = this.Utils.time();
         this.cancelAnimationFrame(this.timer);
+        this.playing = false;
         this.emit("beforestopreset");
         this.reset();
         this.emit("stop", [this]);
@@ -111,19 +114,22 @@ Game.prototype.stop = function() {
 }
 
 
-Game.prototype.Loop = function() {
-    this.emit("beforeframe", [this]);
-    this.frames++;
+Game.prototype.Loop = function(game) {
+    var START = game.Utils.time();
+    game.emit("beforeframe", [game]);
+    game.frames++;
 
-    this.emit("beforeupdate", [this]);
-    // this.World.Update(this);
-    // this.Camera.Update(this);
+    game.emit("beforeupdate", [game]);
+    game.Plugins.Update(game);
 
-    this.emit("beforedraw", [this]);
-    // this.World.Draw(this);
+    game.emit("beforedraw", [game]);
+    game.World.Draw(game);
 
-    this.emit("frame", [this]);
-    return this;
+    game.emit("frame", [game]);
+
+    var END = game.Utils.time();
+    game.drawTimes.push(END - START);
+    return game;
 }
 
 
@@ -189,9 +195,21 @@ Game.prototype.category = function(category) {
     return this;
 }
 
+Game.prototype.getAverageDrawTime = function() {
+    var sum = 0;
+    var len = this.drawTimes.length;
+    for(var i = 0; i < len; i++) {
+        sum += this.drawTimes[i];
+    }
+
+    return sum / len;
+}
+
 // Add Polyfill HERE!
 Game.prototype.requestAnimationFrame = function() {
-    this.timer = requestAnimationFrame(this.Loop);
+    var game = this;
+    var cb = function() {game.Loop(game);}
+    this.timer = requestAnimationFrame(cb);
     return this;
 }
 
@@ -343,8 +361,7 @@ Plugins.prototype.loop = function(cb) {
     return this;
 }
 
-Plugins.prototype.Init = function() {
-    var game = this.game;
+Plugins.prototype.Init = function(game) {
     this.loop(function(plugin) {
         if(plugin.Init) {
             plugin.Init(game);
@@ -356,8 +373,7 @@ Plugins.prototype.Init = function() {
     return this;
 }
 
-Plugins.prototype.Load = function() {
-    var game = this.game;
+Plugins.prototype.Load = function(game) {
     this.loop(function(plugin) {
         if(plugin.Load) {
             plugin.Load(game);
@@ -369,6 +385,16 @@ Plugins.prototype.Load = function() {
     return this;
 }
 
+Plugins.prototype.Update = function(game) {
+
+    this.loop(function(plugin) {
+        if(plugin.Update) {
+            plugin.Update(game);
+        }
+    });
+
+    return this;
+}
 
 
 
