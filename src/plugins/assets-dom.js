@@ -76,15 +76,15 @@ Assets.prototype.load = function(urls, name) {
                 self.error++;
                 obj.done = true;
                 obj.error = true;
-                obj.emit("error", [xhr]);
-                self.emit("asseterror", [xhr, obj]);
+                obj.emit("error", [null]);
+                self.emit("asseterror", [null, obj]);
             }
             else {
                 self.loading--;
                 self.success++;
                 obj.done++;
-                obj.emit("done", [xhr]);
-                self.emit("assetdone", [xhr, obj]);
+                obj.emit("done", [null]);
+                self.emit("assetdone", [null, obj]);
                 if(self.total === (assets.success + assets.errors)) {
                     assets.emit("done");
                 }
