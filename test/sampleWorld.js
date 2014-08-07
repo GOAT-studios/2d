@@ -74,6 +74,20 @@ var SampleWorld = {
             },
             Music: {
                 Main: ["mainSong.mp3", "mainSong.ogg"],
+            },
+            Player: {
+                position:{x:0, y:0},
+                dimensions: {w:72, h:72*2},
+                Init: function(game) {
+                    this.game = game;
+                    this.behaviour = new game.Behaviours.TwoPoints({x:0, y:0}, {x:50, y:0}, 5);
+                },
+                Update: function(game) {
+                    this.behaviour.update(this);
+                },
+                Draw: function(d) {
+                    d.fillStyle("#FF0000").strokeStyle("#000000").lineWidth(3).fullRect(0, 0, this.dimensions.w, this.dimensions.h);
+                }
             }
         }
     }                    
