@@ -42,8 +42,8 @@ World.prototype.Draw = function(game) {
     var blockSize = this.blockSize;
 // terrainType matches anything except 'terrainBuffer'
     var terrainType = /^(?!terrainBuffer)/i;
-    var otherType = /^(backgrounds|foregrounds|objects)$/i;
-    var allTypes = /^(backgrounds|foregrounds|objects|terrainBuffer)$/i
+    var otherType = /^(backgrounds|foregrounds|objects|player)$/i;
+    var allTypes = /^(backgrounds|foregrounds|objects|player|terrainBuffer)$/i
 
     this.loop(game.Categories, allTypes, function(type, object, i) {
         if(otherType.test(type) && object.Draw) {
@@ -182,6 +182,10 @@ World.prototype.updateBuffer = function(game) {
 World.prototype.loop = function(scene, filter, cb) {
 // If no filter is given, use a filter that matches anything (. matches anything except newlines, \n matches newlines)
     if(typeof filter === "function") {cb = filter; filter = /(.|\n)*/i};
+
+    if(filter.test("player")) {
+        cb("player", scene.Player, 0, []);
+    }
 
     if(filter.test("backgrounds")) {
         var backgrounds = scene.Backgrounds;

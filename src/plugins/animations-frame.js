@@ -19,6 +19,7 @@ var Animation = function(name, frames, speed) {
     }
 
     this.initTime = Game.prototype.Utils.time();
+    this.start();
 
     return this;
 }
@@ -33,7 +34,7 @@ Animation.Init = function(game) {
 Animation.prototype.update = function() {
     if(!this.paused) {
         var currTime = Game.prototype.Utils.time();
-        this.current = Math.round(((currTime - this.startTime - this.pauseDuration) / this.speed) % this.frames.length);
+        this.current = Math.floor(((currTime - this.startTime - this.pauseDuration) / this.speed) % this.frames.length);
     }
 
     return this;
@@ -62,7 +63,7 @@ Animation.prototype.stop = function() {
 }
 
 Animation.prototype.getCurrent = function() {
-    return this.animations[this.current];
+    return this.frames[this.current];
 }
 
 

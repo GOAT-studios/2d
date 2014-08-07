@@ -125,6 +125,8 @@ Game.prototype.Loop = function(game) {
     game.emit("beforedraw", [game]);
     game.World.Draw(game);
 
+    game.requestAnimationFrame();
+
     game.emit("frame", [game]);
 
     var END = game.Utils.time();
@@ -515,9 +517,9 @@ Game.plugins = [];
  */
 
     var container = Game.prototype.container = document.createElement("div");
-    container.setAttribute("id", "2D-loaders");
+    container.setAttribute("id", "loaders-2D");
     container.setAttribute("style", "width:0;height:0;visibility:hidden;overflow:hidden");
-    document.addEventListener("load", function() {
+    document.addEventListener("DOMContentLoaded", function() {
         document.body.appendChild(container);
     });
 

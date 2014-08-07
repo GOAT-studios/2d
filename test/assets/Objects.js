@@ -19,21 +19,31 @@ TestObject.prototype.Draw = function(d) {
 var TestPlatform = function(position, dimensions, point1, point2, speed) {
 	this.position = position;
 	this.dimensions = dimensions;
-	this.behaviour = new game.Behaviours.TwoPoints(point1, point2, speed);
-	this.animationCollection = new game.Animations.Collection([
+	this.points = [point1, point2];
+	this.speed = speed;
+
+	return this;
+}
+
+TestPlatform.prototype.Init = function(game) {
+	this.behaviour = new game.Behaviours.TwoPoints(this.points[0], this.points[1], this.speed);
+	this.animations = new game.Animations.Collection([
 		new game.Animations.Frames("animation", [
-			new game.Sprite(game.Assets.get("texture.png"), {x:0,y:0}, {w:72,h:72})
+			new game.Sprite(game.Assets.get("background1").element, {x:0,y:0}, {w:72,h:72}),
+			new game.Sprite(game.Assets.get("background1").element, {x:0,y:0}, {w:72,h:72})
 		], 16)
 	]);
+
+	return this;
 }
 
 TestPlatform.prototype.Update = function() {
 	this.behaviour.update(this);
-	this.animationCollection.getCurrent().update();
+	this.animations.getCurrent().update();
 }
 
 TestPlatform.prototype.Draw = function(d) {
-	d.drawSprite(this.animationCollection.getCurrent().currentFrame);
+	d.drawSprite(this.animations.getCurrent().getCurrent());
 }
 
 

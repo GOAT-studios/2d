@@ -34,8 +34,14 @@
 		<script type="text/javascript" src="assets/Blocks.js"></script>
 		<script type="text/javascript" src="sampleWorld.js"></script>
 		<script type="text/javascript">
-			game.World.load(SampleWorld);
-			game.World.loadScene("TestScene");
+			game.Plugins.use("assets-dom");
+			game.Assets.load("assets/background.jpg", "background1");
+			
+			game.Assets.on("done", function() {
+				game.World.load(SampleWorld);
+				game.World.loadScene("TestScene");
+				game.start();
+			});
 		</script>
 	</head>
 	<body>

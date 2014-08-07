@@ -12,7 +12,7 @@ var Assets = function() {
 
 // Set up DOM Elements
     this.container = document.createElement("div");
-    this.container.setAttribute("class", "2D-loader");
+    this.container.setAttribute("class", "loader-2D");
     Game.prototype.container.appendChild(this.container);
 
     Game.prototype.EventEmitter(this);
@@ -35,7 +35,7 @@ Assets.prototype.load = function(urls, name) {
     this.loading++;
     this.total++;
 
-// Get MIME type (of first url)
+// Get MIME type (of first url) to determine the file type (i.e. image, video, audio, text)
     var mime = this.getMime(urls[0]);
 
 // Create Asset object
@@ -69,11 +69,12 @@ Assets.prototype.load = function(urls, name) {
         });
     }
     else if(/image\//i.test(mime)) {
-        var img = document.createElement("img");
-        loadImage(img, urls, 0, function(error) {
+        var elem = document.createElement("img");
+        this.container.appendChild(elem);
+        loadImage(elem, urls, 0, function(error) {
             if(error) {
                 self.loading--;
-                self.error++;
+                self.errors++;
                 obj.done = true;
                 obj.error = true;
                 obj.emit("error", [null]);
@@ -82,7 +83,7 @@ Assets.prototype.load = function(urls, name) {
             else {
                 self.loading--;
                 self.success++;
-                obj.done++;
+                obj.done = true;
                 obj.emit("done", [null]);
                 self.emit("assetdone", [null, obj]);
                 if(self.total === (self.success + self.errors)) {

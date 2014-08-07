@@ -168,6 +168,9 @@ var Draw = function(options) {
             ctx.drawImage(image, sx+X, sy+Y, sw, sh, dx?dx+X:undefined, dy?dy+Y:undefined, dw, dh);
             return this;
         },
+        drawSprite: function(sprite) {
+            this.drawImage(sprite.sheet, sprite.position.x, sprite.position.y, sprite.dimensions.w, sprite.dimensions.h, 0, 0, sprite.dimensions.w, sprite.dimensions.h);
+        },
         createImageData: function(w, h) {
             ctx.createImageData(w, h);
             return this;
@@ -209,7 +212,7 @@ var Draw = function(options) {
 
         //Some other functions
         getAsset: function(id) {
-            return draw.loader.get(id);
+            return draw.game.Assets.get(id);
         },
         getWidth: function() {
             return width;
@@ -233,10 +236,11 @@ Draw.prototype.Name = "draw-canvas";
 Draw.prototype.Type = "Draw";
 
 Draw.prototype.Init = function(game) {
-    var self = this;
-    game.on("init", function() {
-        self.loader = game.Assets;
-    });
+    this.game = game;
+}
+
+Draw.prototype.Update = function(game) {
+    this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
 }
 
 
