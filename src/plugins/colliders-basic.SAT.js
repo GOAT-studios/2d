@@ -2,16 +2,11 @@
 
 
 
-var Colliders = function(options) {
-    if(!options) var options = {};
-
-    this.options = options;
+var Colliders = function(game) {
 
     return this;
 }
 
-Colliders.prototype.Name  = "colliders-basic";
-Colliders.prototype.Type  = "Colliders";
 Colliders.prototype.types = ["Box", "Polygon", "Circle"];
 
 Colliders.prototype.test = function(a, b, res) {
@@ -56,7 +51,7 @@ Colliders.prototype.testAll= function(a, b, cb) {
 
 
 
-/* Include the excellent SAT.js (minified), which does the actual collision checks*/
+/* Include the excellent SAT.js (minified), which does the actual collision checks */
 /* SAT.js - Version 0.4.1 - Copyright 2014 - Jim Riecken <jimr@jimr.ca> - released under the MIT License. https://github.com/jriecken/sat-js */
 function w(){function a(b,k){this.x=b||0;this.y=k||0}function e(b,k){this.pos=b||new a;this.points=k||[];this.angle=0;this.offset=new a;this.recalc()}function u(b,k,c){this.pos=b||new a;this.w=k||0;this.h=c||0}function v(){this.b=this.a=null;this.overlapN=new a;this.overlapV=new a;this.clear()}function z(b,k,c){for(var a=Number.MAX_VALUE,f=-Number.MAX_VALUE,h=b.length,l=0;l<h;l++){var g=b[l].d(k);g<a&&(a=g);g>f&&(f=g)}c[0]=a;c[1]=f}function A(b,k,c,a,f,h){var l=q.pop(),g=q.pop();b=d.pop().c(k).sub(b);
 k=b.d(f);z(c,f,l);z(a,f,g);g[0]+=k;g[1]+=k;if(l[0]>g[1]||g[0]>l[1])return d.push(b),q.push(l),q.push(g),!0;h&&(c=0,l[0]<g[0]?(h.aInB=!1,l[1]<g[1]?(c=l[1]-g[0],h.bInA=!1):(c=l[1]-g[0],a=g[1]-l[0],c=c<a?c:-a)):(h.bInA=!1,l[1]>g[1]?(c=l[0]-g[1],h.aInB=!1):(c=l[1]-g[0],a=g[1]-l[0],c=c<a?c:-a)),a=Math.abs(c),a<h.overlap&&(h.overlap=a,h.overlapN.c(f),0>c&&h.overlapN.reverse()));d.push(b);q.push(l);q.push(g);return!1}function x(b,k){var c=b.e(),a=k.d(b);return 0>a?-1:a>c?1:0}function B(b,k,c){for(var a=
@@ -82,7 +77,14 @@ Colliders.prototype.Response = SAT.Response;
 
 
 
-Game.plugins.push(Colliders);
+var Plugin = {
+    name: "colliders-basic",
+    id: "core.colliders-basic",
+    variant: "SAT-included",
+    path: "Colliders",
+    construct: Colliders
+}
+Game.plugins.push(Plugin);
 
 
 
