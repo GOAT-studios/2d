@@ -2,73 +2,83 @@
 
 
 
-var Animation = function(name, frames, speed) {
-    this.name = name;
-    this.speed = speed;
-    this.frames = [];
-    this.pauseDuration = 0;
-    this.paused = false;
+var construct = function(game) {
 
-    for(var i = 0, len = frames.length; i < len; i++) {
-        if(frames[i].sheet && frames[i].position && frames[i].dimensions) {
-            this.frames.push(frames[i]);
+    var Animation = function(name, frames, speed) {
+        this.name = name;
+        this.speed = speed;
+        this.frames = [];
+        this.pauseDuration = 0;
+        this.paused = true;
+
+        for(var i = 0, len = frames.length; i < len; i++) {
+            if(frames[i].sheet && frames[i].position && frames[i].dimensions) {
+                this.frames.push(frames[i]);
+            }
+            else {
+                this.frames.push(game.Sprite(frames[i]));
+            }
         }
-        else {
-            this.frames.push(this.game.Sprite(frames[i]));
-        }
+
+        this.initTime = Game.prototype.Utils.time();
+        this.start();
+
+        return this;
     }
 
-    this.initTime = Game.prototype.Utils.time();
-    this.start();
+    Animation.prototype.update = function() {
+        if(!this.paused) {
+            var currTime = Game.prototype.Utils.time();
+            this.current = Math.floor(((currTime - this.startTime - this.pauseDuration) / this.speed) % this.frames.length);
+        }
 
-    return this;
-}
-
-Animation.Name = "Frames";
-Animation.__noConstructor = true;
-
-Animation.Init = function(game) {
-    this.prototype.game = game;
-}
-
-Animation.prototype.update = function() {
-    if(!this.paused) {
-        var currTime = Game.prototype.Utils.time();
-        this.current = Math.floor(((currTime - this.startTime - this.pauseDuration) / this.speed) % this.frames.length);
+        return this;
     }
 
-    return this;
+    Animation.prototype.start = function() {
+        if(this.paused) {
+            this.startTime = Game.prototype.Utils.time();
+            if(this.pauseTime) this.pauseDuration += this.startTime - this.pauseTime;
+            this.paused = false;
+        }
+
+        return this;
+    }
+
+    Animation.prototype.pause = function() {
+        if(!this.paused) {
+            this.pauseTime = Game.prototype.Utils.time();
+            this.paused = true;
+        }
+        return this;
+    }
+
+    Animation.prototype.stop = function() {
+        this.paused = true;
+        this.pauseTime = undefined;
+        this.pauseDuration = 0;
+
+        return this;
+    }
+
+    Animation.prototype.getCurrent = function() {
+        return this.frames[this.current];
+    }
+
+
+
+    return Animation;
 }
 
-Animation.prototype.start = function() {
-    this.startTime = Game.prototype.Utils.time();
-    if(this.paused && this.pauseTime) this.pauseDuration += this.startTime - this.pauseTime;
-    this.paused = false;
 
-    return this;
+
+var Plugin = {
+    name: "animation-frames",
+    id: "core.animation-frames",
+    path: "Animations.Frames",
+    construct: construct
 }
-
-Animation.prototype.pause = function() {
-    this.pauseTime = Game.prototype.Utils.time();
-    this.paused = true;
-    return this;
-}
-
-Animation.prototype.stop = function() {
-    this.paused = true;
-    this.pauseTime = undefined;
-    this.pauseDuration = 0;
-
-    return this;
-}
-
-Animation.prototype.getCurrent = function() {
-    return this.frames[this.current];
-}
-
-
-
-Game.animations.push(Animation);
+Game.plugins.push(Plugin);
 
 
 
