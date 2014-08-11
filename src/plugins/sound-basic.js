@@ -4,14 +4,9 @@
 
 var Sound = function(game) {
     this.sounds = [];
-
     game.EventEmitter(this);
 
     return this;
-}
-
-Sound.prototype.Init = function(game) {
-    this.init = true;
 }
 
 Sound.prototype.load = function(urls, name) {
@@ -91,7 +86,7 @@ var createSound = function(asset) {
             this.element.pause();
         }
         else {
-            console.warn("WARN: Asset.play(): No element! Are you sure this Asset loaded successfully?");
+            console.warn("WARN: Asset.pause(): No element! Are you sure this Asset loaded successfully?");
         }
         return this;
     }
@@ -102,7 +97,7 @@ var createSound = function(asset) {
             this.element.currentTime = 0;
         }
         else {
-            console.warn("WARN: Asset.play(): No element! Are you sure this Asset loaded successfully?");
+            console.warn("WARN: Asset.stop(): No element! Are you sure this Asset loaded successfully?");
         }
         return this;
     }
