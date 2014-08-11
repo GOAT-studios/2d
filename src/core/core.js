@@ -246,8 +246,8 @@ Plugins.prototype.add = function(plugin) {
         var plugin = this.getFromString(plugin);
     }
 
-    //Attach content or the result of plugin.construct to plugin.plugin
-    plugin.plugin = plugin.content || plugin.construct(this.game);
+    //If the plugin should be constructed, construct it and attach the result to plugin.content
+    if(!plugin.content) plugin.content = plugin.construct(this.game);
     this.plugins.push(plugin);
 
     //Call Init and Load
@@ -264,7 +264,7 @@ Plugins.prototype.add = function(plugin) {
     return this;
 }
 
-Plugins.prototype.addMultiple = function(plugin) {
+Plugins.prototype.addMultiple = function(plugins) {
     for(var i = 0, len = plugins.length; i < len; i++) {
         this.add(plugins[i]);
     }
@@ -300,10 +300,10 @@ Plugins.prototype.attach = function(plugin) {
     var steps = plugin.path.split(".");
     lastStep = this.game;
     for(var i = 0, len = steps.length - 1; i < len; i++) {
-        lastStep[steps[i]] = {};
+        if(!lastStep[steps[i]]) lastStep[steps[i]] = {};
         lastStep = lastStep[steps[i]];
     }
-    lastStep[steps[steps.length-1]] = plugin.plugin;
+    lastStep[steps[steps.length-1]] = plugin.content;
 
     return this;
 }
