@@ -2,24 +2,16 @@
 
 
 
-var Sound = function() {
+var Sound = function(game) {
     this.sounds = [];
 
-    Game.prototype.EventEmitter(this);
+    game.EventEmitter(this);
 
     return this;
 }
 
-Sound.prototype.Name = "sound-basic";
-Sound.prototype.Type = "Sound";
-
 Sound.prototype.Init = function(game) {
-    var self = this;
     this.init = true;
-    game.on("init", function() {
-        self.loader = game.Assets;
-    });
-    game.EventEmitter(this);
 }
 
 Sound.prototype.load = function(urls, name) {
@@ -53,6 +45,12 @@ Sound.prototype.pause = function(id) {
 Sound.prototype.stop = function(id) {
     var sound = this.get(id);
     if(sound) sound.stop();
+
+    return this;
+}
+
+Sound.prototype.setLoader = function(loader) {
+    this.loader = loader;
 
     return this;
 }
@@ -117,7 +115,13 @@ Sound.prototype.createSound = createSound;
 
 
 
-Game.plugins.push(Sound);
+
+var Plugin = {
+    name: "sound-basic",
+    id: "core.sound-basic",
+    path: "Sound"
+}
+Game.plugins.push(Plugin);
 
 
 

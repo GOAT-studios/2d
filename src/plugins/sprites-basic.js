@@ -10,13 +10,15 @@ var Sprite = function(spriteSheet, pos, dim) {
 	return this;
 }
 
-Sprite.Name  = "sprites-basic";
-Sprite.Type  = "Sprite";
-Sprite.__noConstructor = true;
 
 
-
-Game.plugins.push(Sprite);
+var Plugin = {
+	name: "sprites-basic",
+	id: "core.sprites-basic",
+	path: "Sprite",
+	content: Sprite
+}
+Game.plugins.push(Plugin);
 
 
 
