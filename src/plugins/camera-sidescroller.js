@@ -7,18 +7,10 @@ var Camera = function(game) {
 
     this.x = 0;
     this.y = 0;
-    this.static = false;
-
-    return this;
-}
-
-Camera.prototype.Init = function(game) {
-    this.x = 0;
-    this.y = 0;
     this.offset = {
-        x: 0,
-        y: 0
+        x:0, y:0
     }
+    this.static = false;
 
     return this;
 }
@@ -41,7 +33,7 @@ Camera.prototype.translate = function(vector) {
     else {
         this.offset.x += vector.x;
         this.offset.y += vector.y;
-        // (x,y) will be updated on next Update
+        this.Update(this.game);
     }
 
     return this;
@@ -61,7 +53,7 @@ Camera.prototype.followPlayer = function() {
     this.static = false;
     this.offset.x = (player.x - this.x) - ((this.game.width/2)  - (player.width/2));
     this.offset.y = (player.y - this.y) - ((this.game.height/2) - (player.height/2));
-    // (x,y) will be updated on next Update
+    this.Update(this.game);
 
     return this;
 }
