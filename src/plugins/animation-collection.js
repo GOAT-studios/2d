@@ -59,12 +59,12 @@ AnimationCollection.prototype.getCurrent = function() {
 
 
 var Plugin = {
-	name = "animation-collection",
-	id = "core.animation-collection",
-	path = "Animations.Collection",
+	name: "animation-collection",
+	id: "core.animation-collection",
+	path: "Animations.Collection",
 	content: AnimationCollection
 }
-Game.animations.push(Plugin);
+Game.plugins.push(Plugin);
 
 
 
