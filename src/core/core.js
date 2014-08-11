@@ -78,7 +78,7 @@ Game.prototype.start = function() {
 
         this.emit("beforestart", [this]);
 
-        this.timer = this.requestAnimationFrame(this.Loop);
+        this.timer = this.requestAnimationFrame();
         this.playing = true;
 
         this.emit("start", [this]);
@@ -92,7 +92,7 @@ Game.prototype.pause = function() {
     if(this.playing) {
         this.emit("beforepause", [this]);
         this.pauseTime = this.Utils.time();
-        this.cancelAnimationFrame(this.timer);
+        this.cancelAnimationFrame();
         this.playing = false;
         this.emit("pause", [this]);
     }
@@ -113,6 +113,20 @@ Game.prototype.stop = function() {
     return this;
 }
 
+Game.prototype.reset = function() {
+    this.emit("beforereset", [this]);
+
+    this.startTime = null;
+    this.pauseTime = null;
+    this.playing = false;
+    this.frames = 0;
+    this.drawTimes = [];
+
+    this.emit("reset", [this]);
+
+    return this;
+}
+
 
 Game.prototype.Loop = function(game) {
     var START = game.Utils.time();
@@ -123,7 +137,7 @@ Game.prototype.Loop = function(game) {
     game.Plugins.Update(game);
 
     game.emit("beforedraw", [game]);
-    game.World.Draw(game);
+    if(game.World && game.World.Draw) game.World.Draw(game);
 
     game.requestAnimationFrame();
 
@@ -169,7 +183,7 @@ Game.prototype.Utils = {
 
 
 Game.prototype.options = function(options) {
-    this.Utils.merge(this.options, options);
+    this.Utils.merge(this._options, options);
 
     return this;
 }
@@ -189,13 +203,6 @@ Game.prototype.plugins = function(plugins) {
     return this;
 }
 
-
-Game.prototype.category = function(category) {
-    this.Categories.add(category);
-
-    this.emit("category", [this, category]);
-    return this;
-}
 
 Game.prototype.getAverageDrawTime = function() {
     var sum = 0;
