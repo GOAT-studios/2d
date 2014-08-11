@@ -2,7 +2,8 @@
 
 
 
-var Assets = function() {
+var Assets = function(game) {
+    this.game = game;
     this.assets = [];
 
     this.loading = 0;
@@ -13,19 +14,16 @@ var Assets = function() {
 // Set up DOM Elements
     this.container = document.createElement("div");
     this.container.setAttribute("class", "loader-2D");
-    Game.prototype.container.appendChild(this.container);
+    game.container.appendChild(this.container);
 
-    Game.prototype.EventEmitter(this);
+    game.EventEmitter(this);
 
     return this;
 }
 
 Assets.prototype.Init = function(game) {
-    this.init = true;
+    this.initTime = game.Utils.time();
 }
-
-Assets.prototype.Name = "assets-dom";
-Assets.prototype.Type = "Assets";
 
 Assets.prototype.load = function(urls, name) {
     if(typeof urls === "string") urls = [urls];
@@ -49,7 +47,7 @@ Assets.prototype.load = function(urls, name) {
     if(/audio\//i.test(mime)) {
         elem = document.createElement("audio");
         this.container.appendChild(elem);
-        attachEventsMedia(elem, obj, self);
+        attachMediaEvents(elem, obj, self);
         urls.forEach(function(url) {
             var source = document.createElement("source");
             elem.appendChild(source);
@@ -60,7 +58,7 @@ Assets.prototype.load = function(urls, name) {
     else if(/video\//i.test(mime)) {
         elem = document.createElement("video");
         this.container.appendChild(elem);
-        attachEventsMedia(elem, obj, self);
+        attachMediaEvents(elem, obj, self);
         urls.forEach(function(url) {
             var source = document.createElement("source");
             elem.appendChild(source);
@@ -162,7 +160,7 @@ Assets.prototype.mimes = {"323":"text/h323","3gp":"video/3gpp","*":"application/
 var Asset = function(urls, name, mime) {
     this.urls = urls;
     this.name = name;
-    if(mime) this.mime = mime;
+    this.mime = mime;
 
     this.done = false;
     this.error =  false;
@@ -186,7 +184,7 @@ Assets.prototype.Asset = Asset;
  */
 
 
-var attachEventsMedia = function(elem, obj, assets) {
+var attachMediaEvents = function(elem, obj, assets) {
 // For Media elements
     elem.onloadeddata = function(e) {
         if(!obj.done) {
@@ -248,7 +246,15 @@ var loadXHR = function(urls, index, cb) {
 
 
 
-Game.plugins.push(Assets);
+var Plugin = {
+    name: "assets-dom",
+    id: "core.assets-dom",
+    path: "Assets.Dom",
+    construct: function(game) {
+        return new Assets(game);
+    }
+}
+Game.plugins.push(Plugin);
 
 
 
