@@ -13,7 +13,7 @@ var Game;
  */
 
 Game = function() {
-    this.Plugins   = new Plugins(this, plugins);
+    this.Plugins   = new Plugins(this);
 
     this.initTime  = null;
     this.loadTime  = null;
@@ -231,59 +231,40 @@ Game.prototype.cancelAnimationFrame = function() {
  * =======
  *
  * The Plugins constructor
- * Provides the plugin system for Game
+ * Provides the plugin system to Game
  */
 
 var Plugins = function(game) {
-    //Save Game for later
     this.game = game;
-    this.plugins = {};
+    this.plugins = [];
 
     return this;
 }
 
 Plugins.prototype.add = function(plugin) {
     if(typeof plugin === "string") {
-        // Get the plugin from Game.plugins
-        for(var i = 0, len = Game.plugins.length; i < len; i++) {
-            if(Game.plugins[i].Name === plugin || Game.plugins[i].prototype.Name === plugin) {
-                var plugin = Game.plugins[i];
-                break;
-            }
-        }
-        // call new plugin() if it is a constructor
-        var plugin = plugin.__noConstructor ? plugin : new plugin(this.game);
+        var plugin = this.getFromString(plugin);
     }
 
-    var type = plugin.Type = this.game.Utils.capitalize(plugin.Type);
-    var name = plugin.Name;
+    //Attach content or the result of plugin.construct to plugin.plugin
+    plugin.plugin = plugin.content || plugin.construct(this.game);
+    this.plugins.push(plugin);
 
-    //This type is not yet registered
-    if(!this.plugins[type]) {
-        this.plugins[type] = [];
+    //Call Init and Load
+    if(this.initTime && plugin.plugin.Init) {
+        plugin.plugin.Init(this.game);
+    }
+    if(this.loadTime && plugin.plugin.Load) {
+        plugin.plugin.Load(this.game);
     }
 
-    //Remove all plugins with the same name
-    this.remove(name);
-    //Push to plugin pool
-    this.plugins[type].push(plugin);
-
-    //Initialize the plugin
-    if(this.initTime && plugin.Init) {
-        plugin.Init(this.game);
-    }
-    //Load plugin
-    if(this.loadTime && plugin.Load) {
-        plugin.Load(this.game);
-    }
-
-    //Use the new plugin
-    this.use(name);
+    // Attach the plugin to the game
+    this.attach(plugin);
 
     return this;
 }
 
-Plugins.prototype.addMultiple = function(plugins) {
+Plugins.prototype.addMultiple = function(plugin) {
     for(var i = 0, len = plugins.length; i < len; i++) {
         this.add(plugins[i]);
     }
@@ -291,84 +272,70 @@ Plugins.prototype.addMultiple = function(plugins) {
     return this;
 }
 
-Plugins.prototype.remove = function(name) {
-    var self = this;
-
-    this.loop(function(plugin, index, array) {
-        if(plugin.Name === name) {
-            //Remove plugin from plugin list
-            array.splice(index, 1);
-
-            var type = plugin.Type;
-            if(self.game[type] === plugin) {
-                //Remove plugin from game
-                self.game[type] = null;
-                if(self.plugins[type] && self.plugins[type].length) {
-                    //Add last added plugin to the game
-                    self.game[type] = self.plugins[type].slice(-1)[0];
-                }
-            }
-        }
-    });
-
-
-    return this;
-}
-
-Plugins.prototype.get = function(name, warn) {
-    var Plugin = null;
-
-    //Loop through all the plugins and get the right one out
-    this.loop(function(plugin, index, array) {
-        if(plugin.Name === name) {
-            Plugin = plugin;
-            return true;
-        }
-    });
-
-
-    return Plugin;
-}
-
-Plugins.prototype.use = function(name) {
-    var plugin = this.get(name);
-
-    //Plugin exists
-    if(plugin) {
-        var type = plugin.Type;
-
-        this.game[type] = plugin;
-        if(plugin.Use) {
-            plugin.Use(this.game);
+Plugins.prototype.remove = function(id) {
+    for(var i = 0, len = this.plugins.length; i < len; i++) {
+        var plugin = this.plugins[i];
+        if(plugin.name === id || plugin.id === id) {
+            this.plugins.splice(i, 1);
+            break;
         }
     }
 
+    this.unAttach(plugin);
+
     return this;
 }
 
-Plugins.prototype.loop = function(cb) {
-    //Loop through types
-    outer:
-    for(type in this.plugins) {
-        var plugins = this.plugins[type];
-
-        //Loop through plugins (per type)
-        for(var i = 0; i < plugins.length; i++) {
-            var br = cb(plugins[i], i, this.plugins[type]);
-            // Break loop if `cb` returns `true` (or another truthy value)
-            if(br) { break outer; }
+Plugins.prototype.get = function(id) {
+    for(var i = 0, len = this.plugins.length; i < len; i++) {
+        if(this.plugins[i].name === id || this.plugins[i].id === id) {
+            return this.plugins[i];
         }
     }
 
+    return null;
+}
+
+Plugins.prototype.attach = function(plugin) {
+    var steps = plugin.path.split(".");
+    lastStep = this.game;
+    for(var i = 0, len = steps.length - 1; i < len; i++) {
+        lastStep[steps[i]] = {};
+        lastStep = lastStep[steps[i]];
+    }
+    lastStep[steps[steps.length-1]] = plugin.plugin;
+
     return this;
 }
+
+Plugins.prototype.unAttach = function(plugin) {
+    var steps = plugin.path.split(".");
+    lastStep = this.game;
+    for(var i = 0, len = steps.length - 1; i < len; i++) {
+        lastStep = lastStep[steps[i]];
+    }
+    lastStep[steps[steps.length-1]] = null;
+
+    return this;
+}
+
+Plugins.prototype.getFromString = function(str) {
+    for(var i = 0, len = Game.plugins.length; i < len; i++) {
+        if(Game.plugins[i].name === str || Game.plugins[i].id === str) {
+            return Game.plugins[i];
+        }
+    }
+
+    return null;
+}
+
 
 Plugins.prototype.Init = function(game) {
-    this.loop(function(plugin) {
-        if(plugin.Init) {
-            plugin.Init(game);
+    for(var i = 0, len = this.plugins.length; i < len; i++) {
+        if(this.plugins[i].Init) {
+            this.plugins[i].Init(game);
         }
-    });
+    }
 
     this.initTime = game.Utils.time();
 
@@ -376,11 +343,11 @@ Plugins.prototype.Init = function(game) {
 }
 
 Plugins.prototype.Load = function(game) {
-    this.loop(function(plugin) {
-        if(plugin.Load) {
-            plugin.Load(game);
+    for(var i = 0, len = this.plugins.length; i < len; i++) {
+        if(this.plugins[i].Load) {
+            this.plugins[i].Load(game);
         }
-    });
+    }
 
     this.loadTime = game.Utils.time();
 
@@ -388,15 +355,15 @@ Plugins.prototype.Load = function(game) {
 }
 
 Plugins.prototype.Update = function(game) {
-
-    this.loop(function(plugin) {
-        if(plugin.Update) {
-            plugin.Update(game);
+    for(var i = 0, len = this.plugins.length; i < len; i++) {
+        if(this.plugins[i].Update) {
+            this.plugins[i].Update(game);
         }
-    });
+    }
 
     return this;
 }
+
 
 
 
