@@ -26,9 +26,6 @@ var TwoPointBehaviour = function(point1, point2, speed) {
     return this;
 }
 
-TwoPointBehaviour.Name = "TwoPoints";
-TwoPointBehaviour.__noConstructor = true;
-
 TwoPointBehaviour.prototype.update = function(object) {
     object.position.x += this.diff.x;
     object.position.y += this.diff.y;
@@ -46,7 +43,13 @@ TwoPointBehaviour.prototype.update = function(object) {
 
 
 
-Game.behaviours.push(TwoPointBehaviour);
+var Plugin = {
+    name: "behaviour-two-points",
+    id: "core.behaviour-two-points",
+    path: "Behaviours.TwoPoints",
+    content: TwoPointBehaviour
+}
+Game.plugins.push(Plugin);
 
 
 
