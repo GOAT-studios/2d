@@ -78,8 +78,9 @@ World.prototype.loadScene = function(name) {
     var modifiers = this.game.Save.modifiers[name] || {};
     this.currentScene = this.parseScene(this.world[name], modifiers);
     
+    this.game.Categories = {};
     for(name in this.currentScene) {
-        this.game.Categories.add(name, this.currentScene[name]);
+        this.game.Categories[name] = this.currentScene[name];
     }
 
     var game = this.game;
