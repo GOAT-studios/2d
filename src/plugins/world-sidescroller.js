@@ -19,9 +19,6 @@ var World = function(game) {
     return this;
 }
 
-World.prototype.Name = "world-sidescroller";
-World.prototype.Type = "World";
-
 World.prototype.Update = function(game) {
 // filter matches anything except 'terrainBuffer'
     var filter = /^(?!terrainBuffer)/i;
@@ -272,7 +269,16 @@ World.prototype.getCurrent = function() {
 
 
 
-Game.plugins.push(World);
+
+var Plugin = {
+    name: "world-sidescroller",
+    id: "core.world-sidescroller",
+    path: "World",
+    construct: function(game) {
+        return new World(game);
+    }
+}
+Game.plugins.push(Plugin);
 
 
 
