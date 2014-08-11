@@ -216,7 +216,7 @@ var loadXHR = function(urls, index, loadAsArrayBuffer, cb) {
 var Plugin = {
     name: "assets-xhr",
     id: "core.assets-xhr",
-    path: "Assets.Xhr",
+    path: "Assets",
     construct: function(game) {
         return new Assets(game);
     }

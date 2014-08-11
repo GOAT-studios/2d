@@ -249,7 +249,7 @@ var loadXHR = function(urls, index, cb) {
 var Plugin = {
     name: "assets-dom",
     id: "core.assets-dom",
-    path: "Assets.Dom",
+    path: "Assets",
     construct: function(game) {
         return new Assets(game);
     }
