@@ -256,9 +256,6 @@ var Plugin = {
         return new Draw(game);
     }
 }
-
-
-
 Game.plugins.push(Plugin);
 
 

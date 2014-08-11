@@ -19,9 +19,6 @@ var AnimationCollection = function(animations, current) {
 	return this;
 }
 
-AnimationCollection.Name = "Collection";
-AnimationCollection.__noConstructor = true;
-
 AnimationCollection.prototype.add = function(animation) {
 	this.animations[animation.name] = animation;
 
@@ -60,7 +57,14 @@ AnimationCollection.prototype.getCurrent = function() {
 
 
 
-Game.animations.push(AnimationCollection);
+
+var Plugin = {
+	name = "animation-collection",
+	id = "core.animation-collection",
+	path = "Animations.Collection",
+	content: AnimationCollection
+}
+Game.animations.push(Plugin);
 
 
 
