@@ -4,7 +4,6 @@
 
 var Camera = function(game) {
     this.game = game;
-    if(!options) options = {};
 
     this.x = 0;
     this.y = 0;
@@ -85,9 +84,11 @@ var Plugin = {
     name: "camera-sidescroller",
     id: "core.camera-sidescroller",
     path: "Camera",
-    construct: Camera
+    construct: function(game) {
+        return new Camera(game);
+    }
 }
-Game.plugins.push(Camera);
+Game.plugins.push(Plugin);
 
 
 
