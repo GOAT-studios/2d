@@ -5,15 +5,12 @@
 
 		<!-- 2D -->
 		<script type="text/javascript" src="../src/core/core.js"></script>
-		<script type="text/javascript" src="../src/plugins/categories-basic.js"></script>
-		<script type="text/javascript" src="../src/plugins/animations-basic.js"></script>
-		<script type="text/javascript" src="../src/plugins/animations-frame.js"></script>
-		<script type="text/javascript" src="../src/plugins/animations-collection.js"></script>
-		<script type="text/javascript" src="../src/plugins/behaviours-basic.js"></script>
+		<script type="text/javascript" src="../src/plugins/animation-frames.js"></script>
+		<script type="text/javascript" src="../src/plugins/animation-collection.js"></script>
 		<script type="text/javascript" src="../src/plugins/behaviour-parallax.js"></script>
 		<script type="text/javascript" src="../src/plugins/behaviour-two-points.js"></script>
-		<script type="text/javascript" src="../src/plugins/assets-dom.js"></script>
 		<script type="text/javascript" src="../src/plugins/assets-xhr.js"></script>
+		<script type="text/javascript" src="../src/plugins/assets-dom.js"></script>
 		<script type="text/javascript" src="../src/plugins/camera-sidescroller.js"></script>
 		<script type="text/javascript" src="../src/plugins/colliders-basic.SAT.js"></script>
 		<script type="text/javascript" src="../src/plugins/draw-canvas.js"></script>
@@ -22,20 +19,20 @@
 		<script type="text/javascript" src="../src/plugins/world-sidescroller.js"></script>
 
 		<script type="text/javascript">
-			var plugins = [
-				"animations-basic","assets-dom","assets-xhr",
-				"behaviours-basic","camera-sidescroller","categories-basic",
-				"colliders-basic","draw-canvas","sound-basic",
-				"sprites-basic","world-sidescroller"
-			];
+			var plugins = ["animation-collection","animation-frames","assets-dom","assets-xhr",
+			"behaviour-parallax","behaviour-two-points","camera-sidescroller","colliders-basic","draw-canvas",
+			"sound-basic","sprites-basic","world-sidescroller"];
 			var game = new Game().options({}).plugins(plugins).init();
 		</script>
 		<script type="text/javascript" src="assets/Objects.js"></script>
 		<script type="text/javascript" src="assets/Blocks.js"></script>
 		<script type="text/javascript" src="sampleWorld.js"></script>
 		<script type="text/javascript">
-			game.Plugins.use("assets-dom");
 			game.Assets.load("assets/background.jpg", "background1");
+
+			// Attach Asset Loaders
+			game.Draw.setLoader(game.Assets);
+			game.Sound.setLoader(game.Assets);
 			
 			game.Assets.on("done", function() {
 				game.World.load(SampleWorld);
