@@ -119,7 +119,10 @@ Sound.prototype.createSound = createSound;
 var Plugin = {
     name: "sound-basic",
     id: "core.sound-basic",
-    path: "Sound"
+    path: "Sound",
+    construct: function(game) {
+        return new Sound(game);
+    }
 }
 Game.plugins.push(Plugin);
 
