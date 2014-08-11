@@ -2,8 +2,8 @@
 
 
 
-var Sprite = function(spriteSheet, pos, dim) {
-	this.sheet = spriteSheet;
+var Sprite = function(sheet, pos, dim) {
+	this.sheet = sheet;
 	this.position = pos;
 	this.dimensions = dim;
 	
