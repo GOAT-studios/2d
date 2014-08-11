@@ -82,7 +82,9 @@ var Plugin = {
     id: "core.colliders-basic",
     variant: "SAT-included",
     path: "Colliders",
-    construct: Colliders
+    construct: function(game) {
+        return new Colliders(game);
+    }
 }
 Game.plugins.push(Plugin);
 
