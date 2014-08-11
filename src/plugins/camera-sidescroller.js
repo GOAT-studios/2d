@@ -2,20 +2,20 @@
 
 
 
-var Camera = function(options) {
+var Camera = function(game) {
+    this.game = game;
     if(!options) options = {};
 
-    this.x = options.x || 0;
-    this.y = options.y || 0;
-    this.static = !!options.static;
+    this.x = 0;
+    this.y = 0;
+    this.static = false;
+
     return this;
 }
 
-Camera.prototype.Name = "camera-sidescroller";
-Camera.prototype.Type = "Camera";
-
 Camera.prototype.Init = function(game) {
-    this.game   = game;
+    this.x = 0;
+    this.y = 0;
     this.offset = {
         x: 0,
         y: 0
@@ -81,6 +81,12 @@ Camera.prototype.unFollowPlayer = function() {
 
 
 
+var Plugin = {
+    name: "camera-sidescroller",
+    id: "core.camera-sidescroller",
+    path: "Camera",
+    construct: Camera
+}
 Game.plugins.push(Camera);
 
 
