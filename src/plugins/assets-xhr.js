@@ -2,7 +2,8 @@
 
 
 
-var Assets = function() {
+var Assets = function(game) {
+    this.game = game;
     this.assets = [];
 
     this.loading = 0;
@@ -14,13 +15,10 @@ var Assets = function() {
     this.errorSize  = 0;
     this.totalSize  = 0;
 
-    Game.prototype.EventEmitter(this);
+    game.EventEmitter(this);
 
     return this;
 }
-
-Assets.prototype.Name = "assets-xhr";
-Assets.prototype.Type = "Assets";
 
 Assets.prototype.load = function(urls, name, forceText) {
     if(typeof urls === "string") urls = [urls];
@@ -215,7 +213,15 @@ var loadXHR = function(urls, index, loadAsArrayBuffer, cb) {
 
 
 
-Game.plugins.push(Assets);
+var Plugin = {
+    name: "assets-xhr",
+    id: "core.assets-xhr",
+    path: "Assets.Xhr",
+    construct: function(game) {
+        return new Assets(game);
+    }
+}
+Game.plugins.push(Plugin);
 
 
 
