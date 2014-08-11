@@ -24,8 +24,7 @@ var SampleWorld = {
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
             ],
             Objects: [
-                // ( {x,y} ,SceneName , SpawnPointName)
-                new Objects.WarpTile({x: 0,y: 72 * 2}, "TestRoomB", "leftDoor")
+                // new Objects.WarpTile({x: 0,y: 72 * 2}, "TestRoomB", "leftDoor")
             ],
             Foregrounds: [
                 {
@@ -62,7 +61,7 @@ var SampleWorld = {
                 }
             ],
             Terrain: [
-                // 2 is are spike blocks.
+                // 2 is spike blocks.
                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
                 [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
@@ -75,7 +74,7 @@ var SampleWorld = {
                 [1,1,1,2,2,2,2,2,2,2,2,2,1,1,1]
             ],
             Objects: [
-                new Objects.WarpTile({x: 72 * 14,y: 72 * 3}, "TestRoomC", "leftDoor"), new Objects.WarpTile({x: 0,y: 72 * 3}, "TestRoomA", "rightDoor"), new Objects.TestPlatform({x: 72 * 3, y: 72 * 2}, {w: 72 * 2,h: 72}, {x: 72 * 3,y: 72 * 2}, {x:72 * 11, y: 72 *2})
+                // new Objects.WarpTile({x: 72 * 14,y: 72 * 3}, "TestRoomC", "leftDoor"), new Objects.WarpTile({x: 0,y: 72 * 3}, "TestRoomA", "rightDoor"), new Objects.TestPlatform({x: 72 * 3, y: 72 * 2}, {w: 72 * 2,h: 72}, {x: 72 * 3,y: 72 * 2}, {x:72 * 11, y: 72 *2})
             ],
             Foregrounds: [
                 {
@@ -101,4 +100,4 @@ var SampleWorld = {
             }
         }
     }                    
-}
+}

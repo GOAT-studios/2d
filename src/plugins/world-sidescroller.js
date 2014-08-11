@@ -181,18 +181,14 @@ World.prototype.loop = function(scene, filter, cb) {
 // If no filter is given, use a filter that matches anything (. matches anything except newlines, \n matches newlines)
     if(typeof filter === "function") {cb = filter; filter = /(.|\n)*/i};
 
-    if(filter.test("player")) {
-        cb("player", scene.Player, 0, []);
-    }
-
-    if(filter.test("backgrounds")) {
+    if(filter.test("backgrounds") && scene.Backgrounds) {
         var backgrounds = scene.Backgrounds;
         for(var i = 0, len = backgrounds.length; i < len; i++) {
             cb("backgrounds", backgrounds[i], i, backgrounds);
         }
     }
 
-    if(filter.test("terrain")) {
+    if(filter.test("terrain") && scene.Terrain) {
         var terrain = scene.Terrain;
         for(var i = 0, len = terrain.length; i < len; i++) {
             var column = terrain[i];
@@ -203,7 +199,7 @@ World.prototype.loop = function(scene, filter, cb) {
         }
     }
 
-    if(filter.test("terrainBuffer")) {
+    if(filter.test("terrainBuffer") && scene.TerrainBuffer) {
         var terrainBuffer = scene.TerrainBuffer;
         for(var i = 0, len = terrainBuffer.length; i < len; i++) {
             var column = terrainBuffer[i];
@@ -214,21 +210,21 @@ World.prototype.loop = function(scene, filter, cb) {
         }
     }
 
-    if(filter.test("objects")) {
+    if(filter.test("objects") && scene.Objects) {
         var objects = scene.Objects;
         for(var i = 0, len = objects.length; i < len; i++) {
             cb("objects", objects[i], i, objects);
         }
     }
 
-    if(filter.test("foregrounds")) {
+    if(filter.test("foregrounds") && scene.Foregrounds) {
         var foregrounds = scene.Foregrounds;
         for(var i = 0, len = foregrounds.length; i < len; i++) {
             cb("foregrounds", foregrounds[i], i, foregrounds);
         }
     }
 
-    if(filter.test("spawnPoints")) {
+    if(filter.test("spawnPoints") && scene.SpawnPoints) {
         var spawnpoints = scene.SpawnPoints;
         for(var i = 0, len = spawnpoints.length; i < len; i++) {
             cb("spawnpoints", spawnpoints[i], i, spawnpoints);

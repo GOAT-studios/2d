@@ -7,9 +7,7 @@ var Blocks = {
 	},
 	2: {
 		Draw: function(d) {
-			d.drawSprite(this.sprite, 0, 0);
+			d.drawSprite(d.getAsset("spikes"), 0, 0);
 		}
 	}
 }
-
-game.World.saveObjects(Blocks);
