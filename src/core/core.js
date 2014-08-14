@@ -13,6 +13,8 @@ var Game;
  */
 
 Game = function() {
+    EventEmitter(this);
+    
     this.Plugins   = new Plugins(this);
 
     this.initTime  = null;
@@ -28,8 +30,6 @@ Game = function() {
 
     this._options = {};
 
-    EventEmitter(this);
-
 
     return this;
 }
@@ -38,6 +38,10 @@ Game = function() {
 /* Setup Engine */
 Game.prototype.init = function() {
     this.emit("beforeinit", [this]);
+
+    if(!this.blockSize) {
+        this.blockSize = {w:72, h:72};
+    }
 
     this.initTime = this.Utils.time();
     this.Plugins.Init(this);
@@ -339,8 +343,8 @@ Plugins.prototype.getFromString = function(str) {
 
 Plugins.prototype.Init = function(game) {
     for(var i = 0, len = this.plugins.length; i < len; i++) {
-        if(this.plugins[i].Init) {
-            this.plugins[i].Init(game);
+        if(this.plugins[i].content.Init) {
+            this.plugins[i].content.Init(game);
         }
     }
 
