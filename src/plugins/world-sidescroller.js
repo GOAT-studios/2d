@@ -172,7 +172,7 @@ World.prototype.updateBuffer = function(game) {
     buffer = buffer.map(function(row) {
         return column.slice(columns.min, columns.max);
     });
-    game.Categories.add("terrainBuffer", buffer);
+    game.Categories.terrainBuffer = buffer;
 
     return this;
 }
