@@ -17,7 +17,7 @@ var Camera = function(game) {
 
 Camera.prototype.Update = function(game) {
     if(!this.static) {
-        var player = game.Categories.Player;
+        var player = game.Player;
         this.x = player.x - ((game.width/2)  - (player.width/2))  + this.offset.x;
         this.y = player.y - ((game.height/2) - (player.height/2)) + this.offset.y;
     }
