@@ -355,8 +355,8 @@ Plugins.prototype.Init = function(game) {
 
 Plugins.prototype.Load = function(game) {
     for(var i = 0, len = this.plugins.length; i < len; i++) {
-        if(this.plugins[i].Load) {
-            this.plugins[i].Load(game);
+        if(this.plugins[i].content.Load) {
+            this.plugins[i].content.Load(game);
         }
     }
 
@@ -367,8 +367,8 @@ Plugins.prototype.Load = function(game) {
 
 Plugins.prototype.Update = function(game) {
     for(var i = 0, len = this.plugins.length; i < len; i++) {
-        if(this.plugins[i].Update) {
-            this.plugins[i].Update(game);
+        if(this.plugins[i].content.Update) {
+            this.plugins[i].content.Update(game);
         }
     }
 
