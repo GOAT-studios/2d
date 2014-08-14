@@ -162,7 +162,16 @@ var Draw = function(game, options) {
 
         //Images
         drawImage: function(image, sx, sy, sw, sh, dx, dy, dw, dh) {
-            ctx.drawImage(image, sx+D.x, sy+D.y, sw, sh, dx?dx+D.x:undefined, dy?dy+D.y:undefined, dw, dh);
+            if(arguments.length === 3) {
+                ctx.drawImage(image, sx+D.x, sy+D.y);
+            }
+            else if(arguments.length === 5) {
+                ctx.drawImage(image, sx+D.x, sy+D.y, sh, sw);
+            }
+            else if(arguments.length === 9) {
+                ctx.drawImage(image, sx, sy, sh, sw, dx+D.x, dy+D.y, dw, dh);
+            }
+            
             return this;
         },
         drawSprite: function(sprite) {
