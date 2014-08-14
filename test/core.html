@@ -16,6 +16,8 @@
 		<script type="text/javascript" src="../src/plugins/draw-canvas.js"></script>
 		<script type="text/javascript" src="../src/plugins/sound-basic.js"></script>
 		<script type="text/javascript" src="../src/plugins/sprites-basic.js"></script>
+		<script type="text/javascript" src="../src/plugins/input.js"></script>
+		<script type="text/javascript" src="../src/plugins/player-sidescroller.js"></script>
 		<script type="text/javascript" src="../src/plugins/world-sidescroller.js"></script>
 		<script type="text/javascript" src="world/Objects.js"></script>
 		<script type="text/javascript" src="world/Blocks.js"></script>
@@ -24,8 +26,10 @@
 		<script type="text/javascript">
 			var plugins = ["animation-collection","animation-frames","assets-dom",
 			"behaviour-parallax","behaviour-two-points","camera-sidescroller","colliders-basic","draw-canvas",
-			"sound-basic","sprites-basic","world-sidescroller"];
-			var game = new Game().options({}).plugins(plugins).init();
+			"sound-basic","sprites-basic","world-sidescroller","input","player-sidescroller"];
+			var game = new Game().options({}).plugins(plugins);
+			game.blockSize = {w:72, h:72};
+			game.init();
 
 			// Load assets
 			game.Assets.load("assets/background.jpg", "background1");
