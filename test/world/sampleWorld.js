@@ -7,7 +7,7 @@ var SampleWorld = {
                     position: {x:0, y:0},
                     dimensions: {h:768, w:1366},
                     Draw: function(d) {
-                        d.drawImage(d.getAsset("background1").element, this.position.x, this.position.y);
+                        d.drawImage(d.getAsset("background1").element, 0, 0);
                     }
                 }
             ],
@@ -31,7 +31,7 @@ var SampleWorld = {
                     position: {x:0, y:0},
                     dimensions: {h:768, w:1366},
                     Draw: function(d) {
-                        d.drawImage(d.getAsset("foreground1").element, this.position.x, this.position.y);
+                        d.drawImage(d.getAsset("foreground1").element, 0, 0);
                     }
                 }
             ],
@@ -56,7 +56,7 @@ var SampleWorld = {
                         this.parallax.update(this);
                     },
                     Draw: function(d) {
-                        d.drawImage(d.getAsset("background1").element, this.position.x, this.position.y);
+                        d.drawImage(d.getAsset("background1").element, 0, 0);
                     }
                 }
             ],
