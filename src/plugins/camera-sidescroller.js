@@ -2,74 +2,76 @@
 
 
 
-var Camera = function(game) {
-    this.game = game;
+var construct = function(game) {
 
-    this.x = 0;
-    this.y = 0;
-    this.offset = {
-        x:0, y:0
-    }
-    this.static = false;
 
-    gam.on("update", this.Update);
+    var Camera = function() {
+        this.x = 0;
+        this.y = 0;
+        this.offset = {
+            x:0, y:0
+        }
+        this.static = false;
 
-    return this;
-}
+        game.on("update", this.Update);
 
-Camera.prototype.Update = function(game) {
-    if(!this.static) {
-        var player = game.Player;
-        this.x = player.x - ((game.width/2)  - (player.width/2))  + this.offset.x;
-        this.y = player.y - ((game.height/2) - (player.height/2)) + this.offset.y;
+        return this;
     }
 
-    return this;
-}
+    Camera.prototype.Update = function() {
+        if(!this.static) {
+            var player = game.Player;
+            this.x = player.x - ((game.width/2)  - (player.width/2))  + this.offset.x;
+            this.y = player.y - ((game.height/2) - (player.height/2)) + this.offset.y;
+        }
 
-Camera.prototype.translate = function(vector) {
-    if(this.static) {
-        this.x += vector.x;
-        this.y += vector.y;
-    }
-    else {
-        this.offset.x += vector.x;
-        this.offset.y += vector.y;
-        this.Update(this.game);
+        return this;
     }
 
-    return this;
-}
+    Camera.prototype.translate = function(vector) {
+        if(this.static) {
+            this.x += vector.x;
+            this.y += vector.y;
+        }
+        else {
+            this.offset.x += vector.x;
+            this.offset.y += vector.y;
+            this.Update();
+        }
 
-Camera.prototype.moveTo = function(vector) {
-    this.static = true;
-    this.x = vector.x;
-    this.y = vector.y;
+        return this;
+    }
 
-    return this;
-}
+    Camera.prototype.moveTo = function(vector) {
+        this.static = true;
+        this.x = vector.x;
+        this.y = vector.y;
 
-Camera.prototype.followPlayer = function() {
-    var player = this.game.Categories.Player;
+        return this;
+    }
 
-    this.static = false;
-    this.offset.x = (player.x - this.x) - ((this.game.width/2)  - (player.width/2));
-    this.offset.y = (player.y - this.y) - ((this.game.height/2) - (player.height/2));
-    this.Update(this.game);
+    Camera.prototype.followPlayer = function() {
+        this.static = false;
+        this.Update();
 
-    return this;
-}
+        return this;
+    }
 
-Camera.prototype.unFollowPlayer = function() {
-    var player = this.game.Categories.Player;
+    Camera.prototype.unFollowPlayer = function() {
+        var player = this.game.Player;
 
-    this.static = true;
-    this.x += offset.x;
-    this.y += offset.y;
-    this.offset.x = 0;
-    this.offset.y = 0;
+        this.static = true;
+        this.x += offset.x;
+        this.y += offset.y;
+        this.offset.x = 0;
+        this.offset.y = 0;
 
-    return this;
+        return this;
+    }
+
+
+    return new Camera();
+
 }
 
 
@@ -78,9 +80,7 @@ var Plugin = {
     name: "camera-sidescroller",
     id: "core.camera-sidescroller",
     path: "Camera",
-    construct: function(game) {
-        return new Camera(game);
-    }
+    construct: construct
 }
 Game.plugins.push(Plugin);
 
