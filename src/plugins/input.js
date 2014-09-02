@@ -3,13 +3,16 @@
 
 
 var Input = function(game) {
-    var self = this;
     this.keys = {};
     
-    game.on("init", function(game) {
-        game.domElement.addEventListener("keydown", self.HandlerDown);
-        game.domElement.addEventListener("keyup", self.HandlerUp);
-    });
+    game.on("afterinit", this.Init);
+    return this;
+}
+
+Input.prototype.Init = function(game) {
+    game.domElement.addEventListener("keydown", this.HandlerDown);
+    game.domElement.addEventListener("keyup", this.HandlerUp);
+
     return this;
 }
 
