@@ -7,18 +7,9 @@ var construct = function(game) {
     var Animation = function(name, frames, speed) {
         this.name = name;
         this.speed = speed;
-        this.frames = [];
+        this.frames = frames;
         this.pauseDuration = 0;
         this.playing = false;
-
-        for(var i = 0, len = frames.length; i < len; i++) {
-            if(frames[i].sheet && frames[i].position && frames[i].dimensions) {
-                this.frames.push(frames[i]);
-            }
-            else {
-                this.frames.push(game.Sprite(frames[i]));
-            }
-        }
 
         this.initTime = game.Utils.time();
         this.start();
