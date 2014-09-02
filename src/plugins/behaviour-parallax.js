@@ -6,16 +6,16 @@ var construct = function(game) {
 
     var ParallaxBehaviour = function(parallax) {
         this.parallax = parallax;
-        this.oldCameraPos = game.Camera;
+        this.oldCamera = game.Camera;
 
         return this;
     }
 
     ParallaxBehaviour.prototype.update = function(object) {
-        object.position.x += (game.Camera.x - this.oldCameraPos.x) * this.parallax.x;
-        object.position.y += (game.Camera.y - this.oldCameraPos.y) * this.parallax.y;
+        object.position.x += (game.Camera.x - this.oldCamera.x) * this.parallax.x;
+        object.position.y += (game.Camera.y - this.oldCamera.y) * this.parallax.y;
 
-        this.oldCameraPos = game.Camera;
+        this.oldCamera = game.Camera;
     }
 
 
