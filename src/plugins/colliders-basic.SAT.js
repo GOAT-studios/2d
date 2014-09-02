@@ -2,14 +2,11 @@
 
 
 
-var Colliders = function(game) {
+var Colliders = {};
 
-    return this;
-}
+Colliders.types = ["Box", "Polygon", "Circle"];
 
-Colliders.prototype.types = ["Box", "Polygon", "Circle"];
-
-Colliders.prototype.test = function(a, b, res) {
+Colliders.test = function(a, b, res) {
     if(a instanceof this.Box) var a = a.toPolygon();
     if(b instanceof this.Box) var b = b.toPolygon();
 
@@ -31,7 +28,7 @@ Colliders.prototype.test = function(a, b, res) {
     }
 }
 
-Colliders.prototype.testAll= function(a, b, cb) {
+Colliders.testAll= function(a, b, cb) {
     var res = new this.Response();
     var collision;
 
@@ -67,13 +64,13 @@ return f<=e};m.pointInPolygon=function(b,a){D.pos.c(b);y.clear();var c=C(D,a,y);
 c.overlapV.reverse();c.a=c.b;c.b=d;c.aInB=c.bInA;c.bInA=e}return a};m.testPolygonPolygon=C;return m}var SAT=w();
 
 
-Colliders.prototype.SAT      = SAT;
-Colliders.prototype.Vector   = SAT.Vector;
-Colliders.prototype.V        = SAT.V;
-Colliders.prototype.Box      = SAT.Box;
-Colliders.prototype.Polygon  = SAT.Polygon;
-Colliders.prototype.Circle   = SAT.Circle;
-Colliders.prototype.Response = SAT.Response;
+Colliders.SAT      = SAT;
+Colliders.Vector   = SAT.Vector;
+Colliders.V        = SAT.V;
+Colliders.Box      = SAT.Box;
+Colliders.Polygon  = SAT.Polygon;
+Colliders.Circle   = SAT.Circle;
+Colliders.Response = SAT.Response;
 
 
 
@@ -82,9 +79,7 @@ var Plugin = {
     id: "core.colliders-basic",
     variant: "SAT-included",
     path: "Colliders",
-    construct: function(game) {
-        return new Colliders(game);
-    }
+    content: Colliders
 }
 Game.plugins.push(Plugin);
 
