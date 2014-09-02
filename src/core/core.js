@@ -39,10 +39,6 @@ Game = function() {
 Game.prototype.init = function() {
     this.emit("beforeinit", [this]);
 
-    if(!this.blockSize) {
-        this.blockSize = {w:72, h:72};
-    }
-
     this.initTime = this.Utils.time();
     this.Plugins.Init(this);
 
@@ -68,6 +64,7 @@ Game.prototype.load = function() {
     this.Plugins.Load(this);
 
     this.emit("load", [this]);
+
     return this;
 }
 
@@ -95,9 +92,11 @@ Game.prototype.start = function() {
 Game.prototype.pause = function() {
     if(this.playing) {
         this.emit("beforepause", [this]);
+
         this.pauseTime = this.Utils.time();
         this.cancelAnimationFrame();
         this.playing = false;
+
         this.emit("pause", [this]);
     }
 }
@@ -106,11 +105,14 @@ Game.prototype.pause = function() {
 Game.prototype.stop = function() {
     if(this.playing) {
         this.emit("beforestop", [this]);
+
         this.stopTime = this.Utils.time();
         this.cancelAnimationFrame(this.timer);
         this.playing = false;
-        this.emit("beforestopreset");
+
+        this.emit("beforestopreset", [this]);
         this.reset();
+        this.emit("stopreset", [this]);
         this.emit("stop", [this]);
     }
 
@@ -134,21 +136,23 @@ Game.prototype.reset = function() {
 
 Game.prototype.Loop = function(game) {
     var START = game.Utils.time();
+
     game.emit("beforeframe", [game]);
     game.frames++;
 
     game.emit("beforeupdate", [game]);
-    game.Plugins.Update(game);
+    this.emit("update", [game]);
 
     game.emit("beforedraw", [game]);
-    if(game.World && game.World.Draw) game.World.Draw(game);
-
-    game.requestAnimationFrame();
+    this.emit("draw", [game]);
 
     game.emit("frame", [game]);
 
     var END = game.Utils.time();
     game.drawTimes.push(END - START);
+
+    game.requestAnimationFrame();
+
     return game;
 }
 
@@ -246,28 +250,39 @@ Game.prototype.cancelAnimationFrame = function() {
  */
 
 var Plugins = function(game) {
+    EventEmitter(this);
+    
     this.game = game;
     this.plugins = [];
 
+    attachEvents(this, game);
+
     return this;
+}
+var attachEvents = function(plugins, game) {
+    game.on("init", plugins.Init);
+    game.on("load", plugins.Load);
+    game.on("update", plugins.Update);
+}
+
+var getFromString = function(str) {
+    for(var i = 0, len = Game.plugins.length; i < len; i++) {
+        if(Game.plugins[i].name === str || Game.plugins[i].id === str) {
+            return Game.plugins[i];
+        }
+    }
+
+    return null;
 }
 
 Plugins.prototype.add = function(plugin) {
     if(typeof plugin === "string") {
-        var plugin = this.getFromString(plugin);
+        var plugin = getFromString(plugin);
     }
 
     //If the plugin should be constructed, construct it and attach the result to plugin.content
     if(!plugin.content) plugin.content = plugin.construct(this.game);
     this.plugins.push(plugin);
-
-    //Call Init and Load
-    if(this.initTime && plugin.plugin.Init) {
-        plugin.plugin.Init(this.game);
-    }
-    if(this.loadTime && plugin.plugin.Load) {
-        plugin.plugin.Load(this.game);
-    }
 
     // Attach the plugin to the game
     this.attach(plugin);
@@ -299,7 +314,8 @@ Plugins.prototype.remove = function(id) {
 
 Plugins.prototype.get = function(id) {
     for(var i = 0, len = this.plugins.length; i < len; i++) {
-        if(this.plugins[i].name === id || this.plugins[i].id === id) {
+        var plugin = this.plugins[i];
+        if(plugin.name === id || plugin.id === id) {
             return this.plugins[i];
         }
     }
@@ -311,8 +327,9 @@ Plugins.prototype.attach = function(plugin) {
     var steps = plugin.path.split(".");
     lastStep = this.game;
     for(var i = 0, len = steps.length - 1; i < len; i++) {
-        if(!lastStep[steps[i]]) lastStep[steps[i]] = {};
-        lastStep = lastStep[steps[i]];
+        var step = steps[i];
+        if(!lastStep[step]) lastStep[step] = {};
+        lastStep = lastStep[step];
     }
     lastStep[steps[steps.length-1]] = plugin.content;
 
@@ -326,51 +343,6 @@ Plugins.prototype.unAttach = function(plugin) {
         lastStep = lastStep[steps[i]];
     }
     lastStep[steps[steps.length-1]] = null;
-
-    return this;
-}
-
-Plugins.prototype.getFromString = function(str) {
-    for(var i = 0, len = Game.plugins.length; i < len; i++) {
-        if(Game.plugins[i].name === str || Game.plugins[i].id === str) {
-            return Game.plugins[i];
-        }
-    }
-
-    return null;
-}
-
-
-Plugins.prototype.Init = function(game) {
-    for(var i = 0, len = this.plugins.length; i < len; i++) {
-        if(this.plugins[i].content.Init) {
-            this.plugins[i].content.Init(game);
-        }
-    }
-
-    this.initTime = game.Utils.time();
-
-    return this;
-}
-
-Plugins.prototype.Load = function(game) {
-    for(var i = 0, len = this.plugins.length; i < len; i++) {
-        if(this.plugins[i].content.Load) {
-            this.plugins[i].content.Load(game);
-        }
-    }
-
-    this.loadTime = game.Utils.time();
-
-    return this;
-}
-
-Plugins.prototype.Update = function(game) {
-    for(var i = 0, len = this.plugins.length; i < len; i++) {
-        if(this.plugins[i].content.Update) {
-            this.plugins[i].content.Update(game);
-        }
-    }
 
     return this;
 }
