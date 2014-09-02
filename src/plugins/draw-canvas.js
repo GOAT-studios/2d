@@ -5,6 +5,7 @@
 var Draw = function(game, options) {
     var D = this;
     this.game = game;
+    game.on("update", this.Update);
 
 //Configuration
     if(!options) var options = {};

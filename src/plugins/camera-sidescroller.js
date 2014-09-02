@@ -12,6 +12,8 @@ var Camera = function(game) {
     }
     this.static = false;
 
+    gam.on("update", this.Update);
+
     return this;
 }
 

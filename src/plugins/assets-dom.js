@@ -17,6 +17,7 @@ var Assets = function(game) {
     game.container.appendChild(this.container);
 
     game.EventEmitter(this);
+    game.on("init", this.Init);
 
     return this;
 }

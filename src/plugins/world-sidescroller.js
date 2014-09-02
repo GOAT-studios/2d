@@ -16,6 +16,9 @@ var World = function(game) {
         }
     };
 
+    game.on("update", this.Update);
+    game.on("draw", this.Draw);
+
     return this;
 }
 
