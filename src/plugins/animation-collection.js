@@ -19,8 +19,8 @@ var AnimationCollection = function(animations, current) {
 	return this;
 }
 
-AnimationCollection.prototype.add = function(animation) {
-	this.animations[animation.name] = animation;
+AnimationCollection.prototype.add = function(animation, name) {
+	this.animations[name || animation.name] = animation;
 
 	return this;
 }
@@ -33,7 +33,7 @@ AnimationCollection.prototype.remove = function(name) {
 
 AnimationCollection.prototype.play = function(name) {
 	this.getCurrent().stop();
-	this.animations[name].start();
+	this.get(name).start();
 	this.current = name;
 
 	return this;
@@ -51,8 +51,12 @@ AnimationCollection.prototype.stop = function() {
 	return this;
 }
 
+AnimationCollection.prototype.get = function(name) {
+	return this.animations[name];
+}
+
 AnimationCollection.prototype.getCurrent = function() {
-	return this.animations[this.current];
+	return this.get(this.current);
 }
 
 
