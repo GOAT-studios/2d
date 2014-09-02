@@ -9,7 +9,7 @@ var construct = function(game) {
         this.speed = speed;
         this.frames = [];
         this.pauseDuration = 0;
-        this.paused = true;
+        this.playing = false;
 
         for(var i = 0, len = frames.length; i < len; i++) {
             if(frames[i].sheet && frames[i].position && frames[i].dimensions) {
@@ -20,15 +20,15 @@ var construct = function(game) {
             }
         }
 
-        this.initTime = Game.prototype.Utils.time();
+        this.initTime = game.Utils.time();
         this.start();
 
         return this;
     }
 
     Animation.prototype.update = function() {
-        if(!this.paused) {
-            var currTime = Game.prototype.Utils.time();
+        if(this.playing) {
+            var currTime = game.Utils.time();
             this.current = Math.floor(((currTime - this.startTime - this.pauseDuration) / this.speed) % this.frames.length);
         }
 
@@ -36,25 +36,25 @@ var construct = function(game) {
     }
 
     Animation.prototype.start = function() {
-        if(this.paused) {
-            this.startTime = Game.prototype.Utils.time();
+        if(!this.playing) {
+            this.startTime = game.Utils.time();
             if(this.pauseTime) this.pauseDuration += this.startTime - this.pauseTime;
-            this.paused = false;
+            this.playing = true;
         }
 
         return this;
     }
 
     Animation.prototype.pause = function() {
-        if(!this.paused) {
-            this.pauseTime = Game.prototype.Utils.time();
-            this.paused = true;
+        if(this.playing) {
+            this.pauseTime = game.Utils.time();
+            this.playing = false;
         }
         return this;
     }
 
     Animation.prototype.stop = function() {
-        this.paused = true;
+        this.playing = false;
         this.pauseTime = undefined;
         this.pauseDuration = 0;
 
