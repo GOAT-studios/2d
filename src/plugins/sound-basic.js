@@ -64,43 +64,34 @@ Sound.prototype.setLoader = function(loader) {
  */
 
 var createSound = function(asset) {
-    if(!asset.element && asset.blobURL) {
-        asset.element = document.createElement("audio");
-        asset.element.setAttribute("src", asset.blobURL);
-    }
+    asset.on("success", function() {
+        if(!asset.element && asset.blobURL) {
+            asset.element = document.createElement("audio");
+            asset.element.setAttribute("src", asset.blobURL);
+        }
 
 
-    asset.play = function() {
-        if(this.element) {
+        asset.play = function() {
             this.element.load();
             this.element.play();
-        }
-        else {
-            console.warn("WARN: Asset.play(): No element! Are you sure this Asset loaded successfully?");
-        }
-        return this;
-    }
 
-    asset.pause = function() {
-        if(this.element) {
+            return this;
+        }
+
+        asset.pause = function() {
             this.element.pause();
-        }
-        else {
-            console.warn("WARN: Asset.pause(): No element! Are you sure this Asset loaded successfully?");
-        }
-        return this;
-    }
 
-    asset.stop = function() {
-        if(this.element) {
+            return this;
+        }
+
+        asset.stop = function() {
             this.element.pause();
             this.element.currentTime = 0;
+
+            return this;
         }
-        else {
-            console.warn("WARN: Asset.stop(): No element! Are you sure this Asset loaded successfully?");
-        }
-        return this;
-    }
+
+    });
 
 
     return asset;
